@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-let lastTriggeredAt = 0
+let lastTriggeredAt = 0;
 
 export async function POST(req: NextRequest) {
   const now = Date.now();
