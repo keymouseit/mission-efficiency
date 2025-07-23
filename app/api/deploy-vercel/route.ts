@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   lastTriggeredAt = now;
 
   const vercelWebhookURL =
-    "https://api.vercel.com/v1/integrations/deploy/prj_tCKkuLBVagUrNFziCXD9daLTcwTe/Ewg8YL4cQT";
+    "https://api.vercel.com/v1/integrations/deploy/prj_tCKkuLBVagUrNFziCXD9daLTcwTe/2H1KfyINwX";
 
   try {
     const response = await fetch(vercelWebhookURL, { method: "POST" });
