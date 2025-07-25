@@ -4,12 +4,8 @@ import { DrupalNode } from "next-drupal";
 import NotFoundPage from "@/components/NotFound";
 import DynamicTemplateScreen from "./screen";
 
-const TemplatePage = async ({
-  params,
-}: {
-  params: { templateSlug: string };
-}) => {
-  const { templateSlug } = params;
+const TemplatePage = async ({ params }: { params: { slug: string } }) => {
+  const { slug } = params;
 
   // Fetch all necessary Drupal data
   const headerSection = await DrupalService.getHeaderSection();
@@ -18,7 +14,7 @@ const TemplatePage = async ({
   const newData = await getPageTemplateNew();
 
   const matchedTemplate = newData.find((template: DrupalNode) =>
-    template.field_page_slug.includes(templateSlug)
+    template.field_page_slug.includes(slug)
   );
 
   // console.dir(newData, { depth: null, colors: true });
