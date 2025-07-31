@@ -8,6 +8,8 @@ import NewsAndEventsSection from "../NewsAndEventsSection";
 import MissionSection from "../MissionSection";
 import MissionWithCTA from "../MissionWithCTA";
 import MissionHistory from "../MissionHistory";
+import Banner from "../LandingWebsiteComponents/BannerSection";
+import GridLayout from "../GridLayout";
 
 interface DynamicTemplateClientProps {
   templateData: DrupalNode;
@@ -41,7 +43,12 @@ const DynamicTemplateClient = ({
     switch (pageComponent.type) {
       case "paragraph--hero_section":
         return {
-          component: (
+          component: templateData?.field_page_slug ? (
+            <Banner
+              title={pageComponent?.field_hero_title}
+              subtitle={pageComponent?.field_hero_description?.value}
+            />
+          ) : (
             <CommonBanner
               leftImg="/static/images/left-home-hero.svg"
               rightImg="/static/images/elevate-right-img.svg"
@@ -85,6 +92,11 @@ const DynamicTemplateClient = ({
       case "paragraph--history_section":
         return {
           component: <MissionHistory data={pageComponent} />,
+          skipNext: false,
+        };
+      case "paragraph--multiple_images_with_title_and_d":
+        return {
+          component: <GridLayout data={pageComponent} />,
           skipNext: false,
         };
       default:
