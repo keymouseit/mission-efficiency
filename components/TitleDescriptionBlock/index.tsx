@@ -49,26 +49,37 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
     },
   };
 
-  const defaultVariant = variantConfig["cta_white"];
-
   const {
     backgroundClass,
     textColorClass,
     backgroundImageSrc,
     backgroundImageClass,
     isImageRight = false,
-  } = variantConfig[backgroundColor] ?? defaultVariant;
+  } = variantConfig[backgroundColor as keyof typeof variantConfig] ??
+  variantConfig.cta_white;
 
   const content =
     data?.field_cta_description?.processed ||
     data?.field_cta_description?.value;
 
+  const bgImageUrl = data?.field_background_image?.uri?.url
+    ? `https://dev-mission.keymouseit.com${data.field_background_image.uri.url}`
+    : null;
+
   return (
     <section
       id={data?.id}
-      className={`${backgroundClass} overflow-hidden relative pt-5 pb-[60px] mobileMax:pt-0 mobileMax:pb-[80px] betweenMobileTab:pb-12`}
+      className={` ${
+        bgImageUrl ? "bg-black" : backgroundClass
+      } overflow-hidden relative pt-5 pb-[60px] mobileMax:pt-0 mobileMax:pb-[80px] betweenMobileTab:pb-12`}
     >
-      {backgroundImageSrc && !data?.field_cta_button ? (
+      {bgImageUrl ? (
+        <img
+          src={bgImageUrl}
+          alt="background"
+          className="absolute top-0 left-0 w-full h-full object-cover z-0 pointer-events-none opacity-40"
+        />
+      ) : backgroundImageSrc && !data?.field_cta_button ? (
         <motion.div
           className={`absolute pointer-events-none opacity-25 top-[50%] -translate-y-1/2 z-[1] ${
             isImageRight ? "right-0" : "left-0"
@@ -81,11 +92,8 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
           initial={{ opacity: 0, x: 90 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{
-            type: "spring",
-            duration: 2.8,
-          }}
-          className="absolute bottom-[2px] right-0 pointer-events-none max-w-[80%] aboveLaptop:max-w-[70%] desktop:opacity-100"
+          transition={{ type: "spring", duration: 2.8 }}
+          className="absolute bottom-[2px] right-0 pointer-events-none max-w-[80%] aboveLaptop:max-w-[70%] desktop:opacity-100 z-[1]"
         >
           <img
             src="/static/images/get-inv-home.svg"
@@ -106,8 +114,12 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
           viewport={{ once: true }}
           transition={{ duration: 0 }}
           className={`${
-            data?.field_cta_button && "text-center desktop:text-[60px]"
-          } desktop:text-[54px] text-numans mb-14 mobileMax:mb-8 desktop:leading-[70px] leading-normal category-gradient text-clip text-[48px] mobileMax:text-[28px]`}
+            data?.field_cta_button ? "text-center desktop:text-[60px]" : ""
+          } ${
+            bgImageUrl
+              ? "text-white"
+              : "text-numans category-gradient text-clip"
+          } desktop:text-[54px] mb-14 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-[48px] mobileMax:text-[28px]`}
         >
           {data?.field_cta_title}
         </motion.h3>
@@ -118,7 +130,9 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0 }}
-            className={`remove-animation-fluctuation text-medium ${textColorClass} --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal`}
+            className={`remove-animation-fluctuation text-medium ${
+              bgImageUrl ? "text-white text-center" : textColorClass
+            } --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal`}
             dangerouslySetInnerHTML={{ __html: content }}
           />
         )}
@@ -128,6 +142,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             href={data?.field_cta_button?.uri}
+            className={`${bgImageUrl ? "mt-10" : ""}`}
           >
             <Button className="block mx-auto min-w-[220px] get-involve-btn modals-gradientBtn font-mediums text-white text-medium capitalize min-h-[55px] rounded-lg">
               {data?.field_cta_button?.title}

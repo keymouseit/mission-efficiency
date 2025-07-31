@@ -13,7 +13,6 @@ interface MissionGridProps {
   subTitle: string;
   buttonText: string;
   buttonLink: string;
-  allImages?: string;
 }
 
 const MissionGridLayout: React.FC<MissionGridProps> = (props) => {
@@ -22,20 +21,10 @@ const MissionGridLayout: React.FC<MissionGridProps> = (props) => {
     gridImg1 = "",
     gridImg2 = "",
     gridImg3 = "",
-    allImages = "",
     subTitle = "",
     buttonText = "",
     buttonLink = "",
   } = props;
-  const settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    autoplay: true,
-    speed: 300,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   return (
     <div className="relative z-[1] flex items-center justify-between mobileMax:block">
@@ -92,35 +81,6 @@ const MissionGridLayout: React.FC<MissionGridProps> = (props) => {
             </motion.div>
           </div>
         </div>
-        {/* <Slider {...settings}>
-						<motion.div
-              className="h-[400px] w-[400px] rounded-[52px] overflow-hidden"
-						>
-							<img
-								src={gridImg1}
-								alt="category img"
-								className="w-full h-full object-cover"
-							/>
-						</motion.div>
-            <motion.div
-              className="h-[400px] w-[400px] rounded-[52px] overflow-hidden"
-						>
-							<img
-								src={gridImg2}
-								alt="category img"
-								className="w-full h-full object-cover"
-							/>
-						</motion.div>
-            <motion.div
-            className="h-[400px] w-[400px] rounded-[52px] overflow-hidden"
-						>
-							<img
-								src={gridImg3}
-								alt="category img"
-								className="w-full h-full object-cover"
-							/>
-						</motion.div>
-			</Slider> */}
       </div>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
