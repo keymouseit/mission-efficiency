@@ -45,21 +45,14 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
 
   return (
     <>
-      <motion.div
-        className="app-menu landing-header-zIndex"
-        // initial={{ y: -100 }}
-        // animate={{ y: 0 }}
-        // transition={{
-        //   duration: 1.5,
-        // }}
-      >
+      <div className="app-menu landing-header-zIndex">
         <Menubar
           className={`border-none justify-between flex px-[16px] py-[8px] min-h-[80px]`}
           role="toolbar"
         >
           <div className="flex justify-between w-full items-center">
             <div>
-              <Link href="/">
+              <Link href="/home">
                 <Image
                   className="cursor-pointer"
                   src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${
@@ -225,7 +218,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
             )}
           </div>
         )}
-      </motion.div>
+      </div>
     </>
   );
 };
