@@ -17,32 +17,40 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
 
   const renderImageBlock = () => (
     <div
-      className={`${imageDescription ? "w-[50%]" : "w-full"}  ${
-        !customHeight ? (isLeftPosition ? "h-[650px]" : "h-[350px]") : ""
-      } mobileToDesk:h-full ${
-        isLeftPosition
-          ? "mr-12 mobileToDesk:mr-0"
-          : "ml-12 mobileToDesk:ml-0 mobileToDesk:order-1"
-      } mobileToDesk:mb-6 mobileToDesk:w-full rounded-[40px] overflow-hidden`}
+      className={`
+        ${
+          imageDescription
+            ? "w-[50%]"
+            : "w-full flex items-center justify-center"
+        }
+        ${!customHeight ? (isLeftPosition ? "h-[650px]" : "h-[350px]") : ""}
+        ${imageDescription ? (isLeftPosition ? "mr-12" : "ml-12") : "mr-0"}
+        mobileToDesk:mr-0 mobileToDesk:ml-0 mobileToDesk:mb-6 mobileToDesk:w-full
+        rounded-[40px] overflow-hidden
+      `}
       style={customHeight ? { height: `${customHeight}px` } : undefined}
     >
-      <div className="w-full h-full rounded-[40px] overflow-hidden">
+      <div
+        className={`w-full h-full rounded-[40px] overflow-hidden ${
+          imageDescription ? "" : "max-w-[600px]"
+        }`}
+      >
         <Image
           src={`https://dev-mission.keymouseit.com${imageUrl}`}
           alt="cta-img"
           height={520}
           width={520}
-          className="w-full h-full max-w-full card-shadow rounded-[12px] object-cover transform transition-transform duration-500 hover:scale-105"
+          className={`w-full h-full max-w-full card-shadow rounded-[12px] transform transition-transform duration-500 hover:scale-105 ${
+            imageDescription ? "object-cover" : "object-contain"
+          }`}
         />
       </div>
     </div>
   );
 
-  console.log(data, "datqqq");
-
   return (
     <section
-      id={isLeftPosition ? "mission-call-to-action" : undefined}
+      id={isLeftPosition ? "mission-call-to-action" : undefined}  
       className={`bg-white relative overflow-hidden ${
         isLeftPosition
           ? "pt-[92px] mobileMax:pt-10 betweenMobileTab:pt-16 pb-8 CTA-wrap"
@@ -162,24 +170,28 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
             {imageUrl && isLeftPosition && renderImageBlock()}
 
             {/* Text Content */}
-            <div
-              className={`${
-                data?.field_twi_image?.uri?.url ? "w-[50%]" : "w-[100%]"
-              } text-list relative mobileToDesk:w-full ${
-                isLeftPosition ? "" : "mobileToDesk:order-2"
-              }`}
-            >
-              {data?.field_twi_image_description?.processed && (
-                <div
-                  className={`text-medium text-[#545D6F] --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal ${
-                    isLeftPosition ? "leading-normal mobileMax:text-small" : ""
-                  }`}
-                  dangerouslySetInnerHTML={{
-                    __html: data?.field_twi_image_description.processed,
-                  }}
-                />
-              )}
-            </div>
+            {imageDescription && (
+              <div
+                className={`${
+                  data?.field_twi_image?.uri?.url ? "w-[50%]" : "w-[100%]"
+                } text-list relative mobileToDesk:w-full ${
+                  isLeftPosition ? "" : "mobileToDesk:order-2"
+                }`}
+              >
+                {data?.field_twi_image_description?.processed && (
+                  <div
+                    className={`text-medium text-[#545D6F] --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal ${
+                      isLeftPosition
+                        ? "leading-normal mobileMax:text-small"
+                        : ""
+                    }`}
+                    dangerouslySetInnerHTML={{
+                      __html: data?.field_twi_image_description.processed,
+                    }}
+                  />
+                )}
+              </div>
+            )}
 
             {imageUrl && !isLeftPosition && renderImageBlock()}
           </motion.div>
@@ -197,12 +209,18 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                 }}
                 className="mt-12 mobileMax:mt-8 remove-animation-fluctuation "
               >
-                <div className="flex items-center justify-between rounded-[30px] gradient-border-bg overflow-hidden">
+                <div
+                  className={`flex items-center justify-between rounded-[30px] overflow-hidden ${
+                    !imageDescription ? "" : "gradient-border-bg"
+                  }`}
+                >
                   {/*object images cards */}
                   <div className="w-full py-3 px-5 flex flex-col justify-start">
-                    <motion.h5 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
-                      {obj?.field_title}
-                    </motion.h5>
+                    {obj?.field_title && (
+                      <motion.h5 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
+                        {obj.field_title}
+                      </motion.h5>
+                    )}
                     <motion.div
                       className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small"
                       dangerouslySetInnerHTML={{
