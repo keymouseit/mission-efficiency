@@ -121,7 +121,6 @@ const CommonGridLayout: React.FC<CommonGridProps> = (props) => {
             gridImg1={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${pageData.images[0]?.uri?.url}`}
             gridImg2={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${pageData.images[1]?.uri?.url}`}
             gridImg3={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${pageData.images[2]?.uri?.url}`}
-            allImages={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${pageData.images?.uri?.url}`}
             title={pageData?.title}
             subTitle={pageData?.field_content?.processed}
             buttonText={pageData?.field_button_text}
