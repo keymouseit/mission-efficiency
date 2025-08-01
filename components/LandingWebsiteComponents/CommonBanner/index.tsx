@@ -65,7 +65,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
               (isCfdpage && "belowTab:mx-auto !text-[50px] mobileMax:!text-xlg")
             } remove-animation-fluctuation title-green-gradient text-clip text-xlarge mb-3.5 mt-0 leading-tight text-center text-numans mobileMax:text-[42px]`}
           >
-            {title}
+            {title} Test
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 40 }}
