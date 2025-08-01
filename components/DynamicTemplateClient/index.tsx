@@ -10,6 +10,9 @@ import MissionWithCTA from "../MissionWithCTA";
 import MissionHistory from "../MissionHistory";
 import Banner from "../LandingWebsiteComponents/BannerSection";
 import GridLayout from "../GridLayout";
+import EnergyRelatedSection from "../EnergyRelatedSection";
+import MultipleBenefitsSection from "../MultipleBenefitsSection";
+import OpportunitySection from "../OpportunitySection";
 
 interface DynamicTemplateClientProps {
   templateData: DrupalNode;
@@ -28,8 +31,7 @@ const DynamicTemplateClient = ({
     if (
       pageComponent.type === "paragraph--cards_section_with_text" &&
       nextComponent?.type === "paragraph--text_with_image" &&
-      nextComponent?.field_twi_title &&
-      nextComponent?.field_twi_image?.uri?.url
+      templateData?.field_page_slug === "mission"
     ) {
       return {
         component: (
@@ -43,20 +45,21 @@ const DynamicTemplateClient = ({
     switch (pageComponent.type) {
       case "paragraph--hero_section":
         return {
-          component: templateData?.field_page_slug ? (
-            <Banner
-              title={pageComponent?.field_hero_title}
-              subtitle={pageComponent?.field_hero_description?.value}
-            />
-          ) : (
-            <CommonBanner
-              leftImg="/static/images/left-home-hero.svg"
-              rightImg="/static/images/elevate-right-img.svg"
-              title={pageComponent?.field_hero_title}
-              subTitle={pageComponent?.field_hero_description?.value}
-              lightBgClip
-            />
-          ),
+          component:
+            templateData?.field_page_slug === "home" ? (
+              <Banner
+                title={pageComponent?.field_hero_title}
+                subtitle={pageComponent?.field_hero_description?.value}
+              />
+            ) : (
+              <CommonBanner
+                leftImg="/static/images/left-home-hero.svg"
+                rightImg="/static/images/elevate-right-img.svg"
+                title={pageComponent?.field_hero_title}
+                subTitle={pageComponent?.field_hero_description?.value}
+                lightBgClip
+              />
+            ),
           skipNext: false,
         };
       case "paragraph--text_with_image":
@@ -85,10 +88,27 @@ const DynamicTemplateClient = ({
           skipNext: false,
         };
       case "paragraph--cards_section_with_text":
+        const title = pageComponent?.field_title;
+
+        const isEnergyRelated =
+          title === "Energy efficiency is related but different than:";
+        const isMultipleBenefits =
+          title === "Multiple Benefits of Energy Efficiency";
+        const isOpportunity = title === "The energy efficiency opportunity";
+
         return {
-          component: <MissionSection data={pageComponent} />,
+          component: isOpportunity ? (
+            <OpportunitySection data={pageComponent} />
+          ) : isMultipleBenefits ? (
+            <MultipleBenefitsSection data={pageComponent} />
+          ) : isEnergyRelated ? (
+            <EnergyRelatedSection data={pageComponent} />
+          ) : (
+            <MissionSection data={pageComponent} />
+          ),
           skipNext: false,
         };
+
       case "paragraph--history_section":
         return {
           component: <MissionHistory data={pageComponent} />,
