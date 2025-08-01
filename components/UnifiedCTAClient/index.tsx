@@ -11,6 +11,34 @@ type PrimaryCTASectionProps = {
 
 function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
   const isLeftPosition = data?.field_twi_image_position === "twi_left";
+  const imageUrl = data?.field_twi_image?.uri?.url;
+  const imageDescription = data?.field_twi_image_description?.processed;
+  const customHeight = data?.field_image_height;
+
+  const renderImageBlock = () => (
+    <div
+      className={`${imageDescription ? "w-[50%]" : "w-full"}  ${
+        !customHeight ? (isLeftPosition ? "h-[650px]" : "h-[350px]") : ""
+      } mobileToDesk:h-full ${
+        isLeftPosition
+          ? "mr-12 mobileToDesk:mr-0"
+          : "ml-12 mobileToDesk:ml-0 mobileToDesk:order-1"
+      } mobileToDesk:mb-6 mobileToDesk:w-full rounded-[40px] overflow-hidden`}
+      style={customHeight ? { height: `${customHeight}px` } : undefined}
+    >
+      <div className="w-full h-full rounded-[40px] overflow-hidden">
+        <Image
+          src={`https://dev-mission.keymouseit.com${imageUrl}`}
+          alt="cta-img"
+          height={520}
+          width={520}
+          className="w-full h-full max-w-full card-shadow rounded-[12px] object-cover transform transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+    </div>
+  );
+
+  console.log(data, "datqqq");
 
   return (
     <section
@@ -131,34 +159,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
             } mobileToDesk:flex-col overflow-hidden`}
           >
             {/* Image */}
-            {data?.field_twi_image?.uri?.url && isLeftPosition && (
-              <div
-                className={`w-[50%] ${
-                  isLeftPosition
-                    ? "h-[650px] mobileToDesk:h-full mr-12 rounded-[40px] overflow-hidden mobileToDesk:w-full mobileToDesk:mb-6 mobileToDesk:mr-0"
-                    : "h-[350px] ml-12 mobileToDesk:ml-0 mobileToDesk:order-1 mobileToDesk:mb-6 mobileToDesk:w-full"
-                }`}
-              >
-                <div
-                  className={`${
-                    isLeftPosition
-                      ? "w-full h-full"
-                      : "h-full w-full rounded-[40px] overflow-hidden"
-                  }`}
-                >
-                  <Image
-                    src={`${"https://dev-mission.keymouseit.com"}${
-                      data?.field_twi_image?.uri?.url
-                    }`}
-                    alt="cta-img"
-                    height={520}
-                    width={520}
-                    objectFit="cover"
-                    className="w-full h-full max-w-full card-shadow rounded-[12px] object-cover transform transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-              </div>
-            )}
+            {imageUrl && isLeftPosition && renderImageBlock()}
 
             {/* Text Content */}
             <div
@@ -179,36 +180,40 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                 />
               )}
             </div>
-            {data?.field_twi_image?.uri?.url && !isLeftPosition && (
-              <div
-                className={`w-[50%] ${
-                  isLeftPosition
-                    ? "h-[650px] mobileToDesk:h-full mr-12 rounded-[40px] overflow-hidden mobileToDesk:w-full mobileToDesk:mb-6 mobileToDesk:mr-0 mt-1"
-                    : "h-[350px] ml-12 mobileToDesk:ml-0 mobileToDesk:order-1 mobileToDesk:mb-6 mobileToDesk:w-full"
-                }`}
-              >
-                <div
-                  className={`${
-                    isLeftPosition
-                      ? "w-full h-full"
-                      : "h-full w-full rounded-[40px] overflow-hidden"
-                  }`}
-                >
-                  <Image
-                    src={`${"https://dev-mission.keymouseit.com"}${
-                      data?.field_twi_image?.uri?.url
-                    }`}
-                    alt="cta-img"
-                    height={520}
-                    width={520}
-                    objectFit="cover"
-                    className="w-full h-full max-w-full card-shadow rounded-[12px] object-cover transform transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-              </div>
-            )}
+
+            {imageUrl && !isLeftPosition && renderImageBlock()}
           </motion.div>
         </motion.div>
+
+        {data?.field_add_objective.length
+          ? data.field_add_objective.map((obj: DrupalNode, index: number) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0,
+                }}
+                className="mt-12 mobileMax:mt-8 remove-animation-fluctuation "
+              >
+                <div className="flex items-center justify-between rounded-[30px] gradient-border-bg overflow-hidden">
+                  {/*object images cards */}
+                  <div className="w-full py-3 px-5 flex flex-col justify-start">
+                    <motion.h5 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
+                      {obj?.field_title}
+                    </motion.h5>
+                    <motion.div
+                      className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small"
+                      dangerouslySetInnerHTML={{
+                        __html: obj?.field_description?.value || "",
+                      }}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            ))
+          : ""}
 
         {/* Border - only for left position */}
         {isLeftPosition && <div className="border-b border-[#ccc]" />}

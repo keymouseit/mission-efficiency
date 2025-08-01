@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Image from "next/image";
+import Link from "next/link";
+import { MdChevronRight } from "react-icons/md";
 
 type MissionSectionProps = {
   data: DrupalNode;
@@ -79,15 +81,29 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
             (missionCard: DrupalNode, index: number) => (
               <motion.div
                 key={index}
-                className="remove-animation-fluctuation desktop:px-[15px] mb-[30px] w-[33%] mobileMax:w-full mobileMax:px-0 betweenMobileTab:px-[10px] lieTablets:w-[50%]"
+                className={`remove-animation-fluctuation w-[33%] mobileMax:w-full lieTablets:w-[50%] mobileMax:px-0 ${
+                  missionCard?.field_icon?.uri?.url
+                    ? "desktop:px-[15px] mb-[30px] betweenMobileTab:px-[10px]"
+                    : "px-[15px] mb-[25px] mt-2 mobileMax:mb-5 mobileMax:mt-0"
+                }`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0 }}
               >
-                <div className="border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white px-4 py-[25px] min-h-[284px] flex items-center flex-col box-border w-full card-shadow">
-                  <div className="mb-[23px] max-h-[120px] min-h-[120px] flex justify-center items-center overflow-hidden">
-                    {missionCard?.field_icon?.uri?.url && (
+                <div
+                  className={`border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white flex items-center flex-col box-border w-full card-shadow ${
+                    missionCard?.field_icon?.uri?.url
+                      ? "px-4 py-[25px] min-h-[284px]"
+                      : "px-5 pb-5 h-full"
+                  }`}
+                >
+                  <div
+                    className={`${
+                      missionCard?.field_icon?.uri?.url ? "mb-[23px]" : ""
+                    } max-h-[120px] min-h-[120px] flex justify-center items-center overflow-hidden`}
+                  >
+                    {missionCard?.field_icon?.uri?.url ? (
                       <Image
                         src={`${"https://dev-mission.keymouseit.com"}${
                           missionCard.field_icon.uri.url
@@ -97,22 +113,53 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
                         height={100}
                         className="w-full h-full object-cover"
                       />
+                    ) : (
+                      <div className="min-h-[80px] min-w-[80px] category-gradient rounded-full overflow-hidden flex items-center justify-center mobileMax:min-h-[55px] mobileMax:min-w-[55px]">
+                        <div className="flex items-center justify-center text-numans text-center text-[35px] rounded-full overflow-hidden min-h-[70px] min-w-[70px] mobileMax:min-h-[45px] mobileMax:min-w-[45px] bg-white font-bold leading-10 --font-poppins mobileMax:text-medium mobileMax:leading-7">
+                          <p className="category-gradient text-clip">
+                            {index + 1}
+                          </p>
+                        </div>
+                      </div>
                     )}
                   </div>
 
                   <div className="h-full w-full">
                     {missionCard?.field_title && (
-                      <h4 className="--font-poppins text-center desktop:text-[27px] mb-2 text-landingBlue leading-normal capitalize text-medium">
+                      <h4
+                        className={`${
+                          missionCard?.field_icon?.uri?.url
+                            ? "desktop:text-[27px]"
+                            : "text-[22px]"
+                        } --font-poppins text-center mb-2 text-landingBlue leading-normal capitalize text-medium`}
+                      >
                         {missionCard.field_title}
                       </h4>
                     )}
                     {missionCard?.field_description?.processed && (
                       <div
-                        className="--font-poppins text-center text-small text-[#7b99c7] leading-6 line-clamb-6 mobileMax:leading-normal mobileMax:text-xsmall line-clamp-5"
+                        className={`--font-poppins text-center text-small text-[#7b99c7] leading-6 mobileMax:leading-normal mobileMax:text-xsmall ${
+                          missionCard?.field_icon?.uri?.url
+                            ? "line-clamp-5"
+                            : "mb-5 elevate-card-ellipse font-normal"
+                        }`}
                         dangerouslySetInnerHTML={{
                           __html: missionCard.field_description.processed,
                         }}
                       />
+                    )}
+
+                    {missionCard?.field_button.length ? (
+                      <Link
+                        href={missionCard.field_button[0]?.uri}
+                        target="_blank"
+                        className="--font-poppins text-small text-defaultLink leading-6 flex items-center justify-center cursor-pointer  mobileMax:text-xsmall"
+                      >
+                        {missionCard.field_button[0]?.title}
+                        <MdChevronRight className="w-[18px] h-[18px] max-w-[18px] ml-0.5" />
+                      </Link>
+                    ) : (
+                      ""
                     )}
                   </div>
                 </div>
