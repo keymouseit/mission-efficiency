@@ -14,6 +14,8 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
   const imageUrl = data?.field_twi_image?.uri?.url;
   const imageDescription = data?.field_twi_image_description?.processed;
   const customHeight = data?.field_image_height;
+  const grayBackground = data?.field_twi_title == "Energy Efficient Life";
+  const isPowerTitle = "The Power of Energy Efficiency";
 
   const renderImageBlock = () => (
     <div
@@ -50,12 +52,12 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
 
   return (
     <section
-      id={isLeftPosition ? "mission-call-to-action" : undefined}  
-      className={`bg-white relative overflow-hidden ${
+      id={isLeftPosition ? "mission-call-to-action" : undefined}
+      className={`relative overflow-hidden ${
         isLeftPosition
           ? "pt-[92px] mobileMax:pt-10 betweenMobileTab:pt-16 pb-8 CTA-wrap"
           : ""
-      }`}
+      } ${grayBackground ? "bg-[#ebf0f7]" : "bg-white"}`}
     >
       {/* Background shape - only for left position */}
       {isLeftPosition && (
@@ -122,7 +124,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                     isLeftPosition
                       ? "text-medium text-[#545D6F] mb-12 !text-left mobileMax:text-xsmall mobileMax:leading-normal"
                       : "text-lightBlueText text-[22px] mb-16 text-center mobileMax:text-xsmall mobileMax:leading-normal"
-                  }`}
+                  } ${isPowerTitle ? "!text-center" : ""}`}
                   dangerouslySetInnerHTML={{
                     __html: data?.field_twi_description.processed,
                   }}
@@ -197,44 +199,54 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
           </motion.div>
         </motion.div>
 
-        {data?.field_add_objective.length
-          ? data.field_add_objective.map((obj: DrupalNode, index: number) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0,
-                }}
-                className="mt-12 mobileMax:mt-8 remove-animation-fluctuation "
-              >
-                <div
-                  className={`flex items-center justify-between rounded-[30px] overflow-hidden ${
-                    !imageDescription ? "" : "gradient-border-bg"
-                  }`}
-                >
-                  {/*object images cards */}
-                  <div className="w-full py-3 px-5 flex flex-col justify-start">
-                    {obj?.field_title && (
-                      <motion.h5 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
-                        {obj.field_title}
-                      </motion.h5>
-                    )}
+        <div className="flex justify-between">
+          {data?.field_add_objective
+            ? data.field_add_objective.map(
+                (obj: DrupalNode, index: number, arr: DrupalNode) =>
+                  obj.field_title &&
+                  obj.field_description && (
                     <motion.div
-                      className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small"
-                      dangerouslySetInnerHTML={{
-                        __html: obj?.field_description?.value || "",
+                      key={index}
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0,
                       }}
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            ))
-          : ""}
-
+                      className={`mt-12 mobileMax:mt-8 remove-animation-fluctuation ${
+                        arr.length > 1 ? "w-[47%]" : ""
+                      }`}
+                    >
+                      <div
+                        className={`flex items-center justify-between rounded-[30px] overflow-hidden ${
+                          !imageDescription ? "" : "gradient-border-bg"
+                        }`}
+                      >
+                        {/*object images cards */}
+                        <div className="w-full py-3 px-5 flex flex-col justify-start">
+                          {obj?.field_title && (
+                            <motion.h5 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
+                              {obj.field_title}
+                            </motion.h5>
+                          )}
+                          <motion.div
+                            className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small"
+                            dangerouslySetInnerHTML={{
+                              __html: obj?.field_description?.value || "",
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  )
+              )
+            : ""}
+        </div>
         {/* Border - only for left position */}
-        {isLeftPosition && <div className="border-b border-[#ccc]" />}
+        {isLeftPosition &&
+          data?.field_twi_title == "Mission Efficiency Call to Action" && (
+            <div className="border-b border-[#ccc]" />
+          )}
       </div>
     </section>
   );

@@ -13,6 +13,12 @@ import GridLayout from "../GridLayout";
 import EnergyRelatedSection from "../EnergyRelatedSection";
 import MultipleBenefitsSection from "../MultipleBenefitsSection";
 import OpportunitySection from "../OpportunitySection";
+import EnergyActivities from "../EnergyActivities";
+import ReadyToJoin from "../ReadyToJoin";
+import CampaignSection from "../CampaignSection";
+import SectorResources from "../SectorResources";
+import EconomyWidePartners from "../EconomyWidePartners";
+import TrainingSection from "../TrainingSection";
 
 interface DynamicTemplateClientProps {
   templateData: DrupalNode;
@@ -63,8 +69,27 @@ const DynamicTemplateClient = ({
           skipNext: false,
         };
       case "paragraph--text_with_image":
+        const heading = pageComponent?.field_twi_title;
+
+        const isInvite =
+          heading ===
+          "We invite you to join our movement and embrace three key principles for an Energy Efficient Life:";
+        const isCampaignRes =
+          heading ===
+          "PROMOTING ENERGY EFFICIENCY LIFESTYLE AND DECISION-MAKING";
+        const isPlayBook =
+          heading === "Mission Efficiency Playbook of Key Actions";
+        const isTraining = heading === "Training";
         return {
-          component: <UnifiedCTAClient data={pageComponent} />,
+          component: isInvite ? (
+            <ReadyToJoin data={pageComponent} />
+          ) : isCampaignRes || isPlayBook ? (
+            <CampaignSection resourcesData={pageComponent} />
+          ) : isTraining ? (
+            <TrainingSection data={pageComponent} />
+          ) : (
+            <UnifiedCTAClient data={pageComponent} />
+          ),
           skipNext: false,
         };
       case "paragraph--call_to_action":
@@ -95,7 +120,9 @@ const DynamicTemplateClient = ({
         const isMultipleBenefits =
           title === "Multiple Benefits of Energy Efficiency";
         const isOpportunity = title === "The energy efficiency opportunity";
-
+        const isActivities = title === "Activities";
+        const isCampaign = title === "Campaign Materials";
+        const isEconomyWide = title === "Economy-wide resources & partners";
         return {
           component: isOpportunity ? (
             <OpportunitySection data={pageComponent} />
@@ -103,6 +130,12 @@ const DynamicTemplateClient = ({
             <MultipleBenefitsSection data={pageComponent} />
           ) : isEnergyRelated ? (
             <EnergyRelatedSection data={pageComponent} />
+          ) : isActivities ? (
+            <EnergyActivities data={pageComponent} />
+          ) : isCampaign ? (
+            <CampaignSection materialsData={pageComponent} />
+          ) : isEconomyWide ? (
+            <EconomyWidePartners data={pageComponent} />
           ) : (
             <MissionSection data={pageComponent} />
           ),
@@ -117,6 +150,11 @@ const DynamicTemplateClient = ({
       case "paragraph--multiple_images_with_title_and_d":
         return {
           component: <GridLayout data={pageComponent} />,
+          skipNext: false,
+        };
+      case "paragraph--cards_with_category":
+        return {
+          component: <SectorResources data={pageComponent} />,
           skipNext: false,
         };
       default:
