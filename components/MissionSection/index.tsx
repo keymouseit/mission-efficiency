@@ -14,6 +14,7 @@ type MissionSectionProps = {
 const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
   const [isMobile, setIsMobile] = useState<Boolean>(false);
   const [hasMounted, setHasMounted] = useState(false);
+  const title = data.field_title === "Resources and Tools";
 
   const { scrollYProgress } = useScroll();
   const moveOverlayImage = useTransform(
@@ -39,7 +40,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
 
   return (
     <div className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10">
-      {hasMounted && (
+      {hasMounted && !title && (
         <motion.div
           style={{
             top: isMobile ? mobileOverlayImage : moveOverlayImage,
@@ -76,7 +77,13 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
           />
         )}
 
-        <div className="flex items-start justify-between flex-wrap box-border">
+        <div
+          className={`flex flex-wrap box-border ${
+            title
+              ? "items-center justify-center"
+              : "justify-between items-start"
+          }`}
+        >
           {data?.field_add_card?.map(
             (missionCard: DrupalNode, index: number) => (
               <motion.div
