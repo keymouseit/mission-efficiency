@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Menubar } from "@/components/ui/menubar";
 import Link from "@/node_modules/next/link";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaBars } from "react-icons/fa6";
 import { DrupalNode } from "next-drupal";
