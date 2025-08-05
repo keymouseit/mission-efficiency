@@ -18,9 +18,7 @@ export default function DynamicTemplateServer({
     <>
       <Header data={headerData} />
 
-      <DynamicTemplateClient
-        templateData={templateData}
-      />
+      <DynamicTemplateClient templateData={templateData} />
 
       <LandingFooter data={footerData} />
     </>

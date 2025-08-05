@@ -1099,6 +1099,34 @@ export async function getPageTemplateNew(): Promise<DrupalNode[]> {
   return pantheonData as DrupalNode[];
 }
 
+export async function getNewFooter(): Promise<DrupalNode[]> {
+  const fetchFields = [
+    "title",
+    "uid",
+    "logo",
+    "field_logo",
+    "field_logo_title",
+    "field_follow_title",
+    "field_add_follow_field",
+    "field_link_with_title",
+    "field_website_rights",
+  ].join(",");
+
+  const includeFields = [
+    "uid",
+    "field_logo",
+    "field_add_follow_field.field_icon",
+  ].join(",");
+
+  const pantheonData = await pantheonStoreNew.getObject<DrupalNode[]>({
+    objectName: "node--footer",
+    params: `include=${includeFields}&filter[status]=1&fields[node--footer]=${fetchFields}`,
+    all: true,
+  });
+
+  return pantheonData as DrupalNode[];
+}
+
 export const DrupalService = {
   getPageTemplate,
   normaliseCards,
