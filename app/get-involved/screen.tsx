@@ -55,12 +55,12 @@ const GetInvolvedScreen: React.FC<GetInvolvedScreenProps> = ({
     field_get_involved_options = [],
     field_task = [],
     field_get_involve_energy = [],
-    field_me_partners_cards=[],
-    field_me_partners_title="",
-    field_me_partners_subtitle= "",
-    field_me_member_section_title="",
-    field_me_member_subtitle="",
-    field_me_member_cards=[],
+    field_me_partners_cards = [],
+    field_me_partners_title = "",
+    field_me_partners_subtitle = "",
+    field_me_member_section_title = "",
+    field_me_member_subtitle = "",
+    field_me_member_cards = [],
   } = data;
 
   const itemVariant = {
@@ -605,18 +605,18 @@ const GetInvolvedScreen: React.FC<GetInvolvedScreenProps> = ({
                   {field_me_partners_subtitle}
                 </motion.p>
                 <motion.div
-                //   initial={{ opacity: 0, y: 50 }}
-                //   whileInView={{ opacity: 1, y: 0 }}
-                //   viewport={{ once: true }}
-                //   transition={{
-                //     type: "spring",
-                //     duration: 2.8,
-                //   }}
+                  //   initial={{ opacity: 0, y: 50 }}
+                  //   whileInView={{ opacity: 1, y: 0 }}
+                  //   viewport={{ once: true }}
+                  //   transition={{
+                  //     type: "spring",
+                  //     duration: 2.8,
+                  //   }}
                   className="mb-10 pb-10 mobileMax:py-6"
                 >
                   <PartnerCardSlider
-                    sliderData={field_me_partners_cards?.sort((a: any, b: any) =>
-                      a.title.localeCompare(b.title)
+                    sliderData={field_me_partners_cards?.sort(
+                      (a: any, b: any) => a.title.localeCompare(b.title)
                     )}
                   />
                 </motion.div>
@@ -687,13 +687,13 @@ const GetInvolvedScreen: React.FC<GetInvolvedScreenProps> = ({
                   {field_me_member_subtitle}
                 </motion.p>
                 <motion.div
-                //   initial={{ opacity: 0, y: 50 }}
-                //   whileInView={{ opacity: 1, y: 0 }}
-                //   viewport={{ once: true }}
-                //   transition={{
-                //     type: "spring",
-                //     duration: 2.8,
-                //   }}
+                  //   initial={{ opacity: 0, y: 50 }}
+                  //   whileInView={{ opacity: 1, y: 0 }}
+                  //   viewport={{ once: true }}
+                  //   transition={{
+                  //     type: "spring",
+                  //     duration: 2.8,
+                  //   }}
                   className="mb-10 pb-10 mobileMax:py-6"
                 >
                   <MemberCountrySlider
