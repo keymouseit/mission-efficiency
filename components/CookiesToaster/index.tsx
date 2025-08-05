@@ -8,21 +8,21 @@ const CookiesToaster = () => {
 
   const cookie = typeof document === "undefined" ? null : document.cookie;
   const status = cookie?.includes("cookieconsent_status");
-  
+
   const onAcceptCookies = () => {
     try {
       fetch("https://geolocation-db.com/json/")
         .then((response) => response.json())
         .then((data) => localStorage.setItem("ip", data.IPv4));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     document.cookie = "cookieconsent_status=1";
     setShowConsent(false);
   };
 
   const onRejectCookies = () => {
-    document.cookie = "cookieconsent_status=0"; 
+    document.cookie = "cookieconsent_status=0";
     localStorage.removeItem("ip");
     setShowConsent(false);
   };
@@ -30,10 +30,10 @@ const CookiesToaster = () => {
   useEffect(() => {
     setShowConsent(!status as boolean);
   }, [status]);
-  
+
   return (
     <>
-      {(!status || showConsent) &&(
+      {(!status || showConsent) && (
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}

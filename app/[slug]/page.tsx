@@ -16,6 +16,7 @@ const TemplatePage = async ({ params }: { params: { slug: string } }) => {
   const newData = await getPageTemplateNew();
   const footerData = await getNewFooter();
 
+  console.log(slug, "slug");
   const matchedTemplate = newData.find((template: DrupalNode) =>
     template.field_page_slug.includes(slug)
   );

@@ -145,15 +145,15 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
     const idArray = value.split(",");
     const titlesArray = idArray.length
       ? idArray.map((checklistItemId: string) => {
-        const foundChecklistItem = formChecklist.find(
-          (checklistItem: DrupalNode) => checklistItem.id === checklistItemId
-        );
-        if (foundChecklistItem) {
-          return foundChecklistItem.title;
-        } else {
-          return "---";
-        }
-      })
+          const foundChecklistItem = formChecklist.find(
+            (checklistItem: DrupalNode) => checklistItem.id === checklistItemId
+          );
+          if (foundChecklistItem) {
+            return foundChecklistItem.title;
+          } else {
+            return "---";
+          }
+        })
       : [];
 
     return titlesArray.join("|");
@@ -230,7 +230,7 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
   const handleReCaptchaVerifyAndDataSubmit = useCallback(async () => {
     const formData = getValues();
     if (!executeRecaptcha) {
-      console.log("Execute recaptcha not yet available");
+      console.error("Execute recaptcha not yet available");
       return;
     }
 
@@ -251,7 +251,6 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
     const verifiedToken = response.data.success;
 
     if (verifiedToken) {
-      console.log("CAPTCHA VERIFIED !!!");
       const mappedPledges = mapIdsToTitles(formData.globalProgress);
       const mappedSectors = mapIdsToTitles(formData.energyEfficiencySectors);
       savePledgeFormData({
@@ -299,7 +298,6 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
       });
       return;
     } else {
-      console.log("CAPTCHA FAILED !!!");
       alert("Could not Verify ReCaptcha, Please Try Again!");
     }
     // here you would give an error message or just ignore
@@ -414,8 +412,9 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                   Organization Logo
                 </Label>
                 <div
-                  className={`!w-[200px] !h-[160px] border border-[#c7c7c7] relative overflow-hidden rounded-[6px] ${uploadedImageUrl && "show-org-logo"
-                    }`}
+                  className={`!w-[200px] !h-[160px] border border-[#c7c7c7] relative overflow-hidden rounded-[6px] ${
+                    uploadedImageUrl && "show-org-logo"
+                  }`}
                 >
                   {!Boolean(uploadedImageUrl || selectedFileBase64) && (
                     <>

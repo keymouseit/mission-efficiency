@@ -1,5 +1,10 @@
 "use client";
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import {
   ComposableMap,
   Geographies,
@@ -390,7 +395,7 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
     if (typeof window !== "undefined") {
       if (window) {
         if (window?.innerWidth > window?.innerHeight) {
-          return "landscape-primary" || "landscape-secondary";
+          return "landscape-primary";
         }
       }
     }
@@ -412,16 +417,26 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
       }
     });
   }, []);
-console.log(orientation,"orentation")
+
   useEffect(() => {
     window?.addEventListener("resize", handleResize);
     const screenWidth = window.innerWidth;
-    const isCustomMobileLandscapeMode = screenWidth >= 320 && screenWidth <= 990 && window.screen.orientation && (window.screen.orientation.angle === 90 || window.screen.orientation.angle === -90);
-    const isCustomTabLandscapeMode = screenWidth >= 768 && screenWidth <= 1181 && window.screen.orientation && (window.screen.orientation.angle === 90 || window.screen.orientation.angle === -90);
-    if(orientation == "landscape-primary" && isCustomTabLandscapeMode) {
+    const isCustomMobileLandscapeMode =
+      screenWidth >= 320 &&
+      screenWidth <= 990 &&
+      window.screen.orientation &&
+      (window.screen.orientation.angle === 90 ||
+        window.screen.orientation.angle === -90);
+    const isCustomTabLandscapeMode =
+      screenWidth >= 768 &&
+      screenWidth <= 1181 &&
+      window.screen.orientation &&
+      (window.screen.orientation.angle === 90 ||
+        window.screen.orientation.angle === -90);
+    if (orientation == "landscape-primary" && isCustomTabLandscapeMode) {
       setScale(80);
     }
-    if(orientation == "landscape-primary" && isCustomMobileLandscapeMode) {
+    if (orientation == "landscape-primary" && isCustomMobileLandscapeMode) {
       setScale(70);
     }
 
@@ -429,7 +444,7 @@ console.log(orientation,"orentation")
       window?.removeEventListener("resize", handleResize);
     };
   }, [orientation]);
-console.log(scale,"scale")
+
   return (
     <>
       {/* <OrientationBlocker /> */}

@@ -3,7 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
-import HistoryCardSlider from "../LandingWebsiteComponents/HistoryCardSlider";
 import HistorySlider from "../HistorySlider";
 
 type MissionHistoryProps = {
@@ -11,7 +10,6 @@ type MissionHistoryProps = {
 };
 
 const MissionHistory: React.FC<MissionHistoryProps> = ({ data }) => {
-  console.log(data, "datat");
   return (
     <div
       id="history"

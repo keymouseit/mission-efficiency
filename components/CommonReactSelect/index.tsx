@@ -14,7 +14,7 @@ interface CommonReactSelectInterface {
   onFocus?: () => void;
   isPlanStyle?: boolean;
   isFilterDropdown?: boolean;
-  isDisabled?: boolean,
+  isDisabled?: boolean;
 }
 
 const CommonReactSelect: React.FC<CommonReactSelectInterface> = ({
@@ -29,7 +29,7 @@ const CommonReactSelect: React.FC<CommonReactSelectInterface> = ({
   isPlanStyle = false,
   onFocus,
   isFilterDropdown = false,
-  isDisabled = false
+  isDisabled = false,
 }) => {
   const [selectedOptions, setSelectedOptions] = useState<
     { label: string; value: string }[]
@@ -85,24 +85,23 @@ const CommonReactSelect: React.FC<CommonReactSelectInterface> = ({
     }
   };
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-  if (!isSearchable && event.key === "Tab") {
-    console.log("tab")
-    event.preventDefault();
-  }
-	if (event.key === "ArrowDown") {
-	  event.preventDefault();
-	  setFocusedOptionIndex((prevIndex) =>
-		prevIndex === null ? 0 : Math.min(prevIndex + 1, list.length - 1)
-	  );
-	} else if (event.key === "ArrowUp") {
-	  event.preventDefault();
-	  setFocusedOptionIndex((prevIndex) =>
-		prevIndex === null ? list.length - 1 : Math.max(prevIndex - 1, 0)
-	  );
-	} else if (event.key === "Enter" && focusedOptionIndex !== null) {
-	  event.preventDefault();
-	  handleChange(list[focusedOptionIndex]);
-	}
+    if (!isSearchable && event.key === "Tab") {
+      event.preventDefault();
+    }
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setFocusedOptionIndex((prevIndex) =>
+        prevIndex === null ? 0 : Math.min(prevIndex + 1, list.length - 1)
+      );
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setFocusedOptionIndex((prevIndex) =>
+        prevIndex === null ? list.length - 1 : Math.max(prevIndex - 1, 0)
+      );
+    } else if (event.key === "Enter" && focusedOptionIndex !== null) {
+      event.preventDefault();
+      handleChange(list[focusedOptionIndex]);
+    }
   };
 
   const CustomOption = ({
@@ -117,8 +116,8 @@ const CommonReactSelect: React.FC<CommonReactSelectInterface> = ({
     const selectedOption = selectedOptions?.find(
       (option) => option.label === label
     );
-  const findIndex = options?.findIndex((item: any) =>  item?.label === label)
-    
+    const findIndex = options?.findIndex((item: any) => item?.label === label);
+
     return (
       <div
         {...innerProps}
@@ -166,11 +165,7 @@ const CommonReactSelect: React.FC<CommonReactSelectInterface> = ({
         isDisabled={isDisabled}
         components={{
           Option: (props: any) => {
-            return (
-              <CustomOption
-                {...props}
-              />
-            );
+            return <CustomOption {...props} />;
           },
           NoOptionsMessage: () => (
             <p className="flex items-center justify-center p-2 text-xsmall --fonts-poppins mobileMax:text-[13.5px]">

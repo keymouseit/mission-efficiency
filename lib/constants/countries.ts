@@ -1307,16 +1307,3 @@ export const countries = [
     country_iso: "STP",
   },
 ];
-
-// // worker functions for temporary use
-// const data = []; // enter array to map
-// const newCountries = countries.map((country) => {
-//   const matchedCountry = data.find(
-//     (element) => element.title.trim() === country.name.trim()
-//   );
-//   return {
-//     ...country,
-//     country_iso: country?.country_iso || matchedCountry?.field_iso_code || null,
-//   };
-// });
-// console.log({ newCountries });

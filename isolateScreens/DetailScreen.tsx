@@ -46,7 +46,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
   cardDetails,
   displayType,
 }) => {
-  console.log({ cardDetails }, "cardDetails");
   const path = usePathname();
   const [isTablet, setIsTablet] = useState<Boolean>(false);
 
