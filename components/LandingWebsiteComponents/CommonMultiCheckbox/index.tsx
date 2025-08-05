@@ -65,7 +65,6 @@ const CommonMultiCheckox: React.FC<CommonMultiCheckoxInterface> = ({
 			let selectedValueStrings = newSelectedOptions.map(
 				(option) => option.value,
 			);
-			console.log({ newSelectedOptions });
 			onSelectChange?.(selectedValueStrings);
 			setSelectedOptions(newSelectedOptions);
 		}

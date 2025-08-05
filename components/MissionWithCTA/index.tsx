@@ -34,8 +34,6 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
     }
   }, []);
 
-  console.log(ctaData, "ctaData");
-
   return (
     <div className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10">
       <motion.div

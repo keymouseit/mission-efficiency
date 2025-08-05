@@ -13,7 +13,6 @@ const ReadyToJoin: React.FC<ReadyToJoinProps> = ({ data }) => {
     data?.field_twi_image?.uri?.url || ""
   }`;
 
-  console.log(data, "ReadyToJoin");
   return (
     <div className="w-full bg-[#ebf0f7] pt-5">
       <div className="mini-container z-[2] relative">

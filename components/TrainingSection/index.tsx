@@ -9,7 +9,6 @@ interface TrainingSectionProps {
 }
 
 const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
-  console.log(data, "TrainingSection");
   return (
     <div className="pt-[100px] pb-[90px] bg-white relative mobileMax:py-10 betweenMobileTab:py-12 overflow-hidden">
       {/* Background Overlay */}

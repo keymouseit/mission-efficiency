@@ -113,10 +113,6 @@ const NewsScreen: React.FC<newsProps> = ({
     setLoading(true);
     let searchValue = searchItem;
     if (searchFocus !== null) {
-      console.log(
-        (searchListRef.current as any).childNodes[searchFocus].innerText,
-        "ref submission"
-      );
       searchValue = (searchListRef.current as any).childNodes[searchFocus]
         .innerText;
       setSearchFocus(null);

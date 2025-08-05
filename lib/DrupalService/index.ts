@@ -495,7 +495,6 @@ const getFilteredNewsCards = async ({
 
   const newsCards = await getNewsCards();
   let filteredNewsCards: DrupalNode[] = [...newsCards];
-  console.log({ filteredNewsCards });
 
   if (month) {
     filteredNewsCards = filteredNewsCards.filter((newsCard) => {

@@ -10,7 +10,6 @@ interface SectorResourcesProps {
 }
 
 const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
-  console.log(data, "SectorResources");
   return (
     <div className="pt-10 pb-[140px] bg-graybg betweenMobileTab:pb-20 mobileMax:pb-10 mobileMax:pt-0">
       <div className="mini-container">

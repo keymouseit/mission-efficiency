@@ -1,35 +1,7 @@
-import { DrupalService } from "@/lib/DrupalService";
-import { MailService } from "@/lib/MailService";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
-
-  // const createdData = await DrupalService.postElevatePageFormData(data)
-  // 	.then(async () => {
-  // 		console.log('--------- SENDING MAIL  ------------');
-  // 		MailService.sendReadyToJoinEmail({
-  // 			mailSubject: 'New Joiner Submission Received',
-  // 			...data,
-  // 		})
-  // 			.then(() => {
-  // 				console.log('--------- ADMIN MAIL IS SENT ------------');
-  // 			})
-  // 			.catch(() => {
-  // 				throw new Error('Could not send Email');
-  // 			});
-  // 		MailService.sendCampaignLifeRegardsEmail({
-  // 			mailTo: data.field_join_form_email,
-  // 			userName: data.title,
-  // 		})
-  // 			.then(() => {
-  // 				console.log('--------- REGARDS MAIL IS SENT ------------');
-  // 			})
-  // 			.catch(() => {
-  // 				throw new Error('Could not send Email');
-  // 			});
-  // 		return true;
-  // 	})
   const createdData = await fetch(
     `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/webform_rest/submit`,
     {
