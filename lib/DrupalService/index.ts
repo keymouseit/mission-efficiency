@@ -1084,6 +1084,9 @@ export async function getPageTemplateNew(): Promise<DrupalNode[]> {
     "field_page_component.field_images",
     "field_page_component.field_background_image",
     "field_page_component.field_add_objective",
+    "field_page_component.field_add_section.field_icon",
+    "field_page_component.field_add_tasks.field_add_activities",
+    "field_page_component.field_add_tasks.field_author_details.field_image",
   ].join(",");
 
   const pantheonData = await pantheonStoreNew.getObject<DrupalNode[]>({
