@@ -13,6 +13,10 @@ import GridLayout from "../GridLayout";
 import EnergyRelatedSection from "../EnergyRelatedSection";
 import MultipleBenefitsSection from "../MultipleBenefitsSection";
 import OpportunitySection from "../OpportunitySection";
+import GetInvolvedCard from "../GetInvolvedCard";
+import Taskforce from "../Author&Activities";
+import GetinvlovedCardWithoutTitle from "../GetInvolvedCardWithoutTitle";
+import PartnerCardSlider from "../LandingWebsiteComponents/PartnerCardSlider";
 
 interface DynamicTemplateClientProps {
   templateData: DrupalNode;
@@ -41,8 +45,10 @@ const DynamicTemplateClient = ({
       };
     }
 
+
     // Regular component handling
     switch (pageComponent.type) {
+
       case "paragraph--hero_section":
         return {
           component:
@@ -89,12 +95,12 @@ const DynamicTemplateClient = ({
         };
       case "paragraph--cards_section_with_text":
         const title = pageComponent?.field_title;
-
-        const isEnergyRelated =
-          title === "Energy efficiency is related but different than:";
-        const isMultipleBenefits =
-          title === "Multiple Benefits of Energy Efficiency";
+        const isEnergyRelated = title === "Energy efficiency is related but different than:";
+        const isMultipleBenefits = title === "Multiple Benefits of Energy Efficiency";
         const isOpportunity = title === "The energy efficiency opportunity";
+        const isGetInvolvedCard = title === "Your role at Mission Efficiency";
+        const isGetInvolvedCardWithoutTitle = title === null;
+
 
         return {
           component: isOpportunity ? (
@@ -103,6 +109,10 @@ const DynamicTemplateClient = ({
             <MultipleBenefitsSection data={pageComponent} />
           ) : isEnergyRelated ? (
             <EnergyRelatedSection data={pageComponent} />
+          ) : isGetInvolvedCard ? (
+            <GetInvolvedCard data={pageComponent} />
+          ) : isGetInvolvedCardWithoutTitle ? (
+            <GetinvlovedCardWithoutTitle data={pageComponent} />
           ) : (
             <MissionSection data={pageComponent} />
           ),
@@ -119,6 +129,16 @@ const DynamicTemplateClient = ({
           component: <GridLayout data={pageComponent} />,
           skipNext: false,
         };
+      case "paragraph--author_activities_section":
+        return {
+          component: <Taskforce data={pageComponent} />,
+          skipNext: false,
+        }
+        case "paragraph--partners_section":
+          return {
+            component: <PartnerCardSlider sliderData={pageComponent}/>,
+            skipNext:false,
+          }
       default:
         return {
           component: <div>Unknown component: {pageComponent?.type}</div>,
@@ -130,6 +150,7 @@ const DynamicTemplateClient = ({
   const renderComponents = () => {
     const components: JSX.Element[] = [];
     const pageComponents = templateData?.field_page_component || [];
+    console.log(pageComponents);
 
     for (let i = 0; i < pageComponents.length; i++) {
       const component = pageComponents[i];
