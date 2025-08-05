@@ -141,7 +141,6 @@ const DynamicTemplateClient = ({
           ),
           skipNext: false,
         };
-
       case "paragraph--history_section":
         return {
           component: <MissionHistory data={pageComponent} />,
