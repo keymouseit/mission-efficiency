@@ -5,7 +5,7 @@ import DynamicTemplateClient from "@/components/DynamicTemplateClient";
 
 interface DynamicTemplateScreenProps {
   templateData: DrupalNode;
-  headerData: DrupalNode;
+  headerData: any;
   footerData: DrupalNode;
 }
 

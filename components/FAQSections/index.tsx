@@ -16,7 +16,7 @@ interface FAQSectionProps {
 function FAQSections({ data }: FAQSectionProps) {
   return (
     <section
-      id="faq"
+      id="FAQ"
       className="banner-wrap-styling pt-5 pb-[60px] relative mobileMax:pt-0 mobileMax:pb-10 betweenMobileTab:pb-12 overflow-hidden"
     >
       {/* Background SVG */}

@@ -1074,12 +1074,11 @@ export async function getPageTemplateNew(): Promise<DrupalNode[]> {
     "field_page_component.field_twi_image",
     "field_page_component.field_faq_left_section",
     "field_page_component.field_faq_right_section",
-    "field_page_component.field_resources_cards",
     "field_page_component.field_resources_cards.field_image",
+    "field_page_component.field_slide.field_icon",
     "field_page_component.field_slider_configuration",
     "field_page_component.field_add_slide.field_slider_image",
     "field_page_component.field_add_card.field_icon",
-    "field_page_component.field_slide.field_icon",
     "field_page_component.field_images",
     "field_page_component.field_background_image",
     "field_page_component.field_add_objective",
@@ -1092,6 +1091,20 @@ export async function getPageTemplateNew(): Promise<DrupalNode[]> {
   const pantheonData = await pantheonStoreNew.getObject<DrupalNode[]>({
     objectName: "node--page_template",
     params: `include=${includeFields}&filter[status]=1&fields[node--page_template]=${fetchFields}`,
+    all: true,
+  });
+
+  return pantheonData as DrupalNode[];
+}
+
+export async function getNewHeader(): Promise<DrupalNode[]> {
+  const fetchFields = ["title", "uid", "field_logo"].join(",");
+
+  const includeFields = ["uid", "field_logo"].join(",");
+
+  const pantheonData = await pantheonStoreNew.getObject<DrupalNode[]>({
+    objectName: "node--header",
+    params: `include=${includeFields}&filter[status]=1&fields[node--header]=${fetchFields}`,
     all: true,
   });
 
@@ -1124,6 +1137,31 @@ export async function getNewFooter(): Promise<DrupalNode[]> {
   });
 
   return pantheonData as DrupalNode[];
+}
+
+export async function getMenuDetails() {
+  try {
+    const response = await fetch(
+      "https://dev-mission.keymouseit.com/jsonapi/menu_items/main",
+      {
+        headers: {
+          Accept: "application/vnd.api+json",
+        },
+        // next: { revalidate: 1 },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch menu: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching menu details:", error);
+    return [];
+  }
 }
 
 export const DrupalService = {

@@ -11,7 +11,10 @@ interface SectorResourcesProps {
 
 const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
   return (
-    <div className="pt-10 pb-[140px] bg-graybg betweenMobileTab:pb-20 mobileMax:pb-10 mobileMax:pt-0">
+    <section
+      id="Sector-resources-and-partners"
+      className="pt-10 pb-[140px] bg-graybg betweenMobileTab:pb-20 mobileMax:pb-10 mobileMax:pt-0"
+    >
       <div className="mini-container">
         {/* Section Title */}
         <motion.h3
@@ -29,7 +32,6 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
           (sector: DrupalNode, index: number) => {
             return (
               <div
-                id="sector-resources-and-partners"
                 key={index}
                 className="flex items-start w-full justify-between desktop:flex-nowrap flex-wrap mb-[30px] border-b border-[#aec9f1] last:border-0"
               >
@@ -62,13 +64,6 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                             duration: 0,
                           }}
                         >
-                          {/* <PartnerCard
-                        img={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${listItem?.field_image_icon?.uri?.url}`}
-                        title={listItem?.title}
-                        buttonText={listItem?.field_button_text}
-                        link={listItem?.field_link}
-                        isSupport={true}
-                      /> */}
                           <div
                             className={`flex items-center justify-center flex-col box-border w-full h-full card-shadow bg-white rounded-[30px] px-4 py-[25px] laptopMax:py-5 min-h-[320px] mobileMax:min-h-full`}
                           >
@@ -110,7 +105,7 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
           }
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -70,7 +70,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
   };
 
   return (
-    <div className="mb-72">
+    <section id="partners" className="mb-72">
       <motion.h3
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -140,7 +140,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
             );
           })}
       </Slider>
-    </div>
+    </section>
   );
 };
 

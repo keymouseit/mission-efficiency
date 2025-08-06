@@ -52,7 +52,13 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
 
   return (
     <section
-      id={isLeftPosition ? "mission-call-to-action" : undefined}
+      id={
+        grayBackground
+          ? "Energy-Efficient-Life"
+          : isPowerTitle
+          ? "The-Power-of-Energy-Efficiency"
+          : ""
+      }
       className={`relative overflow-hidden ${
         isLeftPosition
           ? "pt-[92px] mobileMax:pt-10 betweenMobileTab:pt-16 pb-8 CTA-wrap"

@@ -13,6 +13,15 @@ interface TitleDescriptionBlockProps {
 const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
   data,
 }) => {
+  const idMapping: Record<string, string> = {
+    "Mission Efficiency Pledge": "Mission-Efficiency-Pledge",
+    "UN Energy Compact": "UN-Energy-Compact",
+    "Nationally Determined Contributions (NDCs)": "NDCs",
+    "Energy Efficient Life": "Energy-Efficient-Life",
+  };
+
+  const sectionId = idMapping[data?.field_cta_title as string] || data?.id;
+
   const backgroundColor = data?.field_cta_background_color;
 
   const variantConfig: Record<
@@ -68,8 +77,8 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
 
   return (
     <section
-      id={data?.id}
-      className={` ${
+      id={sectionId}
+      className={`${
         bgImageUrl ? "bg-black" : backgroundClass
       } overflow-hidden relative pt-5 pb-[60px] mobileMax:pt-0 mobileMax:pb-[80px] betweenMobileTab:pb-12`}
     >
