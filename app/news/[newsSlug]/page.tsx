@@ -1,5 +1,5 @@
 import DetailScreen from '@/isolateScreens/DetailScreen';
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import { Metadata } from 'next';
 
 // type Props = {
@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const NewsDetailPage = async ({ params }: { params: { newsSlug: string } }) => {
 	const { newsSlug } = params;
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 	const cardDetails = await DrupalService.getNormalisedCardDataFromId(
 		newsSlug,
 		'NEWS',

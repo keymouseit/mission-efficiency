@@ -1,10 +1,10 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import CountryScreen from './screen';
 import { DrupalNode } from 'next-drupal';
 
 const CountryPage = async () => {
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 	const getAllCountries = await DrupalService.getAllCountriesData();
 	const allCards = await DrupalService.getAllCards();
 	let newCountryCard: DrupalNode[] = [];

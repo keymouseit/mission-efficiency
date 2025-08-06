@@ -1,4 +1,4 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import { Metadata } from 'next';
 import { DrupalNode } from 'next-drupal';
 import NewsScreen from './screen';
@@ -38,7 +38,7 @@ const News = async ({ searchParams }: any) => {
 			searchQuery: search,
 		})) || ([] as DrupalNode[]);
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 	const resourcesFilteredData = await DrupalService.getNewsResourcesData();
 	const { search: searchParam, ...filterParams } = searchParams;
 

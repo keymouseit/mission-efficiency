@@ -16,7 +16,7 @@ const Taskforce = ({ data }: TaskforceProps) => {
 
   return (
     <div>
-      <div className="pb-24 bg-[#ebf0f7]">
+      <div id="taskforce" className="pb-24 bg-[#ebf0f7]">
         <div className="mini-container">
           <motion.h3
             initial={{ opacity: 0, y: 40 }}

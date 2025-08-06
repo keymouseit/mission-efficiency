@@ -1,10 +1,10 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import CountryEngagementScreen from './screen';
 import { DrupalNode } from 'next-drupal';
 
 const CountryEngagementPage = async () => {
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter()
 	const data = await DrupalService.getCountryEngagementPage();
 	const getAllCountries = await DrupalService.getAllCountriesData();
 	const allCards = await DrupalService.getAllCards();

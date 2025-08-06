@@ -75,8 +75,8 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                       <Link
                         href={menuItem?.field_menu_link || "#"}
                         className={` text-xsmall laptop:text-small desktop:px-4 px-2 hover:text-blue relative min-h-[30px] block ${
-                          menuItem.field_menu_link === currentPath
-                            ? "text-blue "
+                          menuItem?.field_menu_link === currentPath
+                            ? "text-blue"
                             : "text-menu"
                         }`}
                       >
@@ -162,7 +162,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                           noArrow
                           className={`text-menu text-xsmall p-2 hover:text-blue block text-left px-5 flex 
                         ${
-                          menuItem.field_menu_link === currentPath &&
+                          menuItem?.field_menu_link === currentPath &&
                           "text-blue"
                         }`}
                         >
