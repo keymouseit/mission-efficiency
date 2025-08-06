@@ -15,7 +15,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
   const [isMobile, setIsMobile] = useState<Boolean>(false);
   const [hasMounted, setHasMounted] = useState(false);
   const title = data.field_title === "Resources and Tools";
-
+  const title101 = data.field_title === "Energy Efficiency 101";
   const { scrollYProgress } = useScroll();
   const moveOverlayImage = useTransform(
     scrollYProgress,
@@ -39,7 +39,10 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
   }, []);
 
   return (
-    <div className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10">
+    <div
+      id={title101 ? "Energy-Efficiency-101" : ""}
+      className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10"
+    >
       {hasMounted && !title && (
         <motion.div
           style={{

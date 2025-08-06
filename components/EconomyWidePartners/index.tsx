@@ -11,8 +11,8 @@ interface EconomyWidePartnersProps {
 
 const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
   return (
-    <div
-      id="economy-wide-resources-partners"
+    <section
+      id="Resources-and-Tools-support"
       className="relative support-bottom-banner"
     >
       <img
@@ -92,7 +92,7 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
