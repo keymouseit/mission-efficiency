@@ -1,4 +1,3 @@
-import React from "react";
 import {
   getMenuDetails,
   getNewFooter,
@@ -10,7 +9,7 @@ import DynamicTemplateServer from "./screen";
 import NotFoundPage from "@/components/NotFound";
 import { redirect } from "next/navigation";
 import { processMenuData } from "@/lib/processMenuData";
-import { HeaderData, RawHeaderNode } from "@/types/header";
+import { RawHeaderNode } from "@/types/header";
 
 const TemplatePage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
