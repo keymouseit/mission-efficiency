@@ -5,6 +5,7 @@ import {
   normaliseKeysFromNewsAndTrainings,
   populateArrayElements,
 } from "../utils";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 async function getMapData(): Promise<DrupalNode[]> {
   const fetchFields = [
@@ -1141,15 +1142,12 @@ export async function getNewFooter(): Promise<DrupalNode[]> {
 
 export async function getMenuDetails() {
   try {
-    const response = await fetch(
-      "https://dev-mission.keymouseit.com/jsonapi/menu_items/main",
-      {
-        headers: {
-          Accept: "application/vnd.api+json",
-        },
-        // next: { revalidate: 1 },
-      }
-    );
+    const response = await fetch(`${DEV_PUBLIC_URL}/jsonapi/menu_items/main`, {
+      headers: {
+        Accept: "application/vnd.api+json",
+      },
+      // next: { revalidate: 1 },
+    });
 
     if (!response.ok) {
       throw new Error(`Failed to fetch menu: ${response.statusText}`);

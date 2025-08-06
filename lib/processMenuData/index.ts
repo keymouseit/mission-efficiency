@@ -1,24 +1,7 @@
-interface RawMenuItem {
-  id: string;
-  attributes: {
-    title: string;
-    url: string;
-    parent: string;
-    enabled: boolean;
-    weight: number;
-  };
-}
-
-interface ProcessedMenuItem {
-  id: string;
-  title: string;
-  url: string;
-  children?: ProcessedMenuItem[];
-}
+import { RawMenuItem, ProcessedMenuItem } from "@/types/header";
 
 export function processMenuData(rawData: RawMenuItem[]): ProcessedMenuItem[] {
   const enabledItems = rawData.filter((item) => item.attributes.enabled);
-
   const itemMap = new Map<string, ProcessedMenuItem>();
 
   // First pass: create all menu items
@@ -33,13 +16,11 @@ export function processMenuData(rawData: RawMenuItem[]): ProcessedMenuItem[] {
 
   // Second pass: build parent-child relationships
   const parentItems: ProcessedMenuItem[] = [];
-
   enabledItems.forEach((item) => {
     const menuItem = itemMap.get(item.id);
     if (!menuItem) return;
 
     const parentId = item.attributes.parent;
-
     if (!parentId || parentId === "") {
       // This is a parent item
       parentItems.push(menuItem);

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { DrupalNode } from "next-drupal";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface SectorResourcesProps {
   data: DrupalNode;
@@ -72,9 +73,7 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                           `}
                             >
                               <img
-                                src={`${"https://dev-mission.keymouseit.com"}${
-                                  listItem?.field_icon?.uri?.url
-                                }`}
+                                src={`${DEV_PUBLIC_URL}${listItem?.field_icon?.uri?.url}`}
                                 alt="support img"
                                 className={`max-h-full w-full object-contain h-[130px]`}
                               />

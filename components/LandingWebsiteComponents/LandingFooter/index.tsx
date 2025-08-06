@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { DrupalNode } from "next-drupal";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface LandingFooterProps {
   data: DrupalNode;
@@ -29,9 +30,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
         <div className="px-4 py-10 bg-footerbg inner-footer min-h-[380px] mobileMax:min-h-[260px]">
           {field_logo?.uri?.url && (
             <Image
-              src={`${"https://dev-mission.keymouseit.com"}${
-                field_logo.uri.url
-              }`}
+              src={`${DEV_PUBLIC_URL}${field_logo.uri.url}`}
               alt={field_logo?.resourceIdObjMeta?.alt || "logo"}
               width={42}
               height={42}
@@ -66,7 +65,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
                 >
                   {icon && (
                     <Image
-                      src={`${"https://dev-mission.keymouseit.com"}${icon}`}
+                      src={`${DEV_PUBLIC_URL}${icon}`}
                       alt={
                         item?.field_icon?.resourceIdObjMeta?.alt ||
                         "social icon"

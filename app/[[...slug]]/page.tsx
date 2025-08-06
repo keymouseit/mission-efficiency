@@ -10,6 +10,7 @@ import DynamicTemplateServer from "./screen";
 import NotFoundPage from "@/components/NotFound";
 import { redirect } from "next/navigation";
 import { processMenuData } from "@/lib/processMenuData";
+import { HeaderData } from "@/types/header";
 
 const TemplatePage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
@@ -22,11 +23,14 @@ const TemplatePage = async ({ params }: { params: { slug: string } }) => {
   const rawHeaderData = await getNewHeader();
   const footerData = await getNewFooter();
   const MenuData = await getMenuDetails();
-
   const processedMenuItems = processMenuData(MenuData);
 
-  const headerProps = {
-    field_header_logo: rawHeaderData[0]?.field_logo,
+  const headerProps: HeaderData = {
+    field_header_logo: {
+      uri: {
+        url: rawHeaderData[0]?.field_logo?.uri?.url || "",
+      },
+    },
     field_header_menus_items: processedMenuItems,
   };
 

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
 import Image from "next/image";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 type TaskforceProps = {
   data: DrupalNode;
@@ -112,7 +113,7 @@ const Taskforce = ({ data }: TaskforceProps) => {
                             ?.url && (
                             <div className="max-w-[220px] min-w-[220px] mobileMax:min-w-[150px] mobileMax:max-w-[150px] mr-5 mobileMax:mr-0">
                               <Image
-                                src={`https://dev-mission.keymouseit.com${data?.field_author_details?.field_image[0]?.uri?.url}`}
+                                src={`${DEV_PUBLIC_URL}${data?.field_author_details?.field_image[0]?.uri?.url}`}
                                 alt={
                                   data.field_author_details.field_image[0]
                                     .alt || "author image"

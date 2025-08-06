@@ -6,6 +6,7 @@ import { DrupalNode } from "next-drupal";
 import Image from "next/image";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 type MissionSectionProps = {
   data: DrupalNode;
@@ -115,9 +116,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
                   >
                     {missionCard?.field_icon?.uri?.url ? (
                       <Image
-                        src={`${"https://dev-mission.keymouseit.com"}${
-                          missionCard.field_icon.uri.url
-                        }`}
+                        src={`${DEV_PUBLIC_URL}${missionCard.field_icon.uri.url}`}
                         alt="category img"
                         width={120}
                         height={100}

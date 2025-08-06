@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import CategoryCard from "../LandingWebsiteComponents/CateogriesCard";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface OpportunitySectionProps {
   data: DrupalNode;
@@ -46,9 +47,7 @@ export default function OpportunitySection({
               className="remove-animation-fluctuation px-[15px] mb-[30px] w-[33%] laptop:min-h-[255px] mobileMax:w-full mobileMax:px-0 home-category-card"
             >
               <CategoryCard
-                img={`${"https://dev-mission.keymouseit.com"}${
-                  card?.field_icon?.uri?.url || ""
-                }`}
+                img={`${DEV_PUBLIC_URL}${card?.field_icon?.uri?.url || ""}`}
                 title={card?.field_title}
                 subTitle={card?.field_description?.value || ""}
               />

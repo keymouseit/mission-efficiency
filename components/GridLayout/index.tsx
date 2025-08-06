@@ -3,6 +3,7 @@ import { DrupalNode } from "next-drupal";
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import HomeGridLayout from "../HomeGridLayout";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface GridLayoutProps {
   data: DrupalNode;
@@ -48,15 +49,9 @@ const GridLayout: React.FC<GridLayoutProps> = ({ data }) => {
       <div className="mini-container">
         <HomeGridLayout
           gridImages={[
-            `${"https://dev-mission.keymouseit.com"}${
-              data?.field_images[0]?.uri?.url
-            }`,
-            `${"https://dev-mission.keymouseit.com"}${
-              data?.field_images[1]?.uri?.url
-            }`,
-            `${"https://dev-mission.keymouseit.com"}${
-              data?.field_images[2]?.uri?.url
-            }`,
+            `${DEV_PUBLIC_URL}${data?.field_images[0]?.uri?.url}`,
+            `${DEV_PUBLIC_URL}${data?.field_images[1]?.uri?.url}`,
+            `${DEV_PUBLIC_URL}${data?.field_images[2]?.uri?.url}`,
           ]}
           title={data?.field_title}
           subTitle={data?.field_description?.processed}

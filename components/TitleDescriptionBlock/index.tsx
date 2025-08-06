@@ -5,6 +5,7 @@ import { DrupalNode } from "next-drupal";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface TitleDescriptionBlockProps {
   data?: DrupalNode;
@@ -72,7 +73,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
     data?.field_cta_description?.value;
 
   const bgImageUrl = data?.field_background_image?.uri?.url
-    ? `https://dev-mission.keymouseit.com${data.field_background_image.uri.url}`
+    ? `${DEV_PUBLIC_URL}${data.field_background_image.uri.url}`
     : null;
 
   return (

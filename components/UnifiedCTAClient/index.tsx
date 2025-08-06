@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { DrupalNode } from "next-drupal";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 type PrimaryCTASectionProps = {
   data: DrupalNode;
@@ -38,7 +39,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
         }`}
       >
         <Image
-          src={`https://dev-mission.keymouseit.com${imageUrl}`}
+          src={`${DEV_PUBLIC_URL}${imageUrl}`}
           alt="cta-img"
           height={520}
           width={520}
