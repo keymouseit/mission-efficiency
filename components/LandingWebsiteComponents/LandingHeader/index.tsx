@@ -12,24 +12,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { usePathname } from "next/navigation";
-
-interface MenuItem {
-  id: string;
-  title: string;
-  url: string;
-  children: MenuItem[];
-}
-
-interface HeaderProps {
-  data: {
-    field_header_logo: {
-      uri: {
-        url: string;
-      };
-    };
-    field_header_menus_items: MenuItem[];
-  };
-}
+import { MenuItem, HeaderProps } from "@/types/header";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 const Header: React.FC<HeaderProps> = ({ data }) => {
   const { field_header_logo, field_header_menus_items } = data;
@@ -60,9 +44,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
             <Link href="/home">
               <Image
                 className="cursor-pointer"
-                src={`${"https://dev-mission.keymouseit.com"}${
-                  field_header_logo?.uri?.url || ""
-                }`}
+                src={`${DEV_PUBLIC_URL}${field_header_logo?.uri?.url || ""}`}
                 width={156}
                 height={44}
                 alt="app logo"

@@ -1,5 +1,6 @@
 "use client";
 
+import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
@@ -73,9 +74,7 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
             transition={{ type: "spring", duration: 1.8 }}
           >
             <img
-              src={`${"https://dev-mission.keymouseit.com"}${
-                data?.field_twi_image?.uri?.url
-              }`}
+              src={`${DEV_PUBLIC_URL}${data?.field_twi_image?.uri?.url}`}
               alt="boardImg"
               className="h-full w-full object-cover transform transition-transform duration-500 hover:scale-105"
             />

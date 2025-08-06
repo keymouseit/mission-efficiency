@@ -1,5 +1,6 @@
 "use client";
 
+import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Image from "next/image";
@@ -14,7 +15,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
   materialsData,
   resourcesData,
 }) => {
-  const drupalBaseUrl = "https://dev-mission.keymouseit.com";
+  const drupalBaseUrl = DEV_PUBLIC_URL;
   return (
     <div className="relative bg-mapGray overflow-hidden">
       <div className="mini-container relative z-[2]">

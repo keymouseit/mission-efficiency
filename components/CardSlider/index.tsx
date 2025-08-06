@@ -7,6 +7,7 @@ import slugify from "slugify";
 import { formatDateToUS } from "@/lib/utils";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface NewsCardSliderProps {
   sliderData: DrupalNode[];
@@ -46,7 +47,7 @@ const CardSlider: React.FC<NewsCardSliderProps> = ({
             <div className="flex items-start box-border exactLaptop:bg-white remove-news-shadow card-shadow w-full laptop:h-[320px] h-[245px] aboveMinMobile:h-[160px] minMobile:h-[140px] exactLaptop:rounded-[4px] overflow-hidden">
               <div className="tab:w-[40%] tab:max-w-[50%] flex justify-center items-center w-full overflow-hidden relative mobileMax:mb-0 h-full minMobile:w-[90%] mobileMax:mr-2 lieTablets:mr-3">
                 <img
-                  src={`https://dev-mission.keymouseit.com${newsData.field_slider_image?.uri?.url}`}
+                  src={`${DEV_PUBLIC_URL}${newsData.field_slider_image?.uri?.url}`}
                   alt="category img"
                   className="w-full h-full max-w-full object-scale-down card-shadow"
                 />
