@@ -7,15 +7,9 @@ export interface MenuItem {
   children: MenuItem[];
 }
 
-export interface HeaderLogo {
-  uri: {
-    url: string;
-  };
-}
-
-export interface HeaderData {
-  field_header_logo: HeaderLogo;
-  field_header_menus_items: MenuItem[];
+export interface HeaderData extends DrupalNode {
+  field_logo?: DrupalNode;
+  field_header_menus_items?: MenuItem[];
 }
 
 export interface HeaderProps {
@@ -44,4 +38,8 @@ export interface DynamicTemplateScreenProps {
   templateData: DrupalNode;
   headerData: HeaderData;
   footerData: DrupalNode;
+}
+
+export interface RawHeaderNode extends DrupalNode {
+  field_logo?: DrupalNode;
 }

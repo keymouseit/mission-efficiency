@@ -6,7 +6,7 @@ import { HeaderData } from "@/types/header";
 
 interface DynamicTemplateScreenProps {
   templateData: DrupalNode;
-  headerData: HeaderData;
+  headerData?: HeaderData;
   footerData: DrupalNode;
 }
 
@@ -17,7 +17,7 @@ export default function DynamicTemplateServer({
 }: DynamicTemplateScreenProps) {
   return (
     <>
-      <Header data={headerData} />
+      <Header data={headerData as any} />
       <DynamicTemplateClient templateData={templateData} />
       <LandingFooter data={footerData} />
     </>

@@ -10,7 +10,7 @@ import DynamicTemplateServer from "./screen";
 import NotFoundPage from "@/components/NotFound";
 import { redirect } from "next/navigation";
 import { processMenuData } from "@/lib/processMenuData";
-import { HeaderData } from "@/types/header";
+import { HeaderData, RawHeaderNode } from "@/types/header";
 
 const TemplatePage = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;
@@ -20,17 +20,13 @@ const TemplatePage = async ({ params }: { params: { slug: string } }) => {
 
   // Fetch all necessary Drupal data
   const newData = await getPageTemplateNew();
-  const rawHeaderData = await getNewHeader();
+  const rawHeaderData = (await getNewHeader()) as RawHeaderNode[];
   const footerData = await getNewFooter();
   const MenuData = await getMenuDetails();
   const processedMenuItems = processMenuData(MenuData);
 
-  const headerProps: HeaderData = {
-    field_header_logo: {
-      uri: {
-        url: rawHeaderData[0]?.field_logo?.uri?.url || "",
-      },
-    },
+  const headerProps: any = {
+    field_logo: rawHeaderData[0]?.field_logo,
     field_header_menus_items: processedMenuItems,
   };
 

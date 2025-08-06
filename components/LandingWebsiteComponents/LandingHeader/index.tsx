@@ -16,7 +16,6 @@ import { MenuItem, HeaderProps } from "@/types/header";
 import { DEV_PUBLIC_URL } from "@/services/api";
 
 const Header: React.FC<HeaderProps> = ({ data }) => {
-  const { field_header_logo, field_header_menus_items } = data;
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const currentPath = usePathname();
 
@@ -44,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
             <Link href="/home">
               <Image
                 className="cursor-pointer"
-                src={`${DEV_PUBLIC_URL}${field_header_logo?.uri?.url || ""}`}
+                src={`${DEV_PUBLIC_URL}${data?.field_logo?.uri?.url || ""}`}
                 width={156}
                 height={44}
                 alt="app logo"
@@ -54,18 +53,18 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
 
           {/* Desktop Menu */}
           <div className="w-full justify-end tab:flex hidden">
-            {field_header_menus_items.map((menuItem, index) => {
+            {data?.field_header_menus_items?.map((menuItem, index) => {
               const matchedSubMenu = hasChildren(menuItem);
 
               return (
                 <div key={index} className="landing-menu">
                   <Link
-                    href={menuItem.url || "#"}
+                    href={menuItem?.url || "#"}
                     className={`text-xsmall laptop:text-small desktop:px-4 px-2 hover:text-blue relative min-h-[30px] block ${
                       currentPath === menuItem.url ? "text-blue" : "text-menu"
                     }`}
                   >
-                    {menuItem.title}
+                    {menuItem?.title}
                     {matchedSubMenu && (
                       <IoIosArrowDown className="inline text-md ml-1" />
                     )}
@@ -74,10 +73,10 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                   {matchedSubMenu && (
                     <div
                       className={`menu-ul hidden absolute top-[55px] z-10 bg-white rounded-xl max-w-[240px] min-w-[220px] overflow-hidden common-dropShadow lieTablets:min-w-[190px] lieTablets:max-w-[190px] ${
-                        menuItem.title === "Get Involved" && "right-[20px]"
+                        menuItem?.title === "Get Involved" && "right-[20px]"
                       }`}
                     >
-                      {menuItem.children.map((subItem, subIndex) => (
+                      {menuItem?.children.map((subItem, subIndex) => (
                         <Link
                           key={subIndex}
                           href={
@@ -115,7 +114,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
             onClick={() => setMobileMenuOpen(false)}
           />
 
-          {field_header_menus_items.map((menuItem, index) => {
+          {data?.field_header_menus_items?.map((menuItem, index) => {
             const matchedSubMenu = hasChildren(menuItem);
 
             return (
