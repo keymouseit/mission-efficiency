@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
-import { originName } from "@/services/api";
+import { useOrigin } from "@/hooks/useOrigin";
 
 interface HomeGridProps {
   gridImages: string[];
@@ -14,6 +14,8 @@ interface HomeGridProps {
 }
 
 const HomeGridLayout: React.FC<HomeGridProps> = (props) => {
+  const origin = useOrigin();
+
   const {
     title = "",
     gridImages = [],
@@ -55,8 +57,9 @@ const HomeGridLayout: React.FC<HomeGridProps> = (props) => {
             {gridImages.slice(1, 3).map((img, index) => (
               <motion.div
                 key={index}
-                className={`overflow-hidden rounded-[25px] max-w-full ${index === 0 ? "max-w-[50%]" : "ml-5"
-                  }`}
+                className={`overflow-hidden rounded-[25px] max-w-full ${
+                  index === 0 ? "max-w-[50%]" : "ml-5"
+                }`}
                 initial={{ opacity: 0, y: motionSettings[index + 1].y }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -96,10 +99,9 @@ const HomeGridLayout: React.FC<HomeGridProps> = (props) => {
         <Link
           href={
             buttonLink?.startsWith("internal:")
-              ? `${originName}${buttonLink.replace("internal:", "")}`
+              ? `${origin}${buttonLink.replace("internal:", "")}`
               : buttonLink || "#"
           }
-
           className="h-[46px] rounded-md --font-poppins bg-buttonOverlay px-[30px] flex max-w-[160px] items-center justify-center hover:bg-blueHover"
         >
           <span className="text-clip learnBtn --font-poppins text-xsmall font-medium">
