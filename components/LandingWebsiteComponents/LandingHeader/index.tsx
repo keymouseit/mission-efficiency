@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                         <Link
                           key={subIndex}
                           href={
-                            ` ${subItem.url.includes("#") ? menuItem.url : ""}${
+                            `${subItem.url.includes("#") ? menuItem.url : ""}${
                               subItem.url
                             }` || "#"
                           }
@@ -139,10 +139,14 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
 
                   <AccordionContent className="pb-0">
                     {matchedSubMenu &&
-                      menuItem.children.map((subItem, subIndex) => (
+                      menuItem?.children.map((subItem, subIndex) => (
                         <Link
                           key={subIndex}
-                          href={subItem.url || "#"}
+                          href={
+                            `${subItem.url.includes("#") ? menuItem.url : ""}${
+                              subItem.url
+                            }` || "#"
+                          }
                           className="text-xsmall font-normal block px-8 py-1 hover:bg-mapGray text-menu"
                         >
                           {subItem.title}
