@@ -1,6 +1,6 @@
 "use client";
-
-import { originName } from "@/services/api";
+import { useOrigin } from "@/hooks/useOrigin";
+import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
@@ -10,6 +10,8 @@ interface TrainingSectionProps {
 }
 
 const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
+  const origin = useOrigin();
+
   return (
     <div className="pt-[100px] pb-[90px] bg-white relative mobileMax:py-10 betweenMobileTab:py-12 overflow-hidden">
       {/* Background Overlay */}
@@ -52,7 +54,10 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
             <Link
               href={
                 data?.field_twi_button[0]?.uri?.startsWith("internal:")
-                  ? `${originName}${data.field_twi_button[0].uri.replace("internal:", "")}`
+                  ? `${origin}${data.field_twi_button[0].uri.replace(
+                      "internal:",
+                      ""
+                    )}`
                   : data?.field_twi_button[0]?.uri || "#"
               }
               className="h-[46px] rounded-md bg-buttonOverlay px-[30px] flex max-w-[160px] items-center justify-center mt-10 text-[#0077e4] font-mediums --font-poppins text-xsmall hover:bg-blueHover"
@@ -78,8 +83,7 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
             transition={{ type: "spring", duration: 1.8 }}
           >
             <img
-              src={`${"https://dev-mission.keymouseit.com"}${data?.field_twi_image?.uri?.url
-                }`}
+              src={`${DEV_PUBLIC_URL}${data?.field_twi_image?.uri?.url}`}
               alt="boardImg"
               className="h-full w-full object-cover transform transition-transform duration-500 hover:scale-105"
             />

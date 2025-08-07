@@ -1,5 +1,6 @@
 "use client";
 
+import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { DrupalNode } from "next-drupal";
@@ -11,8 +12,8 @@ interface EconomyWidePartnersProps {
 
 const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
   return (
-    <div
-      id="economy-wide-resources-partners"
+    <section
+      id="Resources-and-Tools-support"
       className="relative support-bottom-banner"
     >
       <img
@@ -62,9 +63,7 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
                           `}
                       >
                         <img
-                          src={`${"https://dev-mission.keymouseit.com"}${
-                            listItem?.field_icon?.uri?.url
-                          }`}
+                          src={`${DEV_PUBLIC_URL}${listItem?.field_icon?.uri?.url}`}
                           alt="support img"
                           className={`max-h-full w-full object-contain h-[130px]`}
                         />
@@ -92,7 +91,7 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

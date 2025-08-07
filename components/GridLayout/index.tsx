@@ -3,13 +3,15 @@ import { DrupalNode } from "next-drupal";
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import HomeGridLayout from "../HomeGridLayout";
-import { originName } from "@/services/api";
+import { DEV_PUBLIC_URL } from "@/services/api";
+import { useOrigin } from "@/hooks/useOrigin";
 
 interface GridLayoutProps {
   data: DrupalNode;
 }
 
 const GridLayout: React.FC<GridLayoutProps> = ({ data }) => {
+  const origin = useOrigin();
   const [isMobile, setIsMobile] = useState<Boolean>(false);
 
   const { scrollYProgress } = useScroll();
@@ -49,23 +51,18 @@ const GridLayout: React.FC<GridLayoutProps> = ({ data }) => {
       <div className="mini-container">
         <HomeGridLayout
           gridImages={[
-            `${"https://dev-mission.keymouseit.com"}${data?.field_images[0]?.uri?.url
-            }`,
-            `${"https://dev-mission.keymouseit.com"}${data?.field_images[1]?.uri?.url
-            }`,
-            `${"https://dev-mission.keymouseit.com"}${data?.field_images[2]?.uri?.url
-            }`,
+            `${DEV_PUBLIC_URL}${data?.field_images[0]?.uri?.url}`,
+            `${DEV_PUBLIC_URL}${data?.field_images[1]?.uri?.url}`,
+            `${DEV_PUBLIC_URL}${data?.field_images[2]?.uri?.url}`,
           ]}
           title={data?.field_title}
           subTitle={data?.field_description?.processed}
           buttonText={data?.field_button[0]?.title}
           buttonLink={
             data?.field_button?.[0]?.uri?.startsWith("internal:")
-              ? `${originName}${data.field_button[0].uri.replace("internal:", "")}`
+              ? `${origin}${data.field_button[0].uri.replace("internal:", "")}`
               : data?.field_button?.[0]?.uri || "#"
           }
-
-
         />
       </div>
     </div>

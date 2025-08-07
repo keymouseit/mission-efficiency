@@ -15,7 +15,7 @@ import MultipleBenefitsSection from "../MultipleBenefitsSection";
 import OpportunitySection from "../OpportunitySection";
 import GetInvolvedCard from "../GetInvolvedCard";
 import Taskforce from "../Author&Activities";
-import GetinvlovedCardWithoutTitle from "../GetInvolvedCardWithoutTitle";
+import GetInvolvedCardWithoutTitle from "../GetInvolvedCardWithoutTitle";
 import PartnerCardSlider from "../LandingWebsiteComponents/PartnerCardSlider";
 import EnergyActivities from "../EnergyActivities";
 import ReadyToJoin from "../ReadyToJoin";
@@ -51,10 +51,8 @@ const DynamicTemplateClient = ({
       };
     }
 
-
     // Regular component handling
     switch (pageComponent.type) {
-
       case "paragraph--hero_section":
         return {
           component:
@@ -120,12 +118,13 @@ const DynamicTemplateClient = ({
         };
       case "paragraph--cards_section_with_text":
         const title = pageComponent?.field_title;
-        const isEnergyRelated = title === "Energy efficiency is related but different than:";
-        const isMultipleBenefits = title === "Multiple Benefits of Energy Efficiency";
+        const isEnergyRelated =
+          title === "Energy efficiency is related but different than:";
+        const isMultipleBenefits =
+          title === "Multiple Benefits of Energy Efficiency";
         const isOpportunity = title === "The energy efficiency opportunity";
         const isGetInvolvedCard = title === "Your role at Mission Efficiency";
         const isGetInvolvedCardWithoutTitle = title === null;
-
 
         const isActivities = title === "Activities";
         const isCampaign = title === "Campaign Materials";
@@ -140,7 +139,7 @@ const DynamicTemplateClient = ({
           ) : isGetInvolvedCard ? (
             <GetInvolvedCard data={pageComponent} />
           ) : isGetInvolvedCardWithoutTitle ? (
-            <GetinvlovedCardWithoutTitle data={pageComponent} />
+            <GetInvolvedCardWithoutTitle data={pageComponent} />
           ) : isActivities ? (
             <EnergyActivities data={pageComponent} />
           ) : isCampaign ? (
@@ -166,12 +165,12 @@ const DynamicTemplateClient = ({
         return {
           component: <Taskforce data={pageComponent} />,
           skipNext: false,
-        }
-        case "paragraph--partners_section":
-          return {
-            component: <PartnerCardSlider sliderData={pageComponent}/>,
-            skipNext:false,
-          }
+        };
+      case "paragraph--partners_section":
+        return {
+          component: <PartnerCardSlider sliderData={pageComponent} />,
+          skipNext: false,
+        };
       case "paragraph--cards_with_category":
         return {
           component: <SectorResources data={pageComponent} />,

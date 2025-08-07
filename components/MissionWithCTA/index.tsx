@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Image from "next/image";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface MissionWithCTAProps {
   missionData: DrupalNode;
@@ -80,9 +81,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
                   {card?.field_icon?.uri?.url && (
                     <div className="mb-[23px] max-h-[120px] min-h-[120px] flex justify-center items-center overflow-hidden">
                       <Image
-                        src={`${"https://dev-mission.keymouseit.com"}${
-                          card?.field_icon?.uri?.url
-                        }`}
+                        src={`${DEV_PUBLIC_URL}${card?.field_icon?.uri?.url}`}
                         alt="card icon"
                         width={120}
                         height={100}
@@ -133,9 +132,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
           >
             {ctaData?.field_twi_image?.uri?.url && (
               <Image
-                src={`${"https://dev-mission.keymouseit.com"}${
-                  ctaData?.field_twi_image?.uri?.url
-                }`}
+                src={`${DEV_PUBLIC_URL}${ctaData?.field_twi_image?.uri?.url}`}
                 width={1000}
                 height={1000}
                 unoptimized

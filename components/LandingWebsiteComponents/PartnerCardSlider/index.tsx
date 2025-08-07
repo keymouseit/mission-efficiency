@@ -5,6 +5,7 @@ import { DrupalNode } from "next-drupal";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface PartnerCardSliderProps {
   sliderData: DrupalNode;
@@ -70,7 +71,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
   };
 
   return (
-    <div className="mb-72">
+    <section id="partners" className="mb-72">
       <motion.h3
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +100,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
                 >
                   <div className="max-w-[160px] w-full h-[110px] max-h-[110px] min-w-[120px] min-h-[100px] overflow-hidden">
                     <Image
-                      src={`https://dev-mission.keymouseit.com${partnerCard?.field_icon?.uri?.url}`}
+                      src={`${DEV_PUBLIC_URL}${partnerCard?.field_icon?.uri?.url}`}
                       alt="img"
                       width={160}
                       height={100}
@@ -128,7 +129,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
                 >
                   <div className="max-w-[160px] w-full h-[110px] max-h-[110px] min-w-[120px] min-h-[100px] overflow-hidden">
                     <Image
-                      src={`https://dev-mission.keymouseit.com${partnerCard?.field_icon?.uri?.url}`}
+                      src={`${DEV_PUBLIC_URL}${partnerCard?.field_icon?.uri?.url}`}
                       alt="img"
                       width={160}
                       height={100}
@@ -140,7 +141,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
             );
           })}
       </Slider>
-    </div>
+    </section>
   );
 };
 

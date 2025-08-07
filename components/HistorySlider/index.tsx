@@ -5,6 +5,7 @@ import { DrupalNode } from "next-drupal";
 import { PiArrowCircleRightThin, PiArrowCircleLeftThin } from "react-icons/pi";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface HistorySliderProps {
   sliderData: DrupalNode;
@@ -56,9 +57,7 @@ const HistorySlider: React.FC<HistorySliderProps> = ({ sliderData }) => {
                   <div className="flex items-start flex-col box-border w-full">
                     <div className="mb-[35px] flex justify-center items-center h-[215px] overflow-hidden w-full mobileMax:mb-5">
                       <img
-                        src={`${"https://dev-mission.keymouseit.com"}${
-                          timelineCard?.field_icon?.uri?.url
-                        }`}
+                        src={`${DEV_PUBLIC_URL}${timelineCard?.field_icon?.uri?.url}`}
                         alt="category img"
                         className="w-full h-full object-cover"
                       />

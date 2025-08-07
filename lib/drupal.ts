@@ -18,7 +18,7 @@ export const drupalClient = new DrupalClient(
 );
 
 export const pantheonStoreNew = new DrupalState({
-  apiBase: "https://dev-mission.keymouseit.com",
-  clientId: "default_consumer",
-  clientSecret: "6gf_F51gLvO9pyns_-tH_YPfcg5eB7r6xoXGH41fezc",
+  apiBase: process.env.NEXT_PUBLIC_DRUPAL_DEV_BASE_URL || "",
+  clientId: process.env.NEXT_DEV_CLIENT_ID || "",
+  clientSecret: process.env.NEXT_DEV_CLIENT_SECRET || "",
 });

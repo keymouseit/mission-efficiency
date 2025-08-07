@@ -1,4 +1,5 @@
 "use client";
+import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Image from "next/image";
@@ -43,7 +44,7 @@ export default function EnergyRelatedSection({
               <div className="rounded-xl h-full flex items-start flex-col box-border w-full">
                 <div className="mb-5 mx-auto h-[34px]">
                   <Image
-                    src={`https://dev-mission.keymouseit.com${
+                    src={`${DEV_PUBLIC_URL}${
                       relatedCard?.field_icon?.uri?.url || ""
                     }`}
                     alt="category img"
@@ -83,7 +84,7 @@ export default function EnergyRelatedSection({
             <div className="flex items-center flex-col box-border desktop:w-[52%] w-[70%] mobileMax:w-full">
               <div className="mb-8 h-[34px]">
                 <Image
-                  src={`https://dev-mission.keymouseit.com${
+                  src={`${DEV_PUBLIC_URL}${
                     bannerCard?.field_icon?.uri?.url || ""
                   }`}
                   alt="category img"

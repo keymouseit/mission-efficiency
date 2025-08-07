@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import PartnerCard from "../LandingWebsiteComponents/PartnersCard";
+import { DEV_PUBLIC_URL } from "@/services/api";
 
 interface SupportPartnersSectionProps {
   data: DrupalNode;
@@ -47,9 +48,7 @@ function Resources({ data }: SupportPartnersSectionProps) {
         {/* Partner Cards */}
         <div className="flex items-center flex-wrap pb-[25px] w-[90%] mx-auto justify-center transparent-cards-border">
           {data?.field_resources_cards.map((card: any, index: any) => {
-            const imageUrl = `${"https://dev-mission.keymouseit.com"}${
-              card?.field_image[0]?.uri?.url
-            }`;
+            const imageUrl = `${DEV_PUBLIC_URL}${card?.field_image[0]?.uri?.url}`;
 
             return (
               <motion.div

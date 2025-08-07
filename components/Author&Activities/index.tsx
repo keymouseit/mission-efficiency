@@ -1,52 +1,51 @@
 "use client";
-
 import { DrupalNode } from "next-drupal";
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
 import Image from "next/image";
-import { originName } from "@/services/api";
+import { DEV_PUBLIC_URL } from "@/services/api";
+import { useOrigin } from "@/hooks/useOrigin";
 
 type TaskforceProps = {
   data: DrupalNode;
 };
 
 const Taskforce = ({ data }: TaskforceProps) => {
+  const origin = useOrigin();
 
   return (
-    <div>
-      <div className="pb-24 bg-[#ebf0f7]">
-        <div className="mini-container">
-          <motion.h3
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
-            className="remove-animation-fluctuation pt-[82px] desktop:text-[55px] text-numans mb-5 desktop:leading-[85px] category-gradient text-clip text-[48px] leading-normal mobileMax:text-[35px] mobileMax:mb-3 text-center"
-          >
-            {data?.field_title}
+    <section id="TaskForces" className="pb-24 bg-[#ebf0f7]">
+      <div className="mini-container">
+        <motion.h3
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0,
+          }}
+          className="remove-animation-fluctuation pt-[82px] desktop:text-[55px] text-numans mb-5 desktop:leading-[85px] category-gradient text-clip text-[48px] leading-normal mobileMax:text-[35px] mobileMax:mb-3 text-center"
+        >
+          {data?.field_title}
+        </motion.h3>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0,
+          }}
+          className="remove-animation-fluctuation  --font-poppins mb-10 text-medium leading-8 text-lightBlueText mobileMax:w-full mobileMax:text-small mobileMax:mb-6 mobileMax:leading-normal text-center"
+          dangerouslySetInnerHTML={{
+            __html: data?.field_description?.processed || "",
+          }}
+        />
+      </div>
 
-          </motion.h3>
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
-            className="remove-animation-fluctuation  --font-poppins mb-10 text-medium leading-8 text-lightBlueText mobileMax:w-full mobileMax:text-small mobileMax:mb-6 mobileMax:leading-normal text-center"
-            dangerouslySetInnerHTML={{
-              __html: data?.field_description?.processed || "",
-            }}
-          />
-        </div>
-
-
-        <div className="mini-container">
-          {data.field_add_tasks.length > 0 && data.field_add_tasks.map((data: DrupalNode, index: number) => (
+      <div className="mini-container">
+        {data.field_add_tasks.length > 0 &&
+          data.field_add_tasks.map((data: DrupalNode, index: number) => (
             <div className=" mobileMax:py-6 mt-10">
               <motion.div
                 initial={{ opacity: 0, y: 60 }}
@@ -77,30 +76,33 @@ const Taskforce = ({ data }: TaskforceProps) => {
                     {data?.field_add_activities?.length > 0 && (
                       <motion.div className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small">
                         <ul className="list-disc pl-5">
-                          {data.field_add_activities.map((activity: DrupalNode, index: number) => (
-                            <li key={activity?.id || index} className="mb-2">
-                              {activity?.field_label}
-                            </li>
-                          ))}
+                          {data.field_add_activities.map(
+                            (activity: DrupalNode, index: number) => (
+                              <li key={activity?.id || index} className="mb-2">
+                                {activity?.field_label}
+                              </li>
+                            )
+                          )}
                         </ul>
                       </motion.div>
                     )}
 
-
                     {data?.field_button?.length > 0 && (
                       <div
-                        className={`flex flex-row justify-between mobileMax:flex-col ${data.field_button.length > 0 ? "my-10 mobileMax:my-2" : ""
-                          }`}
+                        className={`flex flex-row justify-between mobileMax:flex-col ${
+                          data.field_button.length > 0
+                            ? "my-10 mobileMax:my-2"
+                            : ""
+                        }`}
                       >
                         {data.field_button.map((btn: any, index: number) => (
                           <Link
                             key={index}
                             href={
                               btn?.uri?.startsWith("internal:")
-                                ? `${originName}${btn.uri.replace("internal:", "")}`
+                                ? `${origin}${btn.uri.replace("internal:", "")}`
                                 : btn?.uri || "#"
                             }
-
                             className="--font-poppins mobileMax:mt-2 text-medium text-defaultLink leading-6 flex items-center cursor-pointer mobileMax:text-xsmall"
                           >
                             {btn.title}
@@ -113,11 +115,15 @@ const Taskforce = ({ data }: TaskforceProps) => {
                     {data?.field_author_details && (
                       <>
                         <div className="w-full flex items-center justify-between mx-auto pt-10 mobileMax:flex-col">
-                          {data?.field_author_details.field_image[0]?.uri?.url && (
+                          {data?.field_author_details.field_image[0]?.uri
+                            ?.url && (
                             <div className="max-w-[220px] min-w-[220px] mobileMax:min-w-[150px] mobileMax:max-w-[150px] mr-5 mobileMax:mr-0">
                               <Image
-                                src={`https://dev-mission.keymouseit.com${data?.field_author_details?.field_image[0]?.uri?.url}`}
-                                alt={data.field_author_details.field_image[0].alt || "author image"}
+                                src={`${DEV_PUBLIC_URL}${data?.field_author_details?.field_image[0]?.uri?.url}`}
+                                alt={
+                                  data.field_author_details.field_image[0]
+                                    .alt || "author image"
+                                }
                                 width={200}
                                 height={200}
                                 unoptimized
@@ -131,7 +137,8 @@ const Taskforce = ({ data }: TaskforceProps) => {
                               <p
                                 className="--font-poppins font-medium text-xmedium leading-snug italic text-center text-cardText leading-8 my-8 resources-links mobileMax:text-xsmall mobileMax:leading-normal relative quotes-imgBox z-[2] w-[95%] tab:ml-auto"
                                 dangerouslySetInnerHTML={{
-                                  __html: data?.field_author_details?.field_about,
+                                  __html:
+                                    data?.field_author_details?.field_about,
                                 }}
                               ></p>
                             </div>
@@ -156,9 +163,8 @@ const Taskforce = ({ data }: TaskforceProps) => {
               </motion.div>
             </div>
           ))}
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

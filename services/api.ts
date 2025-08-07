@@ -1,7 +1,7 @@
-import { createQueryString, fileToBase64, fileToBinary } from "@/lib/utils";
+import { createQueryString } from "@/lib/utils";
 import axios from "axios";
 
-export const originName = window.location.origin;
+export const DEV_PUBLIC_URL = process.env.NEXT_PUBLIC_DRUPAL_DEV_BASE_URL;
 
 const api = axios.create({
   baseURL: process.env.NEXT_APP_BASE_URL,

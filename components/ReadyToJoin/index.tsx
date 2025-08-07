@@ -1,5 +1,6 @@
 "use client";
 
+import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Image from "next/image";
@@ -9,9 +10,7 @@ interface ReadyToJoinProps {
 }
 
 const ReadyToJoin: React.FC<ReadyToJoinProps> = ({ data }) => {
-  const imageUrl = `${"https://dev-mission.keymouseit.com"}${
-    data?.field_twi_image?.uri?.url || ""
-  }`;
+  const imageUrl = `${DEV_PUBLIC_URL}${data?.field_twi_image?.uri?.url || ""}`;
 
   return (
     <div className="w-full bg-[#ebf0f7] pt-5">

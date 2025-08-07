@@ -6,17 +6,19 @@ import { DrupalNode } from "next-drupal";
 import Image from "next/image";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
-import { originName } from "@/services/api";
+import { DEV_PUBLIC_URL } from "@/services/api";
+import { useOrigin } from "@/hooks/useOrigin";
 
 type MissionSectionProps = {
   data: DrupalNode;
 };
 
 const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
+  const origin = useOrigin();
   const [isMobile, setIsMobile] = useState<Boolean>(false);
   const [hasMounted, setHasMounted] = useState(false);
   const title = data.field_title === "Resources and Tools";
-
+  const title101 = data.field_title === "Energy Efficiency 101";
   const { scrollYProgress } = useScroll();
   const moveOverlayImage = useTransform(
     scrollYProgress,
@@ -40,7 +42,10 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
   }, []);
 
   return (
-    <div className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10">
+    <div
+      id={title101 ? "Energy-Efficiency-101" : ""}
+      className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10"
+    >
       {hasMounted && !title && (
         <motion.div
           style={{
@@ -79,38 +84,41 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
         )}
 
         <div
-          className={`flex flex-wrap box-border ${title
+          className={`flex flex-wrap box-border ${
+            title
               ? "items-center justify-center"
               : "justify-between items-start"
-            }`}
+          }`}
         >
           {data?.field_add_card?.map(
             (missionCard: DrupalNode, index: number) => (
               <motion.div
                 key={index}
-                className={`remove-animation-fluctuation w-[33%] mobileMax:w-full lieTablets:w-[50%] mobileMax:px-0 ${missionCard?.field_icon?.uri?.url
+                className={`remove-animation-fluctuation w-[33%] mobileMax:w-full lieTablets:w-[50%] mobileMax:px-0 ${
+                  missionCard?.field_icon?.uri?.url
                     ? "desktop:px-[15px] mb-[30px] betweenMobileTab:px-[10px]"
                     : "px-[15px] mb-[25px] mt-2 mobileMax:mb-5 mobileMax:mt-0"
-                  }`}
+                }`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0 }}
               >
                 <div
-                  className={`border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white flex items-center flex-col box-border w-full card-shadow ${missionCard?.field_icon?.uri?.url
+                  className={`border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white flex items-center flex-col box-border w-full card-shadow ${
+                    missionCard?.field_icon?.uri?.url
                       ? "px-4 py-[25px] min-h-[284px]"
                       : "px-5 pb-5 h-full"
-                    }`}
+                  }`}
                 >
                   <div
-                    className={`${missionCard?.field_icon?.uri?.url ? "mb-[23px]" : ""
-                      } max-h-[120px] min-h-[120px] flex justify-center items-center overflow-hidden`}
+                    className={`${
+                      missionCard?.field_icon?.uri?.url ? "mb-[23px]" : ""
+                    } max-h-[120px] min-h-[120px] flex justify-center items-center overflow-hidden`}
                   >
                     {missionCard?.field_icon?.uri?.url ? (
                       <Image
-                        src={`${"https://dev-mission.keymouseit.com"}${missionCard.field_icon.uri.url
-                          }`}
+                        src={`${DEV_PUBLIC_URL}${missionCard.field_icon.uri.url}`}
                         alt="category img"
                         width={120}
                         height={100}
@@ -130,20 +138,22 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
                   <div className="h-full w-full">
                     {missionCard?.field_title && (
                       <h4
-                        className={`${missionCard?.field_icon?.uri?.url
+                        className={`${
+                          missionCard?.field_icon?.uri?.url
                             ? "desktop:text-[27px]"
                             : "text-[22px]"
-                          } --font-poppins text-center mb-2 text-landingBlue leading-normal capitalize text-medium`}
+                        } --font-poppins text-center mb-2 text-landingBlue leading-normal capitalize text-medium`}
                       >
                         {missionCard.field_title}
                       </h4>
                     )}
                     {missionCard?.field_description?.processed && (
                       <div
-                        className={`--font-poppins text-center text-small text-[#7b99c7] leading-6 mobileMax:leading-normal mobileMax:text-xsmall ${missionCard?.field_icon?.uri?.url
+                        className={`--font-poppins text-center text-small text-[#7b99c7] leading-6 mobileMax:leading-normal mobileMax:text-xsmall ${
+                          missionCard?.field_icon?.uri?.url
                             ? "line-clamp-5"
                             : "mb-5 elevate-card-ellipse font-normal"
-                          }`}
+                        }`}
                         dangerouslySetInnerHTML={{
                           __html: missionCard.field_description.processed,
                         }}
@@ -153,8 +163,13 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
                     {missionCard?.field_button.length ? (
                       <Link
                         href={
-                          missionCard.field_button[0]?.uri?.startsWith("internal:")
-                            ? `${originName}${missionCard.field_button[0].uri.replace("internal:", "")}`
+                          missionCard.field_button[0]?.uri?.startsWith(
+                            "internal:"
+                          )
+                            ? `${origin}${missionCard.field_button[0].uri.replace(
+                                "internal:",
+                                ""
+                              )}`
                             : missionCard.field_button[0]?.uri || "#"
                         }
                         target="_blank"
