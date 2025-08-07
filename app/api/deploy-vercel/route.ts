@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-let lastTriggeredAt = 0
+let lastTriggeredAt = 0;
 
 export async function POST(req: NextRequest) {
   const now = Date.now();
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
   lastTriggeredAt = now;
 
   const vercelWebhookURL =
-    "https://api.vercel.com/v1/integrations/deploy/prj_WhxADPT6CCmAlPguJnPXtGrlULZd/ON2GO6oPT1";
+    "https://api.vercel.com/v1/integrations/deploy/prj_08ws4F5hv36Te30ehWgQkuvX1btj/ajH3fjyFhP";
 
   try {
     const response = await fetch(vercelWebhookURL, { method: "POST" });
