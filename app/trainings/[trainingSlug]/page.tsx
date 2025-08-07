@@ -1,5 +1,5 @@
 import DetailScreen from '@/isolateScreens/DetailScreen';
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import { Metadata } from 'next';
 
 // type Props = {
@@ -49,7 +49,7 @@ const TrainingDetailPage = async ({
 }) => {
 	const { trainingSlug } = params;
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 	const cardDetails = await DrupalService.getNormalisedCardDataFromId(
 		trainingSlug,
 		'TRAINING',

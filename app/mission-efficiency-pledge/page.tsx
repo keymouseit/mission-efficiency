@@ -1,4 +1,4 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import MissionPledgeScreen from './screen';
 import { DrupalNode } from 'next-drupal';
 import { Metadata } from 'next';
@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const MissionPledgePage = async () => {
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 	const pageData = await DrupalService.getMissionPledgePageData();
 	const getAllPledges = await DrupalService.getAllPledgesCard();
 	let newMissionPledgeCards: DrupalNode[] = [];

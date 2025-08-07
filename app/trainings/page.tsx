@@ -1,4 +1,4 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import TrainingScreen from './screen';
 import { DrupalNode } from 'next-drupal';
 import { Metadata } from 'next';
@@ -28,7 +28,7 @@ const Training = async ({ searchParams }: any) => {
 		resource = '',
 	} = searchParams;
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 	const topicData = await DrupalService.getTopicData();
 	const languagefilterData = await DrupalService.getLanguageData();
 	const resourcesData = await DrupalService.getResourcesData();

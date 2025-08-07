@@ -1,11 +1,11 @@
 import React from 'react';
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import TermsConditionScreen from './screen';
 
 const TermsCondition = async () => {
 	const getTermsPage = await DrupalService.getTermConditionData();
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 
 	return (
 		<>

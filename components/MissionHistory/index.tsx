@@ -4,10 +4,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import HistorySlider from "../HistorySlider";
+import Link from "next/link";
 
 type MissionHistoryProps = {
   data: DrupalNode;
 };
+      // <Link  href={`${originName}${buttonLink}`} className="mini-container">
+
 
 const MissionHistory: React.FC<MissionHistoryProps> = ({ data }) => {
   return (

@@ -1,11 +1,11 @@
 import React from 'react'
 import PrivacyPolicyScreen from './screen'
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 
 const PrivacyPolicy =  async() => {
   const getPolicyPage = await DrupalService.getPrivacyPolicy();
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 
   return (
     <>

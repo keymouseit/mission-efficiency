@@ -5,6 +5,7 @@ import { DrupalNode } from "next-drupal";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
+import { originName } from "@/services/api";
 
 interface TitleDescriptionBlockProps {
   data?: DrupalNode;
@@ -56,7 +57,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
     backgroundImageClass,
     isImageRight = false,
   } = variantConfig[backgroundColor as keyof typeof variantConfig] ??
-  variantConfig.cta_white;
+    variantConfig.cta_white;
 
   const content =
     data?.field_cta_description?.processed ||
@@ -69,9 +70,8 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
   return (
     <section
       id={data?.id}
-      className={` ${
-        bgImageUrl ? "bg-black" : backgroundClass
-      } overflow-hidden relative pt-5 pb-[60px] mobileMax:pt-0 mobileMax:pb-[80px] betweenMobileTab:pb-12`}
+      className={` ${bgImageUrl ? "bg-black" : backgroundClass
+        } overflow-hidden relative pt-5 pb-[60px] mobileMax:pt-0 mobileMax:pb-[80px] betweenMobileTab:pb-12`}
     >
       {bgImageUrl ? (
         <img
@@ -81,9 +81,8 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
         />
       ) : backgroundImageSrc && !data?.field_cta_button ? (
         <motion.div
-          className={`absolute pointer-events-none opacity-25 top-[50%] -translate-y-1/2 z-[1] ${
-            isImageRight ? "right-0" : "left-0"
-          } ${backgroundImageClass}`}
+          className={`absolute pointer-events-none opacity-25 top-[50%] -translate-y-1/2 z-[1] ${isImageRight ? "right-0" : "left-0"
+            } ${backgroundImageClass}`}
         >
           <img src={backgroundImageSrc} alt="background" />
         </motion.div>
@@ -104,22 +103,19 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
       )}
 
       <div
-        className={`mini-container h-full flex flex-col items-center justify-center relative z-[3] ${
-          !data?.field_cta_button ? "pt-[82px]" : "pt-[120px] pb-16"
-        }`}
+        className={`mini-container h-full flex flex-col items-center justify-center relative z-[3] ${!data?.field_cta_button ? "pt-[82px]" : "pt-[120px] pb-16"
+          }`}
       >
         <motion.h3
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0 }}
-          className={`${
-            data?.field_cta_button ? "text-center desktop:text-[60px]" : ""
-          } ${
-            bgImageUrl
+          className={`${data?.field_cta_button ? "text-center desktop:text-[60px]" : ""
+            } ${bgImageUrl
               ? "text-white"
               : "text-numans category-gradient text-clip"
-          } desktop:text-[54px] mb-14 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-[48px] mobileMax:text-[28px]`}
+            } desktop:text-[54px] mb-14 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-[48px] mobileMax:text-[28px]`}
         >
           {data?.field_cta_title}
         </motion.h3>
@@ -130,9 +126,8 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0 }}
-            className={`remove-animation-fluctuation text-medium ${
-              bgImageUrl ? "text-white text-center" : textColorClass
-            } --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal`}
+            className={`remove-animation-fluctuation text-medium ${bgImageUrl ? "text-white text-center" : textColorClass
+              } --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal`}
             dangerouslySetInnerHTML={{ __html: content }}
           />
         )}
@@ -141,7 +136,11 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
           <Link
             target="_blank"
             rel="noopener noreferrer"
-            href={data?.field_cta_button?.uri}
+            href={
+              data?.field_cta_button?.uri.startsWith("internal:")
+                ? `${originName}${data.field_cta_button.uri.replace("internal:", "")}`
+                : data.field_cta_button.uri
+            }
             className={`${bgImageUrl ? "mt-10" : ""}`}
           >
             <Button className="block mx-auto min-w-[220px] get-involve-btn modals-gradientBtn font-mediums text-white text-medium capitalize min-h-[55px] rounded-lg">

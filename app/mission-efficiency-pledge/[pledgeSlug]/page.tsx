@@ -1,4 +1,4 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import PledgeDetailScreen from './screen';
 import { DrupalNode } from 'next-drupal';
 import { Metadata } from 'next';
@@ -27,7 +27,7 @@ const NewsDetailPage = async ({
 }) => {
 	const { pledgeSlug } = params;
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 	const pledgeDetailCard =
 		(await DrupalService.getPledgeDetailFromId(pledgeSlug)) ||
 		({} as DrupalNode);

@@ -188,7 +188,6 @@ const DynamicTemplateClient = ({
   const renderComponents = () => {
     const components: JSX.Element[] = [];
     const pageComponents = templateData?.field_page_component || [];
-    console.log(pageComponents);
 
     for (let i = 0; i < pageComponents.length; i++) {
       const component = pageComponents[i];

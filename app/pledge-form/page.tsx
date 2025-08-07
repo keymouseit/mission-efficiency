@@ -1,5 +1,5 @@
 import { CaptchaProvider } from '@/lib/CaptchaService/Provider';
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getNewFooter } from '@/lib/DrupalService';
 import { Metadata } from 'next';
 import WrappedPledgeForm from './pledgeFormWrapper';
 import PledgeFormsScreen from './screen';
@@ -24,7 +24,7 @@ const PledgeForm = async ({
 }) => {
 	const { type } = searchParams;
 	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const footerSection = await getNewFooter();
 	const pledgeFormData = await DrupalService.getPledgeFormPage();
 	const checklistData = await DrupalService.getFormChecklists();
 

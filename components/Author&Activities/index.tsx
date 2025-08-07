@@ -6,13 +6,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
 import Image from "next/image";
+import { originName } from "@/services/api";
 
 type TaskforceProps = {
   data: DrupalNode;
 };
 
 const Taskforce = ({ data }: TaskforceProps) => {
-  console.log(data);
 
   return (
     <div>
@@ -95,7 +95,12 @@ const Taskforce = ({ data }: TaskforceProps) => {
                         {data.field_button.map((btn: any, index: number) => (
                           <Link
                             key={index}
-                            href={btn.uri || "#"}
+                            href={
+                              btn?.uri?.startsWith("internal:")
+                                ? `${originName}${btn.uri.replace("internal:", "")}`
+                                : btn?.uri || "#"
+                            }
+
                             className="--font-poppins mobileMax:mt-2 text-medium text-defaultLink leading-6 flex items-center cursor-pointer mobileMax:text-xsmall"
                           >
                             {btn.title}

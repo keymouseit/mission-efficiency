@@ -45,7 +45,7 @@ const HistorySlider: React.FC<HistorySliderProps> = ({ sliderData }) => {
           return (
             <Link
               key={index}
-              href={timelineCard?.field_link || ""}
+              href={timelineCard?.field_button[0]?.uri || ""}
               target="_blank"
             >
               <motion.div className="px-[15px] mb-[30px] w-full mobileMax:w-full mobileMax:px-0  betweenMobileTab:px-[10px]">

@@ -7,6 +7,7 @@ import slugify from "slugify";
 import { formatDateToUS } from "@/lib/utils";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
+import { originName } from "@/services/api";
 
 interface NewsCardSliderProps {
   sliderData: DrupalNode[];
@@ -64,7 +65,11 @@ const CardSlider: React.FC<NewsCardSliderProps> = ({
                       }}
                     />
                     <Link
-                      href={newsData?.field_slider_botton?.uri || "#"}
+                      href={
+                        newsData?.field_slider_botton?.uri?.startsWith("internal:")
+                          ? `${originName}${newsData.field_slider_botton.uri.replace("internal:", "")}`
+                          : newsData?.field_slider_botton?.uri || "#"
+                      }
                       target="_blank"
                       className="--font-poppins laptop:mt-10 mt-6 text-small text-defaultLink leading-6 flex items-center cursor-pointer  mobileMax:text-xsmall"
                     >
@@ -83,7 +88,7 @@ const CardSlider: React.FC<NewsCardSliderProps> = ({
                     </p>
                   </div>
                 </div>
-              </div>
+              </div>  
             </div>
           </div>
         );

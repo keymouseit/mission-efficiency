@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion';
 import { DrupalNode } from 'next-drupal';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
+import { originName } from '@/services/api';
 
 interface CardSectionProps {
     data: DrupalNode;
 }
 const GetinvlovedCardWithoutTitle = ({ data }: CardSectionProps) => {
-
     const [isOpenJoinCardList, setIsOpenJoinCardList] = useState<number | null>(
         null
     );
@@ -28,6 +28,7 @@ const GetinvlovedCardWithoutTitle = ({ data }: CardSectionProps) => {
         },
         hidden: { opacity: 0, y: 50 },
     };
+
     return (
         <div>
             <div className='mini-container'>
@@ -94,7 +95,10 @@ const GetinvlovedCardWithoutTitle = ({ data }: CardSectionProps) => {
                                                         <div
                                                             className="cursor-pointer underline text-left select-none block --font-poppins text-[18px] mb-3 leading-normal text-[#545d6f] mobileMax:w-full mobileMax:text-xsmall mobileMax:leading-normal"
                                                             dangerouslySetInnerHTML={{
-                                                                __html: dropdownCard?.field_description?.processed || "",
+                                                                __html: dropdownCard?.field_description?.processed?.replace(
+                                                                    /href="(\/[^"]*)"/g,
+                                                                    (match: string, path: string) => `href="${originName}${path}"`
+                                                                )
                                                             }}
                                                         />
                                                     </motion.li>

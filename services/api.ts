@@ -1,6 +1,8 @@
 import { createQueryString, fileToBase64, fileToBinary } from "@/lib/utils";
 import axios from "axios";
 
+export const originName = window.location.origin;
+
 const api = axios.create({
   baseURL: process.env.NEXT_APP_BASE_URL,
   headers: {
