@@ -7,17 +7,13 @@ import {
 import { DrupalNode } from "next-drupal";
 import DynamicTemplateServer from "./screen";
 import NotFoundPage from "@/components/NotFound";
-import { redirect } from "next/navigation";
 import { processMenuData } from "@/lib/processMenuData";
 import { RawHeaderNode } from "@/types/header";
 
-const TemplatePage = async ({ params }: { params: { slug: string } }) => {
-  const { slug } = params;
-  if (!slug) {
-    redirect("/home");
-  }
+const HomePage = async ({ params }: { params: { slug?: string[] } }) => {
+  const slugArray = params?.slug || [];
+  const slug = slugArray.length === 0 ? "/" : slugArray.join("/");
 
-  // Fetch all necessary Drupal data
   const newData = await getPageTemplateNew();
   const rawHeaderData = (await getNewHeader()) as RawHeaderNode[];
   const footerData = await getNewFooter();
@@ -29,8 +25,8 @@ const TemplatePage = async ({ params }: { params: { slug: string } }) => {
     field_header_menus_items: processedMenuItems,
   };
 
-  const matchedTemplate = newData.find((template: DrupalNode) =>
-    template.field_page_slug.includes(slug)
+  const matchedTemplate = newData.find(
+    (template: DrupalNode) => template.field_page_slug === slug
   );
 
   if (!matchedTemplate) {
@@ -46,4 +42,4 @@ const TemplatePage = async ({ params }: { params: { slug: string } }) => {
   );
 };
 
-export default TemplatePage;
+export default HomePage;

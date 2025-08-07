@@ -56,7 +56,7 @@ const DynamicTemplateClient = ({
       case "paragraph--hero_section":
         return {
           component:
-            templateData?.field_page_slug === "home" ? (
+            templateData?.field_page_slug === "/" ? (
               <Banner
                 title={pageComponent?.field_hero_title}
                 subtitle={pageComponent?.field_hero_description?.value}

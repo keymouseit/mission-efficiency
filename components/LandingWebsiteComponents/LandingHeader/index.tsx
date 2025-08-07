@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
         <div className="flex justify-between w-full items-center">
           {/* Logo */}
           <div>
-            <Link href="/home">
+            <Link href="/">
               <Image
                 className="cursor-pointer"
                 src={`${DEV_PUBLIC_URL}${data?.field_logo?.uri?.url || ""}`}
