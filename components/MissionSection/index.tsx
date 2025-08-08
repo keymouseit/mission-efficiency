@@ -87,7 +87,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
           className={`flex flex-wrap box-border ${
             title
               ? "items-center justify-center"
-              : "justify-between items-start"
+              : "items-start"
           }`}
         >
           {data?.field_add_card?.map(
