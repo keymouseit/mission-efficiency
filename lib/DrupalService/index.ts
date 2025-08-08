@@ -1146,7 +1146,7 @@ export async function getMenuDetails() {
       headers: {
         Accept: "application/vnd.api+json",
       },
-      // next: { revalidate: 1 },
+      next: { revalidate: 60 * 5 }, // 5 minutes
     });
 
     if (!response.ok) {

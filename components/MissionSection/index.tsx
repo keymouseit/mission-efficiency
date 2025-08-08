@@ -85,19 +85,17 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
 
         <div
           className={`flex flex-wrap box-border ${
-            title
-              ? "items-center justify-center"
-              : "justify-between items-start"
+            title ? "items-center justify-center" : "items-stretch -mx-[15px]"
           }`}
         >
           {data?.field_add_card?.map(
             (missionCard: DrupalNode, index: number) => (
               <motion.div
                 key={index}
-                className={`remove-animation-fluctuation w-[33%] mobileMax:w-full lieTablets:w-[50%] mobileMax:px-0 ${
+                className={`remove-animation-fluctuation w-[33%] mobileMax:w-full lieTablets:w-[50%] mobileMax:px-0 px-[15px] ${
                   missionCard?.field_icon?.uri?.url
-                    ? "desktop:px-[15px] mb-[30px] betweenMobileTab:px-[10px]"
-                    : "px-[15px] mb-[25px] mt-2 mobileMax:mb-5 mobileMax:mt-0"
+                    ? "mb-[30px] betweenMobileTab:px-[10px]"
+                    : "mb-[25px] mt-2 mobileMax:mb-5 mobileMax:mt-0"
                 }`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -105,10 +103,10 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
                 transition={{ duration: 0 }}
               >
                 <div
-                  className={`border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white flex items-center flex-col box-border w-full card-shadow ${
+                  className={`border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white flex items-center flex-col box-border w-full card-shadow h-full ${
                     missionCard?.field_icon?.uri?.url
                       ? "px-4 py-[25px] min-h-[284px]"
-                      : "px-5 pb-5 h-full"
+                      : "px-5 pb-5"
                   }`}
                 >
                   <div
@@ -135,7 +133,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
                     )}
                   </div>
 
-                  <div className="h-full w-full">
+                  <div className="h-full w-full flex flex-col">
                     {missionCard?.field_title && (
                       <h4
                         className={`${
@@ -173,7 +171,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
                             : missionCard.field_button[0]?.uri || "#"
                         }
                         target="_blank"
-                        className="--font-poppins text-small text-defaultLink leading-6 flex items-center justify-center cursor-pointer  mobileMax:text-xsmall"
+                        className="--font-poppins text-small text-defaultLink leading-6 flex items-center justify-center cursor-pointer mobileMax:text-xsmall mt-auto"
                       >
                         {missionCard.field_button[0]?.title}
                         <MdChevronRight className="w-[18px] h-[18px] max-w-[18px] ml-0.5" />
