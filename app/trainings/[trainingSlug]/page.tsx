@@ -1,5 +1,7 @@
 import DetailScreen from '@/isolateScreens/DetailScreen';
-import { DrupalService, getNewFooter } from '@/lib/DrupalService';
+import { DrupalService, getMenuDetails, getNewFooter, getNewHeader } from '@/lib/DrupalService';
+import { processMenuData } from '@/lib/processMenuData';
+import { RawHeaderNode } from '@/types/header';
 import { Metadata } from 'next';
 
 // type Props = {
@@ -48,7 +50,14 @@ const TrainingDetailPage = async ({
 	params: { trainingSlug: string };
 }) => {
 	const { trainingSlug } = params;
-	const headerSection = await DrupalService.getHeaderSection();
+	const headerSection = (await getNewHeader()) as RawHeaderNode[];
+		const MenuData = await getMenuDetails();
+		const processedMenuItems = processMenuData(MenuData);
+	
+		const headerProps: any = {
+			field_logo: headerSection[0]?.field_logo,
+			field_header_menus_items: processedMenuItems,
+		};
 	const footerSection = await getNewFooter();
 	const cardDetails = await DrupalService.getNormalisedCardDataFromId(
 		trainingSlug,
@@ -57,7 +66,7 @@ const TrainingDetailPage = async ({
 
 	return (
 		<DetailScreen
-			headerData={headerSection[0]}
+			headerData={headerProps}
 			footerData={footerSection[0]}
 			cardDetails={cardDetails}
 			displayType="TRAINING"

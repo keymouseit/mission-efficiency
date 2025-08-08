@@ -1,10 +1,20 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getMenuDetails, getNewFooter, getNewHeader } from '@/lib/DrupalService';
 import AirflowBuildingScreen from './screen';
 import { DrupalNode } from 'next-drupal';
+import { RawHeaderNode } from '@/types/header';
+import { processMenuData } from '@/lib/processMenuData';
 
 const CfdToolPage = async () => {
-    const headerSection = await DrupalService.getHeaderSection();
-    const footerSection = await DrupalService.getFooterSection();
+    const headerSection = (await getNewHeader()) as RawHeaderNode[];
+    const MenuData = await getMenuDetails();
+    const processedMenuItems = processMenuData(MenuData);
+
+    const headerProps: any = {
+        field_logo: headerSection[0]?.field_logo,
+        field_header_menus_items: processedMenuItems,
+    };
+
+    const footerSection = await getNewFooter();
     const data = await DrupalService.getCfdToolPage();
     const allCards = await DrupalService.getAllCards();
     let newAbcfdCard: DrupalNode[] = [];
@@ -54,7 +64,7 @@ const CfdToolPage = async () => {
         <>
             <AirflowBuildingScreen
                 data={airflowBuildingData}
-                headerData={headerSection[0]}
+                headerData={headerProps}
                 footerData={footerSection[0]}
             />
         </>

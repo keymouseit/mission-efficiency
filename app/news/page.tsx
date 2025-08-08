@@ -1,7 +1,9 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getMenuDetails, getNewFooter, getNewHeader } from '@/lib/DrupalService';
 import { Metadata } from 'next';
 import { DrupalNode } from 'next-drupal';
 import NewsScreen from './screen';
+import { RawHeaderNode } from '@/types/header';
+import { processMenuData } from '@/lib/processMenuData';
 
 export async function generateMetadata(): Promise<Metadata> {
 	const data = await DrupalService.getCommonMetaTags();
@@ -37,18 +39,28 @@ const News = async ({ searchParams }: any) => {
 			year,
 			searchQuery: search,
 		})) || ([] as DrupalNode[]);
-	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const headerSection = (await getNewHeader()) as RawHeaderNode[];
+	const MenuData = await getMenuDetails();
+	const processedMenuItems = processMenuData(MenuData);
+
+	const headerProps: any = {
+		field_logo: headerSection[0]?.field_logo,
+		field_header_menus_items: processedMenuItems,
+	};
+
+	const footerSection = await getNewFooter();
 	const resourcesFilteredData = await DrupalService.getNewsResourcesData();
 	const { search: searchParam, ...filterParams } = searchParams;
-
 	const findQueryLength = Boolean(Object.keys(filterParams).length);
+
+	
+
 
 	return (
 		<>
 			<NewsScreen
 				searchParams={searchParams}
-				headerData={headerSection[0]}
+				headerData={headerProps}
 				footerData={footerSection[0]}
 				filteredNewsCards={filteredNewsCards}
 				resourcesFilteredData={resourcesFilteredData}

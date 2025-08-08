@@ -1,7 +1,9 @@
-import { DrupalService, getNewFooter } from '@/lib/DrupalService';
+import { DrupalService, getMenuDetails, getNewFooter, getNewHeader } from '@/lib/DrupalService';
 import MissionPledgeScreen from './screen';
 import { DrupalNode } from 'next-drupal';
 import { Metadata } from 'next';
+import { RawHeaderNode } from '@/types/header';
+import { processMenuData } from '@/lib/processMenuData';
 
 export async function generateMetadata(): Promise<Metadata> {
 	const data = await DrupalService.getMissionPledgePageData();
@@ -17,7 +19,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const MissionPledgePage = async () => {
-	const headerSection = await DrupalService.getHeaderSection();
+	const headerSection = (await getNewHeader()) as RawHeaderNode[];
+		const MenuData = await getMenuDetails();
+		const processedMenuItems = processMenuData(MenuData);
+	
+		const headerProps: any = {
+			field_logo: headerSection[0]?.field_logo,
+			field_header_menus_items: processedMenuItems,
+		};
 	const footerSection = await getNewFooter();
 	const pageData = await DrupalService.getMissionPledgePageData();
 	const getAllPledges = await DrupalService.getAllPledgesCard();
@@ -78,7 +87,7 @@ const MissionPledgePage = async () => {
 	return (
 		<MissionPledgeScreen
 			pageData={missionPledgeData}
-			headerData={headerSection[0]}
+			headerData={headerProps}
 			footerData={footerSection[0]}
 		/>
 	);

@@ -1,7 +1,9 @@
-import { DrupalService, getNewFooter } from '@/lib/DrupalService';
+import { DrupalService, getMenuDetails, getNewFooter, getNewHeader } from '@/lib/DrupalService';
 import PledgeDetailScreen from './screen';
 import { DrupalNode } from 'next-drupal';
 import { Metadata } from 'next';
+import { RawHeaderNode } from '@/types/header';
+import { processMenuData } from '@/lib/processMenuData';
 
 type Props = {
 	params: { pledgeSlug: string };
@@ -26,7 +28,14 @@ const NewsDetailPage = async ({
 	params: { pledgeSlug: string };
 }) => {
 	const { pledgeSlug } = params;
-	const headerSection = await DrupalService.getHeaderSection();
+	const headerSection = (await getNewHeader()) as RawHeaderNode[];
+		const MenuData = await getMenuDetails();
+		const processedMenuItems = processMenuData(MenuData);
+	
+		const headerProps: any = {
+			field_logo: headerSection[0]?.field_logo,
+			field_header_menus_items: processedMenuItems,
+		};
 	const footerSection = await getNewFooter();
 	const pledgeDetailCard =
 		(await DrupalService.getPledgeDetailFromId(pledgeSlug)) ||
@@ -34,7 +43,7 @@ const NewsDetailPage = async ({
 
 	return (
 		<PledgeDetailScreen
-			headerData={headerSection[0]}
+			headerData={headerProps}
 			footerData={footerSection[0]}
 			detailCard={pledgeDetailCard}
 		/>

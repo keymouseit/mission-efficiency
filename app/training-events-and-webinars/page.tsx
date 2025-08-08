@@ -1,7 +1,9 @@
-import { DrupalService } from '@/lib/DrupalService';
+import { DrupalService, getMenuDetails, getNewFooter, getNewHeader } from '@/lib/DrupalService';
 import { Metadata } from 'next';
 import { DrupalNode } from 'next-drupal';
 import TrainingEventsScreen from './screen';
+import { RawHeaderNode } from '@/types/header';
+import { processMenuData } from '@/lib/processMenuData';
 
 export async function generateMetadata(): Promise<Metadata> {
 	return {
@@ -19,8 +21,15 @@ const TrainingEventsPage = async () => {
 	let newEventCards: DrupalNode[] = [];
 	const data = await DrupalService.getTrainingEventData();
 	const allEventCards = await DrupalService.getTrainingEventCards();
-	const headerSection = await DrupalService.getHeaderSection();
-	const footerSection = await DrupalService.getFooterSection();
+	const headerSection = (await getNewHeader()) as RawHeaderNode[];
+		const MenuData = await getMenuDetails();
+		const processedMenuItems = processMenuData(MenuData);
+	
+		const headerProps: any = {
+			field_logo: headerSection[0]?.field_logo,
+			field_header_menus_items: processedMenuItems,
+		};
+	const footerSection = await getNewFooter();
 
 	data[0].field_traning_events_cards.forEach((eventCards: DrupalNode) => {
 		const matchedEventCards = allEventCards.find(
@@ -40,7 +49,7 @@ const TrainingEventsPage = async () => {
 		<>
 			<TrainingEventsScreen
 				data={trainingEventScreenData}
-				headerData={headerSection[0]}
+				headerData={headerProps}
 				footerData={footerSection[0]}
 			/>
 		</>

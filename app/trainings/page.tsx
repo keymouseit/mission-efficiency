@@ -1,7 +1,9 @@
-import { DrupalService, getNewFooter } from '@/lib/DrupalService';
+import { DrupalService, getMenuDetails, getNewFooter, getNewHeader } from '@/lib/DrupalService';
 import TrainingScreen from './screen';
 import { DrupalNode } from 'next-drupal';
 import { Metadata } from 'next';
+import { RawHeaderNode } from '@/types/header';
+import { processMenuData } from '@/lib/processMenuData';
 
 export async function generateMetadata(): Promise<Metadata> {
 	const data = await DrupalService.getCommonMetaTags();
@@ -27,7 +29,14 @@ const Training = async ({ searchParams }: any) => {
 		modality = '',
 		resource = '',
 	} = searchParams;
-	const headerSection = await DrupalService.getHeaderSection();
+	const headerSection = (await getNewHeader()) as RawHeaderNode[];
+	const MenuData = await getMenuDetails();
+	const processedMenuItems = processMenuData(MenuData);
+
+	const headerProps: any = {
+		field_logo: headerSection[0]?.field_logo,
+		field_header_menus_items: processedMenuItems,
+	};
 	const footerSection = await getNewFooter();
 	const topicData = await DrupalService.getTopicData();
 	const languagefilterData = await DrupalService.getLanguageData();
@@ -61,7 +70,7 @@ const Training = async ({ searchParams }: any) => {
 			<TrainingScreen
 				searchParams={searchParams}
 				trainingDataQuery={queryObject}
-				headerData={headerSection[0]}
+				headerData={headerProps}
 				footerData={footerSection[0]}
 				topicData={topicData}
 				languagefilterData={languagefilterData}
