@@ -24,9 +24,9 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
     <div
       className={`
         ${
-          imageDescription
-            ? "w-[50%]"
-            : "w-full flex items-center justify-center"
+          data?.field_twi_image_position === "center" || !imageDescription
+            ? "w-full flex items-center justify-center"
+            : "w-[50%]"
         }
         ${!customHeight ? (isLeftPosition ? "h-[650px]" : "h-[350px]") : ""}
         ${imageDescription ? (isLeftPosition ? "mr-12" : "ml-12") : "mr-0"}
@@ -53,7 +53,6 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
     </div>
   );
 
-  console.log(data?.field_add_objective, "data?.field_add_objective");
   return (
     <section
       id={
@@ -186,31 +185,45 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
             {imageUrl && isLeftPosition && renderImageBlock()}
 
             {/* Text Content */}
-            {imageDescription && (
-              <div
-                className={`${
-                  data?.field_twi_image?.uri?.url ? "w-[50%]" : "w-[100%]"
-                } text-list relative mobileToDesk:w-full ${
-                  isLeftPosition ? "" : "mobileToDesk:order-2"
-                }`}
-              >
-                {data?.field_twi_image_description?.processed && (
-                  <div
-                    className={`text-medium text-[#545D6F] --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal ${
-                      isLeftPosition
-                        ? "leading-normal mobileMax:text-small"
-                        : ""
-                    }`}
-                    dangerouslySetInnerHTML={{
-                      __html: data?.field_twi_image_description.processed,
-                    }}
-                  />
-                )}
-              </div>
-            )}
+            {imageDescription &&
+              data?.field_twi_image_position !== "center" && (
+                <div
+                  className={`${
+                    data?.field_twi_image?.uri?.url ? "w-[50%]" : "w-[100%]"
+                  } text-list relative mobileToDesk:w-full ${
+                    isLeftPosition ? "" : "mobileToDesk:order-2"
+                  }`}
+                >
+                  {data?.field_twi_image_description?.processed && (
+                    <div
+                      className={`text-medium text-[#545D6F] --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal ${
+                        isLeftPosition
+                          ? "leading-normal mobileMax:text-small"
+                          : ""
+                      }`}
+                      dangerouslySetInnerHTML={{
+                        __html: data?.field_twi_image_description.processed,
+                      }}
+                    />
+                  )}
+                </div>
+              )}
 
             {imageUrl && !isLeftPosition && renderImageBlock()}
           </motion.div>
+
+          {imageDescription && data?.field_twi_image_position === "center" && (
+            <div className="mt-6">
+              {data?.field_twi_image_description?.processed && (
+                <div
+                  className={`text-medium text-[#545D6F] --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal`}
+                  dangerouslySetInnerHTML={{
+                    __html: data?.field_twi_image_description?.processed,
+                  }}
+                />
+              )}
+            </div>
+          )}
         </motion.div>
 
         <div className="flex justify-between">
