@@ -28,9 +28,8 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
             ? "w-full flex items-center justify-center"
             : "w-[50%]"
         }
-        ${!customHeight ? (isLeftPosition ? "h-[650px]" : "h-[350px]") : ""}
         ${imageDescription ? (isLeftPosition ? "mr-12" : "ml-12") : "mr-0"}
-        mobileToDesk:mr-0 mobileToDesk:ml-0 mobileToDesk:mb-6 mobileToDesk:w-full
+        mobileToDesk:mr-0 mobileToDesk:ml-0 mobileToDesk:w-full
         rounded-[40px] overflow-hidden
       `}
       style={customHeight ? { height: `${customHeight}px` } : undefined}
@@ -45,8 +44,10 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
           alt="cta-img"
           height={520}
           width={520}
-          className={`w-full h-full max-w-full card-shadow rounded-[12px] transform transition-transform duration-500 hover:scale-105 ${
-            imageDescription ? "object-cover" : "object-contain"
+          className={`w-full h-full max-w-full card-shadow rounded-[12px] ${
+            data?.field_twi_image_position === "center" || !imageDescription
+              ? "object-contain"
+              : "object-cover transform transition-transform duration-500 hover:scale-105"
           }`}
         />
       </div>
@@ -98,7 +99,11 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0 }}
           className={`remove-animation-fluctuation ${
-            isLeftPosition ? "py-12 mobileMax:pb-5" : "py-6 mobileMax:pb-5"
+            isLeftPosition
+              ? data?.field_twi_image_position === "center" || !imageDescription
+                ? "mobileMax:pb-5"
+                : "py-12 mobileMax:pb-5"
+              : "py-6 mobileMax:pb-5"
           }`}
         >
           {/* Title */}
@@ -116,14 +121,20 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
             transition={{ duration: 0 }}
             className={`remove-animation-fluctuation ${
               isLeftPosition
-                ? "flex items-center mb-20 mobileToDesk:flex-col overflow-hidden"
+                ? data?.field_twi_image_position === "center" ||
+                  !imageDescription
+                  ? "flex items-center mobileToDesk:flex-col overflow-hidden"
+                  : "flex items-center mb-20 mobileToDesk:flex-col overflow-hidden"
                 : `w-[100%] text-list relative mobileToDesk:w-full mobileToDesk:order-2`
             }`}
           >
             <div
               className={`${
                 isLeftPosition
-                  ? "w-full text-list relative mobileToDesk:order-2 mobileToDesk:w-full mobileToDesk:mt-6"
+                  ? data?.field_twi_image_position === "center" ||
+                    !imageDescription
+                    ? ""
+                    : "w-full text-list relative mobileToDesk:order-2 mobileToDesk:w-full mobileToDesk:mt-6"
                   : ""
               }`}
             >
@@ -239,8 +250,13 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                       transition={{
                         duration: 0,
                       }}
-                      className={`mt-12 mobileMax:mt-8 remove-animation-fluctuation ${
+                      className={`mobileMax:mt-8 remove-animation-fluctuation ${
                         arr.length > 1 ? "w-[47%]" : ""
+                      } ${
+                        data?.field_twi_image_position === "center" ||
+                        !imageDescription
+                          ? ""
+                          : "mt-12"
                       }`}
                     >
                       <div
