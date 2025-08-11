@@ -53,6 +53,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
     </div>
   );
 
+  console.log(data?.field_add_objective, "data?.field_add_objective");
   return (
     <section
       id={
@@ -216,8 +217,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
           {data?.field_add_objective
             ? data.field_add_objective.map(
                 (obj: DrupalNode, index: number, arr: DrupalNode) =>
-                  obj.field_title &&
-                  obj.field_description && (
+                  (obj.field_title || obj.field_description?.value) && (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, y: 40 }}
