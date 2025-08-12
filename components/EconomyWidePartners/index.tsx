@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface EconomyWidePartnersProps {
   data: DrupalNode;
@@ -16,7 +17,9 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
       id="Resources-and-Tools-support"
       className="relative support-bottom-banner"
     >
-      <img
+      <DynamicImage
+        width={1880}
+        height={15}
         src="/static/images/blue-curve.png"
         alt="curve"
         className="absolute z-[3] w-full top-[-14px] h-[15px] pointer-events-none"
@@ -25,10 +28,20 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
       {/* Top Section */}
       <div className="overflow-hidden relative min-h-[560px] pt-[140px] pb-[100px] box-border mobileMax:py-10">
         <div className="absolute desktop:top-[-13%] top-[120px] left-0 z-[-2] pointer-events-none max-w-full max-w-[38%]">
-          <img src="/static/images/ewpartners-bg-1.svg" alt="left-bg" />
+          <DynamicImage
+            src="/static/images/ewpartners-bg-1.svg"
+            alt="left-bg"
+            width={851}
+            height={1703}
+          />
         </div>
         <div className="desktop:top-[-13%] right-0 z-[-2] absolute pointer-events-none max-w-[40%] top-[120px] desktop:opacity-100 opacity-[0.6]">
-          <img src="/static/images/ewpartners-bg-2.svg" alt="right-bg" />
+          <DynamicImage
+            src="/static/images/ewpartners-bg-2.svg"
+            alt="right-bg"
+            width={652}
+            height={1120}
+          />
         </div>
 
         {/* Title + Cards */}
@@ -62,7 +75,9 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
                         className={`flex justify-center items-center w-full laptopMax:max-w-[180px] object-contain h-full max-w-[220px] mb-5 max-h-[130px]
                           `}
                       >
-                        <img
+                        <DynamicImage
+                          width={220}
+                          height={130}
                           src={`${DEV_PUBLIC_URL}${listItem?.field_icon?.uri?.url}`}
                           alt="support img"
                           className={`max-h-full w-full object-contain h-[130px]`}

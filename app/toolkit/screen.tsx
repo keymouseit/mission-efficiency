@@ -13,7 +13,6 @@ import {
 } from "react-simple-maps";
 import geos from "../../public/resources/mappings/countries.geo.json";
 import { Tooltip as ReactTooltip } from "react-tooltip";
-// import { countries } from "../lib/constants/countries";
 import {
   createQueryString,
   findRegionFromISO,
@@ -38,13 +37,11 @@ import {
 } from "react-icons/ai";
 import countries, { CONSTS } from "@/lib/constants";
 import slugify from "slugify";
-// import CommonComboBox from "@/components/CommonComboBox";
 import LegendsModal from "@/components/LegendsModal";
 import CountryOverviewModal from "@/components/CountryOverviewModal";
 import { useRef } from "react";
 import CommonReactSelect from "@/components/CommonReactSelect";
 import OrientationBlocker from "@/components/OrientationBlocker";
-// import axios from "axios";
 
 interface MapScreenInterface {
   mapData: DrupalNode[] | null;
@@ -96,7 +93,6 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
           if (polygonInfo) {
             setUserLocationMode(true);
             if (polygonInfo.properties.name) {
-              // prefetch the user country page at getting the polygon
               router.prefetch(
                 `/toolkit/${slugify(polygonInfo.properties.name, {
                   lower: true,
@@ -147,11 +143,6 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
     setCenter(CONSTS.MAP_CENTER);
     setShowMapReset(false);
   };
-
-  // const resetMapState = () => {
-  //   setIsTooltipOpen(false);
-  //   setSelectedCountry(null);
-  // };
 
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
@@ -614,17 +605,7 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                     minMenuListHeight={isMobile ? 120 : 230}
                     maxMenuListHeight={isMobile ? 120 : 230}
                     onFocus={() => setIsTooltipOpen(false)}
-                    // onBlur={() => setIsTooltipOpen(true)}
                   />
-                  {/* <CommonComboBox
-                    list={makeCountryOptions()}
-                    value={selectedCountry?.country_iso}
-                    placeholder="Select Country"
-                    searchPlaceholder="Search Country"
-                    onSelectChange={countrySelectorSelect}
-                    emptyCommandClassName="mobileMax:h-[260px] mobileMax:px-4 mobileMax:pt-6 laptopMax:items-start aboveLaptop:items-start laptopMax:h-[240px] aboveLaptop:h-[350px]"
-                    commandGrpClassName="mobileMax:h-[250px] laptopMax:h-[240px] aboveLaptop:h-[400px]"
-                  /> */}
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
@@ -636,18 +617,6 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                   }}
                   className="w-[240px] mx-2 mobileMax:w-full mobileMax:mb-2 mobileMax:mx-0"
                 >
-                  {/* <CommonComboBox
-                    list={makeSectorOptions()}
-                    value={selectedSector}
-                    placeholder="Select Sector"
-                    searchPlaceholder="Search Sector"
-                    onSelectChange={(value: string) => {
-                      setShowSelectorReset(true);
-                      setSelectedSector(value as SectorEntity);
-                    }}
-                    emptyCommandClassName="mobileMax:h-[260px] mobileMax:px-4 mobileMax:pt-6 laptopMax:items-start aboveLaptop:items-start laptopMax:h-[240px] aboveLaptop:h-[350px]"
-                    commandGrpClassName="mobileMax:h-[255px] laptopMax:h-[240px] aboveLaptop:h-[400px]"
-                  /> */}
                   <CommonReactSelect
                     list={makeSectorOptions()}
                     value={selectedSector}
@@ -655,14 +624,10 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                     onSelectChange={(value: string) => {
                       setShowSelectorReset(true);
                       setSelectedSector(value as SectorEntity);
-                      // if (selectedCountry) {
-                      //   setIsTooltipOpen(true);
-                      // }
                     }}
                     minMenuListHeight={isMobile ? 120 : 230}
                     maxMenuListHeight={isMobile ? 120 : 230}
                     onFocus={() => setIsTooltipOpen(false)}
-                    // onBlur={() => setIsTooltipOpen(true)}
                   />
                 </motion.div>
               </div>

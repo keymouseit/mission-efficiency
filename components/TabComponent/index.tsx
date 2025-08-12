@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import ReactPlayer from "react-player";
 import { IoMdImages } from "react-icons/io";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface countryProps {
   countryDetail: DrupalNode;
@@ -33,7 +34,7 @@ const TabComponent: React.FC<countryProps> = ({
   }, []);
 
   if (!isClient) {
-    return null; 
+    return null;
   }
 
   const transitionProps = {
@@ -96,7 +97,10 @@ const TabComponent: React.FC<countryProps> = ({
                     ) : (
                       <>
                         {card?.field_image_icon ? (
-                          <img
+                          <DynamicImage
+                            width={371}
+                            height={200}
+                            alt="card-image"
                             src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${card?.field_image_icon?.uri?.url || ""}`}
                             className="w-full h-full max-w-full object-cover card-shadow"
                           />
@@ -124,6 +128,7 @@ const TabComponent: React.FC<countryProps> = ({
 
   const renderElevateTab = () => {
     const elevateText = typeof field_ec_elevate_text === 'object' ? field_ec_elevate_text?.value : field_ec_elevate_text;
+
     return (
       <div className="py-10">
         <motion.div
@@ -159,7 +164,11 @@ const TabComponent: React.FC<countryProps> = ({
                     ) : (
                       <>
                         {card?.field_image_icon ? (
-                          <img
+                          
+                          <DynamicImage
+                            width={371}
+                            height={200}
+                            alt="card-image"
                             src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${card?.field_image_icon?.uri?.url || ""}`}
                             className="w-full h-full max-w-full object-cover card-shadow"
                           />
@@ -198,11 +207,10 @@ const TabComponent: React.FC<countryProps> = ({
           <div
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`cursor-pointer px-4 py-2 transition-all box-shadow-prop ${
-              tab.id === activeTab
+            className={`cursor-pointer px-4 py-2 transition-all box-shadow-prop ${tab.id === activeTab
                 ? 'border-b-4 border-blue bg-blue text-black transform scale-103 z-10'
                 : 'border-transparent text-[#797979]'
-            } 
+              } 
             !px-8 !py-2 rounded-s-sm bg-white mobileMax:mx-0 mobileMax:mb-2.5 laptop:max-w-[360px] w-full block text-center text-medium font-bold --font-poppins mobileMax:text-small flex items-center justify-center`}
           >
             {tab.label}
@@ -217,4 +225,3 @@ const TabComponent: React.FC<countryProps> = ({
 };
 
 export default TabComponent;
-// tab component

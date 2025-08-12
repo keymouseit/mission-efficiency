@@ -8,11 +8,3 @@ export const blueTheme = createTheme({
   moderateToHigh: "#4BE4DB",
   moderate: "#53FFCA",
 });
-// export const redTheme = createTheme({
-//   vast: "#C00000",
-//   significant: "#FF0000",
-//   highToSignificant: "#ED7D31",
-//   high: "#FFC000",
-//   moderateToHigh: "#C0C767",
-//   moderate: "#70AD47",
-// });

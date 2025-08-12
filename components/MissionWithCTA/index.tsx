@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { DrupalNode } from "next-drupal";
-import Image from "next/image";
 import { DEV_PUBLIC_URL } from "@/services/api";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface MissionWithCTAProps {
   missionData: DrupalNode;
@@ -41,7 +41,11 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
         style={{ top: isMobile ? mobileOverlayImage : moveOverlayImage }}
         className="absolute pointer-events-none z-[0]"
       >
-        <img src="/static/images/about-us-home.svg" alt="overlay-bg" />
+        <DynamicImage
+          src="/static/images/about-us-home.svg" alt="overlay-bg"
+          width={657}
+          height={955}
+        />
       </motion.div>
 
       <div className="mini-container relative z-[1]">
@@ -80,7 +84,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
                 <div className="border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white px-4 py-[25px] min-h-[284px] flex items-center flex-col box-border w-full card-shadow">
                   {card?.field_icon?.uri?.url && (
                     <div className="mb-[23px] max-h-[120px] min-h-[120px] flex justify-center items-center overflow-hidden">
-                      <Image
+                      <DynamicImage
                         src={`${DEV_PUBLIC_URL}${card?.field_icon?.uri?.url}`}
                         alt="card icon"
                         width={120}
@@ -131,7 +135,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
             className="remove-animation-fluctuation"
           >
             {ctaData?.field_twi_image?.uri?.url && (
-              <Image
+              <DynamicImage
                 src={`${DEV_PUBLIC_URL}${ctaData?.field_twi_image?.uri?.url}`}
                 width={1000}
                 height={1000}

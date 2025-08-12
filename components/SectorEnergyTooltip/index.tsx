@@ -27,17 +27,6 @@ const StatColourWithTooltip: React.FC<StatColourWithTooltipInterface> = ({
 				className="statColourWithTooltip"
 				place="bottom"
 				variant="info"
-				// children={
-				//   <div className="text-small">
-				//     <p className="text-blue font-bold text-xsmall text-left capitalize font-poppins">
-				//       Potential for energy savings is {tooltipData?.value}.
-				//     </p>
-				//     <p className="text-left font-normal text-xs font-poppins text-purple">
-				//       {" "}
-				//       {tooltipData?.discription}{" "}
-				//     </p>
-				//   </div>
-				// }
 			>
 				<div className="text-small">
 					<p className="text-blue font-bold text-xsmall text-left capitalize font-poppins">

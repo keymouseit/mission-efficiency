@@ -3,9 +3,9 @@ import React from "react";
 import Slider from "react-slick";
 import { DrupalNode } from "next-drupal";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { DEV_PUBLIC_URL } from "@/services/api";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface PartnerCardSliderProps {
   sliderData: DrupalNode;
@@ -99,7 +99,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
                   className="border-2 border-transparent hover:border-blueBorder transition block rounded-[25px] flex justify-center items-center bg-white px-[15px] py-[10px] box-border w-full card-shadow"
                 >
                   <div className="max-w-[160px] w-full h-[110px] max-h-[110px] min-w-[120px] min-h-[100px] overflow-hidden">
-                    <Image
+                    <DynamicImage
                       src={`${DEV_PUBLIC_URL}${partnerCard?.field_icon?.uri?.url}`}
                       alt="img"
                       width={160}
@@ -128,7 +128,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
                   className="border-2 border-transparent hover:border-blueBorder transition block rounded-[25px] flex justify-center items-center bg-white px-[15px] py-[10px] box-border w-full card-shadow"
                 >
                   <div className="max-w-[160px] w-full h-[110px] max-h-[110px] min-w-[120px] min-h-[100px] overflow-hidden">
-                    <Image
+                    <DynamicImage
                       src={`${DEV_PUBLIC_URL}${partnerCard?.field_icon?.uri?.url}`}
                       alt="img"
                       width={160}

@@ -14,18 +14,16 @@ import { DrupalNode } from "next-drupal";
 import {
   createQueryString,
   getAlpha2FromISO,
-  // getSectorByEfficiency,
 } from "@/lib/utils";
 import slugify from "slugify";
-// import { getCountryDataBySlug, getFilteredToolData } from "@/services/api";
 import NextBreadcrumb from "@/components/Breadcrumbs";
 import { MdChevronRight } from "react-icons/md";
 import { motion } from "framer-motion";
-// import CommonComboBox from "@/components/CommonComboBox";
 import { CONSTS } from "@/lib/constants";
 import CustomisableTable from "@/components/CustomisableTable";
 import MobileToolsList from "@/components/MobileToolsList";
 import CommonReactSelect from "@/components/CommonReactSelect";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 const sectorList = [
   ...CONSTS.SECTORS_LIST,
@@ -123,7 +121,7 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
                 <div className="relative">
                   <div className="w-[65px] h-[65px] max-w-[65px] relative  bg-blue flex items-center justify-center rounded-full p-4 white-svg-color mobileMax:w-[50px] mobileMax:h-[50px] mobileMax:max-w-[50px]">
                     {sectorByEfficiency && (
-                      <Image
+                       <DynamicImage
                         src={`/static/images/${
                           sectorByEfficiency?.icon || ""
                         }.svg`}
@@ -138,7 +136,7 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
                   {!countryCode ? (
                     <div className="animate-pulse rounded-[6px] absolute -right-6 top-[2px] h-[24px] w-[35px] max-w-[35px] rounded-md w-full bg-skeleton" />
                   ) : (
-                    <Image
+                    <DynamicImage
                       className="cursor-pointer h-[fit-content] rounded-[6px] absolute -right-6 top-[2px] white-svg-color"
                       src={`/static/flags/${countryCode.toLowerCase()}.svg`}
                       width={36}
@@ -162,19 +160,6 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
                   <p className="flex items-center justify-start w-full text-black text-midSmall font-medium ml-[35px] leading-[24px] uppercase w-full flex items-center flex-wrap mobileMax:text-small mobileMax:leading-normal font-poppins">
                     <span className="mr-1.5">Available tools for</span>
                     <b className="themeColor-combobox text-left">
-                      {/* <CommonComboBox
-                        list={makeSectorOptions()}
-                        value={selectedSector}
-                        placeholder="Sector"
-                        searchPlaceholder="Search"
-                        onSelectChange={handleSectorSelect}
-                        multiSelect={[]}
-                        isMultiSelectEnable={true}
-                        noEllipses
-                        multipleValuePlaceholder="Multiple Sectors"
-                        commandGrpClassName="mobileMax:max-h-[130px]"
-                        popoverContentClass="mobileMax:w-[200px]"
-                      /> */}
                       <div className="tools-selectWrap">
                         <CommonReactSelect
                           list={makeSectorOptions()}

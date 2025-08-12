@@ -1,5 +1,4 @@
 'use client';
-import CommonReactSelect from '@/components/CommonReactSelect';
 import CommonBanner from '@/components/LandingWebsiteComponents/CommonBanner';
 import LandingFooter from '@/components/LandingWebsiteComponents/LandingFooter';
 import Header from '@/components/LandingWebsiteComponents/LandingHeader';
@@ -11,7 +10,6 @@ import React, { useEffect, useState } from 'react';
 import {
 	buildMediaTypeAndSrc,
 	createQueryString,
-	formatDateToUS,
 } from '@/lib/utils';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { getTrainingPaginatedData } from '@/services/api';
@@ -32,7 +30,6 @@ import { CiVideoOn } from 'react-icons/ci';
 import { GiBlackBook, GiNotebook } from 'react-icons/gi';
 import { IoMdImages } from 'react-icons/io';
 import ReactPlayer from 'react-player';
-import { object } from 'yup';
 
 interface trainingProps {
 	headerData: DrupalNode;
@@ -263,7 +260,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
 			if (window?.innerWidth > 767) {
 				setAboveMobile(true);
 			}
-	    }
+		}
 	}, []);
 
 	useEffect(() => {
@@ -315,6 +312,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
 					title={'Trainings'}
 					noHeight={true}
 					lightBgClip={true}
+					isSmallImage={true}
 				/>
 				{/* floating filter button */}
 				<FloatingButton
@@ -328,18 +326,10 @@ const TrainingScreen: React.FC<trainingProps> = ({
 						/>
 					)}
 					<div
-						className={`${
-							showMobileFilters
+						className={`${showMobileFilters
 								? 'lieTablets:w-[300px] lieTablets:left-0 lieTablets:top-0 fixed left-0 top-0 flex-col mb-0 !z-[5] w-full h-full dark-filter-shadow !block overflow-auto'
 								: 'sticky top-20 left-0 mr-2 px-5  w-[25%] desktopLg:w-[20%]'
-						} aboveLaptop:w-[30%] mobileMax:w-full z-[3] h-full hidden exactLaptop:block`}
-						// initial={{ opacity: 0, y: 20 }}
-						// whileInView={{ opacity: 1, y: 0 }}
-						// viewport={isTablet ? {} : { once: true }}
-						// transition={{
-						// 	type: 'spring',
-						// 	duration: 1,
-						// }}
+							} aboveLaptop:w-[30%] mobileMax:w-full z-[3] h-full hidden exactLaptop:block`}
 					>
 						<div className="h-full bg-mapGray w-full laptopMax:h-full laptopMax:overflow-auto">
 							<div className="flex laptopMax:px-3 items-center justify-between min-h-[55px] laptopMax:min-h-[82px] pt-[20px] laptopMax:pt-[40px] laptopMax:pb-2 laptopMax:sticky laptopMax:top-0 laptopMax:z-[3] bg-mapGray">
@@ -359,7 +349,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
 													window.scrollTo({ top: 400, behavior: 'smooth' });
 												}
 												const query = createQueryString({});
-												router.push(`${path}${query}`, { scroll: false });								
+												router.push(`${path}${query}`, { scroll: false });
 											}}
 										>
 											Clear Filters
@@ -418,7 +408,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
 											menuTitle="Training"
 											value={''}
 											list={[]}
-											onSelectChange={() => {}}
+											onSelectChange={() => { }}
 											isOpen={Boolean(openIndex[4])}
 											toggleOpen={() => handleToggleOpen(4)}
 										/>
@@ -504,10 +494,10 @@ const TrainingScreen: React.FC<trainingProps> = ({
 											<div className="flex w-full justify-start flex-wrap">
 												{paginatedFilterTrainingData?.map(
 													(trainingItems: DrupalNode, index: number) => {
-														const titleLength= trainingItems.title.length
-															 const sluggedLink= ((titleLength) > 20)?`${path}/${slugify( 
-																		`${trainingItems.title.slice(0,20)} ${trainingItems.id}`)}`:`${path}/${slugify( 
-																					`${trainingItems.title} ${trainingItems.id}`)}`;
+														const titleLength = trainingItems.title.length
+														const sluggedLink = ((titleLength) > 20) ? `${path}/${slugify(
+															`${trainingItems.title.slice(0, 20)} ${trainingItems.id}`)}` : `${path}/${slugify(
+																`${trainingItems.title} ${trainingItems.id}`)}`;
 														const language = (CONSTS.LANGUAGE_CODE as any)[
 															trainingItems?.field_t_language?.name?.toLowerCase()
 														];
@@ -515,8 +505,8 @@ const TrainingScreen: React.FC<trainingProps> = ({
 															trainingItems.field_t_media_url,
 														);
 														return (
-															<Link 
-															   href={sluggedLink || '#'}
+															<Link
+																href={sluggedLink || '#'}
 																key={index}
 																className="px-[15px] w-[33%] mb-8 mobileMax:w-full mobileMax:px-0 aboveLaptop:w-[50%] lieTablets:w-[50%] betweenMobileTab:mb-6 mobileMax:mb-6"
 															>
@@ -539,12 +529,12 @@ const TrainingScreen: React.FC<trainingProps> = ({
 																				/>
 																			</div>
 																		) : mediaTypeAndSrc.type === 'image' ? (
-																			<img
+																			<Image
 																				src={`${mediaTypeAndSrc.src}`}
-																				// alt="category img"
-																				// height={350}
-																				// width={300}
-																				// unoptimized={true}
+																				alt="category img"
+																				height={350}
+																				width={300}
+																				unoptimized={true}
 																				className="w-full h-full max-w-full object-cover card-shadow"
 																			/>
 																		) : (
@@ -563,10 +553,9 @@ const TrainingScreen: React.FC<trainingProps> = ({
 																		)}
 
 																		<div
-																			className={`${
-																				trainingItems?.field_training_image &&
+																			className={`${trainingItems?.field_training_image &&
 																				'bg-blackOverlay'
-																			} flex items-start justify-end p-3 absolute top-0 w-full h-full z-[2]`}
+																				} flex items-start justify-end p-3 absolute top-0 w-full h-full z-[2]`}
 																		>
 																			{trainingItems?.field_t_resource?.name ? (
 																				<p className="text-xsmall text-white font-medium bg-[#271AAF] card-shadow leading-6 mobileMax:mb-2 mobileMax:text-xsmall mobileMax:leading-normal --font-poppins py-1 px-2 rounded-[25px]">

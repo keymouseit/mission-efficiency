@@ -3,8 +3,8 @@
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
-import Image from "next/image";
 import Link from "next/link";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface CampaignSectionProps {
   materialsData?: DrupalNode;
@@ -46,7 +46,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                     <div className="border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white p-5 h-full flex items-center flex-col box-border w-full card-shadow">
                       <div className="h-[80%]">
                         <div className="mb-5 mx-auto h-[50px] w-[50px] rounded-[12px] overflow-hidden">
-                          <Image
+                          <DynamicImage
                             src={`${drupalBaseUrl}${materialCard?.field_icon?.uri?.url}`}
                             alt="category img"
                             height={50}
@@ -110,7 +110,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                   } w-full laptop:flex-1 h-full lieExactTab:order-1 rounded-[12px] overflow-hidden laptop:max-h-[700px] max-h-[900px]`}
                 >
                   {resourcesData?.field_twi_image?.uri?.url && (
-                    <Image
+                    <DynamicImage
                       src={`${drupalBaseUrl}${resourcesData?.field_twi_image.uri.url}`}
                       alt="campaign resources"
                       height={400}

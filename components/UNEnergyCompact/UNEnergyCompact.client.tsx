@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface UNEnergyCompactProps {
   data?: {
@@ -16,7 +17,9 @@ function UNEnergyCompactClient({ data }: UNEnergyCompactProps) {
     >
       {/* Background Decoration */}
       <motion.div className="absolute pointer-events-none opacity-40 max-w-[15%] top-[50%] left-0 !-translate-y-1/2 betweenMobileTab:max-w-[40%] mobileMax:max-w-[40%]">
-        <img
+        <DynamicImage
+          width={316}
+          height={576}
           src="/static/images/cta-section-bg.svg"
           alt="UN energy section background"
           className="w-full h-full"

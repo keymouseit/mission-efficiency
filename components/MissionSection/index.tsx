@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { DrupalNode } from "next-drupal";
-import Image from "next/image";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
+import DynamicImage from "../ResuableDynamicImage";
 
 type MissionSectionProps = {
   data: DrupalNode;
@@ -76,7 +76,7 @@ const MissionCard = ({
           } max-h-[120px] min-h-[120px] flex justify-center items-center overflow-hidden`}
         >
           {hasIcon ? (
-            <Image
+            <DynamicImage
               src={`${DEV_PUBLIC_URL}${card.field_icon.uri.url}`}
               alt="category img"
               width={120}
@@ -179,7 +179,11 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
           }}
           className="absolute pointer-events-none z-[0]"
         >
-          <img src="/static/images/about-us-home.svg" alt="overlay-bg" />
+          <DynamicImage
+            src="/static/images/about-us-home.svg" alt="overlay-bg"
+            width={657}
+            height={955}
+          />
         </motion.div>
       )}
 

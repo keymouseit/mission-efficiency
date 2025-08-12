@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface CategoryCardProps {
   img: string;
@@ -27,7 +28,11 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
       }}
     >
       <div className={`mb-[23px] flex justify-center items-center overflow-hidden category-img ${isCfdTool ? "min-h-[80px]" : "max-h-[80px] h-full"} `}>
-        <img src={img} alt="category img" className="w-full h-full" />
+        <DynamicImage
+          height={80}
+          width={80}
+          src={img} alt="category img" className="w-full h-full"
+        />
       </div>
       <div className="h-full w-full">
         {isCfdTool ? (
@@ -39,7 +44,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
             {title}
           </h4>
         )}
-       {subTitle?.length &&  <div
+        {subTitle?.length && <div
           className="--font-poppins text-center text-small text-[#7b99c7] leading-5 desktop:leading-6 --font-poppins mobileMax:text-xsmall"
           dangerouslySetInnerHTML={{ __html: subTitle }}
         />}

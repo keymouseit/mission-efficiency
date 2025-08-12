@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
 import { useOrigin } from "@/hooks/useOrigin";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface HomeGridProps {
   gridImages: string[];
@@ -45,7 +46,9 @@ const HomeGridLayout: React.FC<HomeGridProps> = (props) => {
                 duration: motionSettings[0].duration,
               }}
             >
-              <img
+              <DynamicImage
+                width={490}
+                height={365}
                 src={gridImages[0]}
                 alt="grid img1"
                 className="w-full h-full transform transition-transform duration-500 hover:scale-105"
@@ -57,9 +60,8 @@ const HomeGridLayout: React.FC<HomeGridProps> = (props) => {
             {gridImages.slice(1, 3).map((img, index) => (
               <motion.div
                 key={index}
-                className={`overflow-hidden rounded-[25px] max-w-full ${
-                  index === 0 ? "max-w-[50%]" : "ml-5"
-                }`}
+                className={`overflow-hidden rounded-[25px] max-w-full ${index === 0 ? "max-w-[50%]" : "ml-5"
+                  }`}
                 initial={{ opacity: 0, y: motionSettings[index + 1].y }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -68,15 +70,18 @@ const HomeGridLayout: React.FC<HomeGridProps> = (props) => {
                   duration: motionSettings[index + 1].duration,
                 }}
               >
-                <img
+                <DynamicImage
                   src={img}
                   alt={`grid img${index + 2}`}
+                  width={index === 1 ? 300 : 500}   
+                  height={index === 1 ? 200 : 300}  
                   className="w-full h-full transform transition-transform duration-500 hover:scale-105"
                 />
               </motion.div>
             ))}
           </div>
-        </div>
+
+        </div>  
       </div>
 
       <motion.div

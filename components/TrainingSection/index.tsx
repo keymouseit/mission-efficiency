@@ -1,9 +1,9 @@
 "use client";
 import { useOrigin } from "@/hooks/useOrigin";
-import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface TrainingSectionProps {
   data: DrupalNode;
@@ -22,8 +22,10 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
         transition={{ type: "spring", duration: 3 }}
         className="absolute pointer-events-none top-[-55%] right-0 mobileMax:top-[-20%] betweenMobileTab:max-w-[67%] aboveLaptop:top-[-52%] lieTablets:top-[-36%] desktop:max-w-[46%]"
       >
-        <img
-          src="/static/images/training-bg.svg"
+        <DynamicImage
+        width={769}
+        height={1195}
+         src="/static/images/training-bg.svg"
           alt="overlay-bg"
           className="w-full -h-full"
         />
@@ -82,11 +84,6 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
             viewport={{ once: true }}
             transition={{ type: "spring", duration: 1.8 }}
           >
-            <img
-              src={`${DEV_PUBLIC_URL}${data?.field_twi_image?.uri?.url}`}
-              alt="boardImg"
-              className="h-full w-full object-cover transform transition-transform duration-500 hover:scale-105"
-            />
           </motion.div>
         </motion.div>
       </div>

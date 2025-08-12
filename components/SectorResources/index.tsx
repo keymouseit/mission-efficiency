@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { DrupalNode } from "next-drupal";
 import { DEV_PUBLIC_URL } from "@/services/api";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface SectorResourcesProps {
   data: DrupalNode;
@@ -53,7 +54,7 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                 <div className="desktop:w-[70%] flex items-start flex-wrap w-full">
                   {sector?.field_add_card?.map(
                     (listItem: DrupalNode, index: number) => {
-                      const {} = listItem;
+                      const { } = listItem;
                       return (
                         <motion.div
                           key={index}
@@ -72,7 +73,9 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                               className={`flex justify-center items-center w-full laptopMax:max-w-[180px] object-contain h-full max-w-[220px] mb-5 max-h-[130px]
                           `}
                             >
-                              <img
+                              <DynamicImage
+                                width={220}
+                                height={130}
                                 src={`${DEV_PUBLIC_URL}${listItem?.field_icon?.uri?.url}`}
                                 alt="support img"
                                 className={`max-h-full w-full object-contain h-[130px]`}

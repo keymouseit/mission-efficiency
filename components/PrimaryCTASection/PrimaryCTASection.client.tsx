@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface CTAData {
   field_cta_efficiency_title: string;
@@ -53,10 +53,12 @@ function PrimaryCTAClient({ data }: PrimaryCTASectionProps) {
         transition={{ type: "spring", duration: 2.5 }}
         className="absolute pointer-events-none top-[-10%] left-0 z-[0] betweenMobileTab:top-[12%] betweenMobileTab:opacity-50 mobileMax:top-[21%]"
       >
-        <img
+        <DynamicImage
           src="/static/images/about-us-home.svg"
           alt="overlay-bg"
           className="mobileMax:opacity-40"
+          width={657}
+          height={955}
         />
       </motion.div>
 
@@ -129,7 +131,7 @@ function PrimaryCTAClient({ data }: PrimaryCTASectionProps) {
             {/* Image on the left */}
             <div className="w-[50%] h-[650px] mobileToDesk:h-full mr-12 rounded-[40px] overflow-hidden mobileToDesk:w-full mobileToDesk:mb-6 mobileToDesk:mr-0">
               {field_cta_efficiency_image?.uri?.url && (
-                <Image
+                <DynamicImage
                   src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${field_cta_efficiency_image.uri.url}`}
                   alt="cta-img"
                   height={520}

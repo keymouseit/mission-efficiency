@@ -8,10 +8,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import OverAllCountryTable from "@/components/OverallCountryTable";
 import { getAlpha2FromISO, getSectorByEfficiency } from "@/lib/utils";
 import { DrupalNode } from "next-drupal";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface CountryOverviewModalProps {
   open: Boolean;
@@ -42,7 +42,7 @@ const CountryOverviewModal: React.FC<CountryOverviewModalProps> = ({
                 {!countryAlpha2 ? (
                   <div className="animate-pulse rounded-[6px] h-[24px] w-[28px] w-full bg-skeleton" />
                 ) : (
-                  <Image
+                  <DynamicImage
                     src={`https://img.geonames.org/flags/x/${countryAlpha2.toLowerCase()}.gif`}
                     alt="flag"
                     width={28}
@@ -67,7 +67,7 @@ const CountryOverviewModal: React.FC<CountryOverviewModalProps> = ({
           <div>
             <div className="flex items-center mb-6 justify-center">
               <div className="border-box p-4 rounded-full bg-blue flex items-center justify-center max-w-[65px] h-[65px] w-[65px] white-svg-color">
-                <Image
+                <DynamicImage
                   src={`/static/images/${sectorByEfficiency?.icon}.svg`}
                   alt={sectorByEfficiency?.icon || ""}
                   width={40}

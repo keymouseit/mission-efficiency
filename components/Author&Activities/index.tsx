@@ -4,9 +4,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
-import Image from "next/image";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
+import DynamicImage from "../ResuableDynamicImage";
 
 type TaskforceProps = {
   data: DrupalNode;
@@ -118,7 +118,7 @@ const Taskforce = ({ data }: TaskforceProps) => {
                           {data?.field_author_details.field_image[0]?.uri
                             ?.url && (
                             <div className="max-w-[220px] min-w-[220px] mobileMax:min-w-[150px] mobileMax:max-w-[150px] mr-5 mobileMax:mr-0">
-                              <Image
+                              <DynamicImage
                                 src={`${DEV_PUBLIC_URL}${data?.field_author_details?.field_image[0]?.uri?.url}`}
                                 alt={
                                   data.field_author_details.field_image[0]

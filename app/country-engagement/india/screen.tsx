@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { IoMdImages } from 'react-icons/io';
 import TabComponent from '@/components/TabComponent';
 import { useState, useEffect } from 'react';
+import DynamicImage from '@/components/ResuableDynamicImage';
 
 interface countryProps {
 	countryDetail: DrupalNode;
@@ -112,6 +113,7 @@ const CountryScreen: React.FC<countryProps> = ({
 					title={title}
 					noHeight={true}
 					lightBgClip={true}
+					isSmallImage={true}
 				/>
 				<div className="overflow-hidden">
 					<div className="py-[100px] bg-mapGray mobileMax:py-8 relative">
@@ -133,8 +135,12 @@ const CountryScreen: React.FC<countryProps> = ({
 											>
 												<motion.div className="px-5 py-[25px] flex items-center flex-col h-full w-full box-border border-t-2 border-b-2 border-[#43A7E8] border-line">
 													<div className="h-full w-full flex flex-col items-center">
-														<img
+														
+
+														<DynamicImage
 															src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${card?.field_image_icon?.uri?.url}`}
+															width={102}
+															height={73}
 															alt={
 																field_country_key_points.title || 'Card image'
 															}
@@ -161,91 +167,11 @@ const CountryScreen: React.FC<countryProps> = ({
 						</div>
 					</div>
 				</div>
-				{/* why important section (cards) */}
-
-				{/* <div className="py-16 blueBg-gradient mobileMax:pb-8 mobileMax:pt-8 relative imp-country">
-          <div className="absolute top-[52%] -translate-y-1/2 max-w-[14%] opacity-25 left-0 betweenMobileTab:max-w-[28%] mobileMax:max-w-[45%]">
-            <img src="/static/images/cta-blue-bg.svg" alt="left-bg" />
-          </div>
-          <div className="mini-container relative z-[2]">
-            <motion.h3
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0,
-              }}
-              className="remove-animation-fluctuation text-white tracking-tight text-[48px] leading-normal mb-[30px] text-center text-numans mobileMax:text-[28px] mobileMax:mb-8"
-            >
-              {field_work_title}
-            </motion.h3>
-
-            <div className="flex flex-wrap justify-start box-border mb-14 mobileMax:mb-8">
-              {field_work_description_cards?.map(
-                (fieldContent: DrupalNode, index: number) => {
-                  return (
-                    <motion.div
-                      key={index}
-                      className="remove-animation-fluctuation px-[15px] mb-[25px] w-[50%] mobileMax:w-full mt-2 mobileMax:px-0 lieTablets:w-[50%] mobileMax:w-full mobileMax:px-0 mobileMax:mb-5 mobileMax:mt-0 important-content"
-                      initial={{ opacity: 0, y: 40 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0,
-                      }}
-                    >
-                      <div className="border-2 border-transparent hover:border-blueBorder transition p-8 rounded-xl bg-white p-5 h-full flex items-center flex-col box-border w-full card-shadow">
-                        <div
-                          className="--font-poppins text-center text-medium text-cardText leading-8 mobileMax:text-xsmall mobileMax:leading-normal font-normal"
-                          dangerouslySetInnerHTML={{
-                            __html: fieldContent?.field_content.processed,
-                          }}
-                        />
-                      </div>
-                    </motion.div>
-                  );
-                }
-              )}
-            </div>
-          </div>
-        </div> */}
-				{/* why important section (paragraph) */}
-
-				{/* <div className="py-16 blueBg-gradient mobileMax:pb-8 mobileMax:pt-8 relative imp-country">
-          <div className="absolute top-[52%] -translate-y-1/2 max-w-[14%] opacity-25 left-0 betweenMobileTab:max-w-[28%] mobileMax:max-w-[45%]">
-            <img src="/static/images/cta-blue-bg.svg" alt="left-bg" />
-          </div>
-          <div className="mini-container relative z-[2]">
-            <motion.h3
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0,
-              }}
-              className="remove-animation-fluctuation text-white tracking-tight text-[35px] leading-normal mb-[30px] text-center text-numans mobileMax:text-[28px] mobileMax:mb-8"
-            >
-              {field_work_title}
-            </motion.h3>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0,
-              }}
-              className="remove-animation-fluctuation mobileMax:w-full --font-poppins text-medium mb-5 mt-3 leading-8 text-[#C9DEFF]  mobileMax:mb-5 mobileMax:text-xsmall mobileMax:leading-normal description-content"
-              dangerouslySetInnerHTML={{
-                __html: field_work_description?.processed,
-              }}
-            ></motion.div>
-          </div>
-        </div> */}
 				{/* why important section (pointers) */}
 
 				<div className="py-16 blueBg-gradient mobileMax:pb-8 mobileMax:pt-8 relative imp-country">
 					<div className="absolute top-[52%] -translate-y-1/2 max-w-[14%] opacity-25 left-0 betweenMobileTab:max-w-[28%] mobileMax:max-w-[45%]">
-						<img src="/static/images/cta-blue-bg.svg" alt="left-bg" />
+						<DynamicImage width={228} height={457} src="/static/images/cta-blue-bg.svg" alt="left-bg" />
 					</div>
 					<div className="mini-container relative z-[2]">
 						<motion.h3
@@ -294,7 +220,9 @@ const CountryScreen: React.FC<countryProps> = ({
 						}}
 						className="absolute pointer-events-none left-0 top-[100px] mobileMax:top-[55px] max-w-[30%] mobileMax:max-w-[55%] betweenMobileTab:max-w-[40%] z-[1]"
 					>
-						<img
+						<DynamicImage
+							width={316}
+							height={576}
 							src="/static/images/cta-section-bg.svg"
 							alt="overlay-bg"
 							className="opacity-50 desktopLg:opacity-100"
@@ -323,7 +251,7 @@ const CountryScreen: React.FC<countryProps> = ({
 				{/* recent news */}
 				<div className="py-16 bg-mapGray mobileMax:pb-8 mobileMax:pt-8 relative">
 					<div className="absolute top-[50%] -translate-y-1/2 max-w-[14%] desktop:opacity-25 opacity-10 right-0 betweenMobileTab:max-w-[28%] mobileMax:max-w-[45%] rotate-180">
-						<img src="/static/images/cta-blue-bg.svg" alt="left-bg" />
+						<DynamicImage width={316} height={576} src="/static/images/cta-blue-bg.svg" alt="left-bg" />
 					</div>
 					<div className="mini-container relative z-[2]">
 						<motion.h2
@@ -346,11 +274,14 @@ const CountryScreen: React.FC<countryProps> = ({
 							>
 								<div className="flex w-[30%] min-h-[250px] items-center ml-[15px]">
 									{newsItem.field_card_image?.uri?.url.length > 0 ? (
-										<img
+										<DynamicImage
+											width={291}
+											height={218}
 											src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${newsItem.field_card_image.uri.url}`}
 											alt={newsItem.title || 'Card image'}
 											className="w-[80%] h-[90%] object-cover rounded-l-lg"
 										/>
+
 									) : (
 										<div className="w-full h-full bg-placeholder flex items-center justify-center ">
 											<IoMdImages className="text-white w-[60%] h-[60%]" />;

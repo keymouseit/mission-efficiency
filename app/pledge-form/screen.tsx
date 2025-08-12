@@ -24,6 +24,7 @@ import { FaPlus } from "react-icons/fa6";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { BsPencilSquare } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface pledgeFormProps {
   headerData: DrupalNode;
@@ -145,15 +146,15 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
     const idArray = value.split(",");
     const titlesArray = idArray.length
       ? idArray.map((checklistItemId: string) => {
-          const foundChecklistItem = formChecklist.find(
-            (checklistItem: DrupalNode) => checklistItem.id === checklistItemId
-          );
-          if (foundChecklistItem) {
-            return foundChecklistItem.title;
-          } else {
-            return "---";
-          }
-        })
+        const foundChecklistItem = formChecklist.find(
+          (checklistItem: DrupalNode) => checklistItem.id === checklistItemId
+        );
+        if (foundChecklistItem) {
+          return foundChecklistItem.title;
+        } else {
+          return "---";
+        }
+      })
       : [];
 
     return titlesArray.join("|");
@@ -271,24 +272,6 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
         specific_actions: formData.supportAction,
         direct_investment: formData.percentageIncrease,
         organization_logo: formData.organisationLogoImage,
-
-        // title: `${formData.email} - ${formType}`,
-        // field_pledge_data_type: formType,
-        // field_pledge_data_first_name: formData.firstName,
-        // field_pledge_data_last_name: formData.lastName,
-        // field_pledge_data_email: formData.email,
-        // field_pledge_data_position: formData.position,
-        // field_pledge_data_org_name: formData.organizationName,
-        // field_pledge_data_org_website: formData.organizationWebsite,
-        // field_pledge_data_pledge_ids: mappedPledges,
-        // field_pledge_data_custom_pledge: formData.customCommitment,
-        // field_pledge_data_pledge_actions: formData.pledgeActions,
-        // field_pledge_data_pledge_commits: formData.pledgeCommitments,
-        // field_pledge_data_pledge_goals: formData.pledgeGoals,
-        // field_pledge_data_focus_sectors: mappedSectors,
-        // field_pledge_data_image: formData.organisationLogoImage,
-        // field_pledge_data_support_action: formData.supportAction,
-        // field_pledge_data_percentage_inc: formData.percentageIncrease,
       }).then(() => {
         setUploadedImageUrl("");
         setSelectedFileBase64("");
@@ -300,45 +283,9 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
     } else {
       alert("Could not Verify ReCaptcha, Please Try Again!");
     }
-    // here you would give an error message or just ignore
-    // the form submission
   }, [executeRecaptcha]);
 
-  // const handleFormSubmit = (data: any) => {
-  // 	// setCurrentStep(currentStep + 1);
-  // 	window.scrollTo({ top: isMobile ? 450 : 600, behavior: 'smooth' });
-  // 	if (currentStep > field_pledge_form.length) {
-  // 		const mappedPledges = mapIdsToTitles(data.globalProgress);
-  // 		const mappedSectors = mapIdsToTitles(data.energyEfficiencySectors);
-  // 		savePledgeFormData({
-  // 			title: data.email,
-  // 			field_pledge_data_type: data.type,
-  // 			field_pledge_data_first_name: data.firstName,
-  // 			field_pledge_data_last_name: data.lastName,
-  // 			field_pledge_data_email: data.email,
-  // 			field_pledge_data_position: data.position,
-  // 			field_pledge_data_org_name: data.organizationName,
-  // 			field_pledge_data_org_website: data.organizationWebsite,
-  // 			field_pledge_data_pledge_ids: mappedPledges,
-  // 			field_pledge_data_custom_pledge: data.customCommitment,
-  // 			field_pledge_data_pledge_actions: data.pledgeActions,
-  // 			field_pledge_data_pledge_commits: data.pledgeCommitments,
-  // 			field_pledge_data_pledge_goals: data.pledgeGoals,
-  // 			field_pledge_data_focus_sectors: mappedSectors,
-  // 			field_pledge_data_image: data.organisationLogoImage,
-  // 			field_pledge_data_support_action: data.supportAction,
-  // 			field_pledge_data_percentage_inc: data.percentageIncrease,
-  // 		}).then(() => {
-  // 			setUploadedImageUrl('');
-  // 			setSelectedFileBase64('');
-  // 			setOpenSuccessModal(!openSuccessModal);
-  // 			setCurrentStep(0);
-  // 			reset();
-  // 		});
-  // 	} else {
-  // 		// window.scrollTo({ top: isMobile ? 450 : 600, behavior: 'smooth' });
-  // 	}
-  // };
+
 
   const handleCheckListUpdate = (formKey: any, value: string) => {
     const fieldState = getValues() as any;
@@ -412,9 +359,8 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                   Organization Logo
                 </Label>
                 <div
-                  className={`!w-[200px] !h-[160px] border border-[#c7c7c7] relative overflow-hidden rounded-[6px] ${
-                    uploadedImageUrl && "show-org-logo"
-                  }`}
+                  className={`!w-[200px] !h-[160px] border border-[#c7c7c7] relative overflow-hidden rounded-[6px] ${uploadedImageUrl && "show-org-logo"
+                    }`}
                 >
                   {!Boolean(uploadedImageUrl || selectedFileBase64) && (
                     <>
@@ -459,7 +405,7 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                   </div>
                   {(uploadedImageUrl || selectedFileBase64) && (
                     <>
-                      <Image
+                      <DynamicImage
                         src={uploadedImageUrl || selectedFileBase64}
                         alt="logo image"
                         width={70}
@@ -709,6 +655,7 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
           title={pledgeFormTitle}
           subTitle={pledgeFormDescription}
           lightBgClip={true}
+          isSmallImage={false}
         />
         <div className="relative pt-[92px] exactLaptop:min-h-[80vh] pb-[100px] bg-mapGray relative mobileMax:pt-10 mobileMax:pb-14 betweenMobileTab:pt-16 betweenMobileTab:pb-20">
           <motion.div
@@ -721,7 +668,9 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
             }}
             className="z-[1] absolute pointer-events-none max-w-[50%] top-[150px] betweenMobileTab:max-w-[22%] laptopMax:top-[100px] laptopMax:max-w-[30%] "
           >
-            <img
+            <DynamicImage
+              width={316}
+              height={576}
               src="/static/images/cta-section-bg.svg"
               alt="overlay-bg"
               className="mobileMax:opacity-40"

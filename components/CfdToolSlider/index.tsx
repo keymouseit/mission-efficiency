@@ -4,7 +4,7 @@ import Slider, { LazyLoadTypes } from "react-slick";
 import { DrupalNode } from "next-drupal";
 import { motion } from "framer-motion";
 import { IoMdImages } from "react-icons/io";
-import Image from "next/image";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface cfdToolSliderPropsProps {
   sliderData: DrupalNode[];
@@ -18,7 +18,6 @@ const CfdToolSlider: React.FC<cfdToolSliderPropsProps> = ({ sliderData }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
-    // autoplay: true,
     speed: 2000,
     autoplaySpeed: 5000,
     cssEase: "linear",
@@ -35,10 +34,11 @@ const CfdToolSlider: React.FC<cfdToolSliderPropsProps> = ({ sliderData }) => {
               <motion.div className="flex items-start box-border exactLaptop:bg-white remove-news-shadow card-shadow w-full laptop:h-[280px] h-[245px] aboveMinMobile:h-[160px] minMobile:h-[140px] exactLaptop:rounded-[4px] overflow-hidden">
                 <div className="tab:w-[40%] tab:max-w-[50%] flex justify-center items-center w-full overflow-hidden relative mobileMax:mb-0 h-full minMobile:w-[90%] mobileMax:mr-2 lieTablets:mr-3">
                   {data?.field_image_icon?.uri?.url ? (
-                    <img
-                      src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${
-                        data?.field_image_icon?.uri?.url || ""
-                      }`}
+                    <DynamicImage
+                      width={463}
+                      height={280}
+                      src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${data?.field_image_icon?.uri?.url || ""
+                        }`}
                       alt="category img"
                       className="h-full w-full bg-placeholder"
                     />

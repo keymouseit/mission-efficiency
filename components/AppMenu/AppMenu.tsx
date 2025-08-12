@@ -3,7 +3,7 @@ import React from 'react';
 import { Menubar } from '@/components/ui/menubar';
 import Link from '@/node_modules/next/link';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import DynamicImage from '../ResuableDynamicImage';
 
 interface AppMenuProps {
 	selectedCountry?: any;
@@ -29,7 +29,7 @@ const AppMenu: React.FC<AppMenuProps> = ({}) => {
 					<div className="flex justify-between w-full items-center">
 						<div>
 							<Link href="/">
-								<Image
+								<DynamicImage
 									className="cursor-pointer"
 									src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/sites/default/files/2023-12/mission-eff-logo.png`}
 									width={156}

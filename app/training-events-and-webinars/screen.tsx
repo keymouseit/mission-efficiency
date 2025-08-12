@@ -2,8 +2,8 @@
 import CommonBanner from '@/components/LandingWebsiteComponents/CommonBanner';
 import LandingFooter from '@/components/LandingWebsiteComponents/LandingFooter';
 import Header from '@/components/LandingWebsiteComponents/LandingHeader';
+import DynamicImage from '@/components/ResuableDynamicImage';
 import { DrupalNode } from 'next-drupal';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -27,6 +27,7 @@ const TrainingEventsScreen: React.FC<TrainingEventsProps> = ({
 					leftImg={'/static/images/left-home-hero.svg'}
 					rightImg={'/static/images/elevate-right-img.svg'}
 					title={title}
+					isSmallImage={false}
 				/>
 				<div className="pt-[140px] pb-10 betweenMobileTab:py-16 mobileMax:py-12">
 					<div className="mini-container flex items-start justify-start flex-wrap">
@@ -39,7 +40,7 @@ const TrainingEventsScreen: React.FC<TrainingEventsProps> = ({
 									>
 										<div className="flex items-start flex-col box-border w-full">
 											<div className="mb-10 flex justify-center items-center h-[280px] rounded-[23px] overflow-hidden mobileMax:mb-5">
-												<Image
+												<DynamicImage
 													src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${eventCards?.field_event_image?.uri?.url}`}
 													alt="category img"
 													height={350}

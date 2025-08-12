@@ -5,7 +5,7 @@ import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { DrupalNode } from "next-drupal";
 import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface PledgeDetailScreenProps {
   headerData: DrupalNode;
@@ -27,6 +27,7 @@ const PledgeDetailScreen: React.FC<PledgeDetailScreenProps> = ({
           rightImg={"/static/images/home-hero-3.svg"}
           noHeight={true}
           title={detailCard?.title}
+          isSmallImage={true}
         />
         <div className="py-14 bg-white relative mobileMax:py-10">
           <motion.div
@@ -40,7 +41,7 @@ const PledgeDetailScreen: React.FC<PledgeDetailScreenProps> = ({
           >
             <div className="mini-container py-12 h-full box-border w-full">
               <div className="max-w-[200px] h-[100px] w-full mx-auto bg-white ">
-                <Image
+                <DynamicImage
                   src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${detailCard?.field_pledge_card_image?.uri?.url}`}
                   alt="country flag"
                   width={200}
@@ -65,7 +66,11 @@ const PledgeDetailScreen: React.FC<PledgeDetailScreenProps> = ({
                   duration: 2.5,
                 }}
               >
-                <img src="/static/images/cta-blue-bg.svg" alt="left-bg" />
+                <DynamicImage
+                  src="/static/images/cta-blue-bg.svg" alt="left-bg"
+                  width={445}
+                  height={892}
+                />
               </motion.div>
             </div>
           </motion.div>

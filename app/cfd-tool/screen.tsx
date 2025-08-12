@@ -5,11 +5,11 @@ import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { DrupalNode } from "next-drupal";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { IoMdImages } from "react-icons/io";
 import CategoryCard from "@/components/LandingWebsiteComponents/CateogriesCard";
 import CfdToolSlider from "@/components/CfdToolSlider";
 import Link from "next/link";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface cfdToolProps {
   data: DrupalNode;
@@ -53,6 +53,7 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
           noHeight={true}
           lightBgClip={true}
           isCfdpage={true}
+          isSmallImage={true}
         />
         <div className="pt-16 pb-6 bg-mapGray mobileMax:pt-8 relative">
           <motion.div
@@ -65,9 +66,11 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
             }}
             className="absolute pointer-events-none left-0 top-[100px] mobileMax:top-[55px] max-w-[30%] mobileMax:max-w-[55%] betweenMobileTab:max-w-[40%] z-[1]"
           >
-            <img
+            <DynamicImage
               src="/static/images/cta-section-bg.svg"
               alt="overlay-bg"
+              width={316}
+              height={576}
               className="opacity-50 desktopLg:opacity-100"
             />
           </motion.div>
@@ -164,11 +167,10 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
                     return (
                       <div
                         key={index}
-                        className={`desktop:px-[15px] mb-8 w-full betweenMobileTab:mb-6 laptopMax:mb-0 laptopMax:py-3 laptopMax:border-t-[1px] laptopMax:border-[#8A8C8E] ${
-                          item?.length >= 1
-                            ? "desktop:w-full"
-                            : "desktop:w-[50%]"
-                        }`}
+                        className={`desktop:px-[15px] mb-8 w-full betweenMobileTab:mb-6 laptopMax:mb-0 laptopMax:py-3 laptopMax:border-t-[1px] laptopMax:border-[#8A8C8E] ${item?.length >= 1
+                          ? "desktop:w-full"
+                          : "desktop:w-[50%]"
+                          }`}
                       >
                         <motion.div
                           className="animate-cardHover-speed flex items-start box-border exactLaptop:bg-white remove-news-shadow card-shadow w-full h-[200px] aboveMinMobile:h-[160px] minMobile:h-[140px] exactLaptop:rounded-[4px] overflow-hidden"
@@ -180,10 +182,9 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
                         >
                           <div className="tab:w-[40%] tab:max-w-[50%] flex justify-center items-center w-full overflow-hidden relative mobileMax:mb-0 h-full minMobile:w-[90%] mobileMax:mr-2 lieTablets:mr-3">
                             {item?.field_image_icon?.uri?.url ? (
-                              <Image
-                                src={`${
-                                  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL
-                                }${item?.field_image_icon?.uri?.url || ""}`}
+                              <DynamicImage
+                                src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL
+                                  }${item?.field_image_icon?.uri?.url || ""}`}
                                 alt="category img"
                                 height={200}
                                 width={200}
@@ -244,10 +245,9 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
                     >
                       <div className="rounded-xl h-full flex items-start flex-col box-border w-full">
                         <div className="mb-5 mx-auto h-[34px]">
-                          <Image
-                            src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${
-                              designCard?.field_image_icon?.uri?.url || ""
-                            }`}
+                          <DynamicImage
+                            src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${designCard?.field_image_icon?.uri?.url || ""
+                              }`}
                             alt="category img"
                             height={34}
                             width={34}
@@ -269,7 +269,7 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
         </div>
         {/* design through cards */}
         <div className="py-[100px] bg-graybg mobileMax:pt-12 pb-16 betweenMobileTab:py-10 overflow-hidden relative">
-          <Image
+          <DynamicImage
             src="/static/images/cta-section-bg.svg"
             alt="overlay-bg"
             height={300}
@@ -321,17 +321,17 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
         </div>
         {/* last cards of ABCFD */}
         <div className="py-16 bg-mapGray mobileMax:pb-8 mobileMax:pt-8 relative overflow-hidden">
-          <motion.img
-            src="/static/images/cta-section-bg.svg"
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              duration: 2.5,
-            }}
-            className="absolute pointer-events-none max-w-[40%] top-[150px] left-0 mobileMax:max-w-[55%] mobileMax:opacity-40 z-[1]"
-          />
+            <motion.img
+              src="/static/images/cta-section-bg.svg"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                type: "spring",
+                duration: 2.5,
+              }}
+              className="absolute pointer-events-none max-w-[40%] top-[150px] left-0 mobileMax:max-w-[55%] mobileMax:opacity-40 z-[1]"
+            />
           <div className="mini-container relative z-[2]">
             <motion.h3
               initial={{ opacity: 0, y: 35 }}
@@ -368,8 +368,8 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
                 }
               )}
             </div>
-           {/* download tool btn */}
-           <div className="flex justify-center mt-10 mobileMax:mt-5">
+            {/* download tool btn */}
+            <div className="flex justify-center mt-10 mobileMax:mt-5">
               <Link
                 href={field_afb_download_button_link || ""}
                 className="flex items-center justify-center min-w-[220px] --font-poppins learnBtn !text-white text-medium min-h-[55px] rounded-lg hover:!text-[#1468a0] hover:!underline !no-underline mobileMax:min-w-full mobileMax:text-medium"

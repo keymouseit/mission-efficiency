@@ -5,18 +5,21 @@ import React from 'react';
 import { BsYoutube } from 'react-icons/bs';
 import { FaTwitter } from 'react-icons/fa6';
 import { TfiLinkedin } from 'react-icons/tfi';
+import DynamicImage from '../ResuableDynamicImage';
 
 const Footer = () => {
 	return (
 		<div className="relative mt-12 footerWrap">
-			<img
+			<DynamicImage
+				width={1880}
+				height={15}
 				src="/static/images/blue-curve.png"
 				alt="curve"
 				className="absolute z-[1] w-full top-[-13px] h-[15px] pointer-events-none"
 			/>
 			<div className="overflow-hidden relative">
 				<div className="px-4 py-10 bg-footerbg inner-footer min-h-[350px] mobileMax:min-h-[260px]">
-					<Image
+					<DynamicImage
 						src="/static/images/footer-logo.svg"
 						alt="logo"
 						width={42}
@@ -36,7 +39,7 @@ const Footer = () => {
 						</Link>
 						<Link href="https://www.linkedin.com/company/mission-efficiency/">
 							{/* <TfiLinkedin className="text-white text-xlg mx-2" /> */}
-							<Image
+							<DynamicImage
 								src="/static/images/linketin-logo.png"
 								alt="img"
 								width={30}
@@ -70,7 +73,7 @@ const Footer = () => {
 					</p>
 				</div>
 				<div className="absolute bottom-0 left-0 pointer-events-none">
-					<Image
+					<DynamicImage
 						src="/static/images/footer-bubble.svg"
 						alt="logo"
 						width={40}

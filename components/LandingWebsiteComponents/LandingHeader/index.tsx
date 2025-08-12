@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Menubar } from "@/components/ui/menubar";
 import Link from "next/link";
-import Image from "next/image";
 import { FaBars } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import {
@@ -14,6 +13,7 @@ import {
 import { usePathname } from "next/navigation";
 import { MenuItem, HeaderProps } from "@/types/header";
 import { DEV_PUBLIC_URL } from "@/services/api";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 const Header: React.FC<HeaderProps> = ({ data }) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
           {/* Logo */}
           <div>
             <Link href="/">
-              <Image
+               <DynamicImage
                 className="cursor-pointer"
                 src={`${DEV_PUBLIC_URL}${data?.field_logo?.uri?.url || ""}`}
                 width={156}

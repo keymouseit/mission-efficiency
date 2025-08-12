@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import HomeGridLayout from "../HomeGridLayout";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface GridLayoutProps {
   data: DrupalNode;
@@ -45,7 +46,11 @@ const GridLayout: React.FC<GridLayoutProps> = ({ data }) => {
         }}
         className="absolute pointer-events-none w-full betweenMobileTab:w-[70%] laptopMax:opacity-60 laptopMax:w-[80%]"
       >
-        <img src="/static/images/about-us-home.svg" alt="overlay-bg" />
+        <DynamicImage
+          width={657}
+          height={955}
+          src="/static/images/about-us-home.svg" alt="overlay-bg"
+        />
       </motion.div>
 
       <div className="mini-container">

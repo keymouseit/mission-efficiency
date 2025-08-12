@@ -7,12 +7,8 @@ const getOrientation = () => {
       if (window?.innerWidth > window?.innerHeight) {
         return "landscape-primary" || "landscape-secondary";
       }
-      // return window?.innerWidth < window?.innerHeight
-      //   ? "portrait-primary"
-      //   : "landscape-primary";
     }
   }
-  //   return "portrait-primary";
 };
 
 const OrientationBlocker = () => {

@@ -3,12 +3,12 @@ import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { DrupalNode } from "next-drupal";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import slugify from "slugify";
 import { usePathname } from "next/navigation";
+import DynamicImage from "@/components/ResuableDynamicImage";
 interface missionPledgeProps {
   headerData: DrupalNode;
   footerData: DrupalNode;
@@ -59,6 +59,7 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
           rightImg={"/static/images/elevate-right-img.svg"}
           title={"Mission efficiency Pledge"}
           noHeight={true}
+          isSmallImage={true}
         />
         {/* dollars card */}
         <div className="py-16 bg-white relative mobileMax:py-6 betweenMobileTab:py-10 overflow-hidden">
@@ -79,7 +80,7 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                     >
                       <div className="flex items-center flex-col box-border h-full w-full overflow-hidden  py-6 mobileMax:py-3">
                         {dashboardCard.field_dashboard_title_type ==
-                        "Number" ? (
+                          "Number" ? (
                           <div className="min-h-[80px] min-w-[80px] category-gradient rounded-full overflow-hidden flex items-center justify-center mb-3 laptopMax:min-h-[55px] laptopMax:min-w-[55px]">
                             <div className="flex items-center justify-center text-numans text-center text-[35px] rounded-full overflow-hidden min-h-[70px] min-w-[70px] laptopMax:min-h-[45px] laptopMax:min-w-[45px] bg-white font-bold leading-10 --font-poppins laptopMax:text-medium laptopMax:leading-7">
                               <p className="category-gradient text-clip">
@@ -147,9 +148,11 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
             }}
             className="remove-animation-fluctuation absolute pointer-events-none z-[1] max-w-[50%] top-[10%] mobileMax:max-w-[60%] mobileMax:top-[5%]"
           >
-            <img
+            <DynamicImage
               src="/static/images/cta-section-bg.svg"
               alt="overlay-bg"
+              width={316}
+              height={576}
               className="mobileMax:opacity-40"
             />
           </motion.div>
@@ -183,20 +186,19 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                       className="remove-animation-fluctuation px-[15px] mb-[25px] w-[33%] mobileMax:w-full mt-2 mobileMax:px-0 lieTablets:w-[50%] mobileMax:w-full mobileMax:px-0"
                     >
                       <div
-                       className="border-2 border-transparent hover:border-blueBorder transition flex items-start flex-col box-border h-full w-full rounded-[23px] overflow-hidden card-shadow bg-white">
+                        className="border-2 border-transparent hover:border-blueBorder transition flex items-start flex-col box-border h-full w-full rounded-[23px] overflow-hidden card-shadow bg-white">
                         <Link
                           href={sluggedLink || "#"}
                           className="rounded-xl bg-white px-[25px] py-[30px] h-full flex items-center flex-col box-border w-full card-shadow"
                         >
                           <div className="max-w-[200px] h-[100px] w-full mx-auto">
                             <div className="font-medium block text-center learnBtn text-clip --font-poppins h-full w-full min-w-[200px] min-h-[100px] h-[100px] object-contain">
-                              <Image
-                                src={`${
-                                  process.env.NEXT_PUBLIC_DRUPAL_BASE_URL
-                                }${
-                                  pledgeData?.field_pledge_card_image?.uri
+
+                              <DynamicImage
+                                src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL
+                                  }${pledgeData?.field_pledge_card_image?.uri
                                     ?.url || ""
-                                }`}
+                                  }`}
                                 alt="country flag"
                                 width={200}
                                 height={100}
@@ -218,14 +220,11 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
           className="relative z-[1] support-bottom-banner"
           id="our-supporters"
         >
-          <img
-            src="/static/images/blue-curve.png"
-            alt="curve"
-            className="absolute z-[2] w-full top-[-14px] h-[15px] pointer-events-none"
-          />
           <div className="overflow-hidden relative min-h-[560px] py-16 box-border mobileMax:py-10 betweenMobileTab:py-14">
             <div className="absolute top-[50%] -translate-y-2/4 left-0 pointer-events-none max-w-[80%] opacity-25 mobileMax:max-w-full betweenMobileTab:top-[35%] mobileMax:top-[15%] mobileMax:translate-y-unset">
-              <img src="/static/images/cta-blue-bg.svg" alt="left-bg" />
+              <DynamicImage width={445} height={892} src="/static/images/cta-blue-bg.svg" alt="left-bg" />
+
+
             </div>
             <div className="mini-container h-full flex flex-col items-center justify-center relative z-[3]">
               <motion.h2
@@ -270,11 +269,10 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                       >
                         <div className="rounded-[23px] flex justify-center items-center bg-white px-[15px] py-[10px] box-border w-full card-shadow">
                           <div className="max-w-[160px] w-full h-[110px] max-h-[110px] min-w-[120px] min-h-[100px] overflow-hidden">
-                            <Image
-                              src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${
-                                supporterCards?.field_supporter_list_image?.uri
+                            <DynamicImage
+                              src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${supporterCards?.field_supporter_list_image?.uri
                                   ?.url || ""
-                              }`}
+                                }`}
                               alt="sponser img"
                               width={160}
                               height={100}
@@ -301,9 +299,11 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
             }}
             className="absolute pointer-events-none left-0 z-[1] bottom-0 mobileMax:w-[40%]"
           >
-            <img
+            <DynamicImage
               src="/static/images/cta-section-bg.svg"
               alt="overlay-bg"
+              width={316}
+              height={576}
               className="mobileMax:opacity-40"
             />
           </motion.div>

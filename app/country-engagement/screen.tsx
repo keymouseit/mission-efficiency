@@ -3,11 +3,10 @@ import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { DrupalNode } from "next-drupal";
-import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface countryProps {
   data: DrupalNode;
@@ -33,6 +32,7 @@ const CountryScreen: React.FC<countryProps> = ({
           title={title}
           noHeight={true}
           lightBgClip={true}
+          isSmallImage={true}
         />
         <div className="overflow-hidden">
           <div className="pt-16 pb-8 bg-mapGray mobileMax:pt-8 relative">
@@ -46,11 +46,13 @@ const CountryScreen: React.FC<countryProps> = ({
               }}
               className="absolute pointer-events-none left-0 top-[100px] mobileMax:top-[55px] max-w-[30%] mobileMax:max-w-[55%] betweenMobileTab:max-w-[40%] z-[1]"
             >
-              <img
-                src="/static/images/cta-section-bg.svg"
-                alt="overlay-bg"
-                className="opacity-50 desktopLg:opacity-100"
-              />
+              <DynamicImage
+              src="/static/images/cta-section-bg.svg"
+              alt="overlay-bg"
+              width={316}
+              height={576}
+              className="opacity-50 desktopLg:opacity-100"
+            />
             </motion.div>
             <div className="mini-container relative z-[2]">
               <motion.div
@@ -94,7 +96,8 @@ const CountryScreen: React.FC<countryProps> = ({
                     }}
                   >
                     <motion.div className="transition bg-white p-4 flex items-center flex-col h-full box-border w-full card-shadow">
-                      <Image
+                     
+                      <DynamicImage
                         src={`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}${
                           getAllCountries?.field_country_image?.uri?.url || ""
                         }`}

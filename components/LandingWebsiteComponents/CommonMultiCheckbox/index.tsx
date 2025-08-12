@@ -1,6 +1,7 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import React, { useEffect, useState } from 'react';
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi';
+
 interface CommonMultiCheckoxInterface {
 	list: { label: string; value: string }[];
 	value: string[] | string;
@@ -93,10 +94,6 @@ const CommonMultiCheckox: React.FC<CommonMultiCheckoxInterface> = ({
 					{isOpen  ? (
 						<div
 							className="mt-3 lighter-scrollbar"
-							// style={{
-							// 	height: menuListHeight,
-							// 	overflow: menuListHeight ? 'hidden' : 'auto',
-							// }}
 						>
 							<div className="flex flex-col items-left overflow-auto h-full">
 								{list.map((listItem, index) => {

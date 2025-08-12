@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { DrupalNode, DrupalTaxonomyTerm } from "next-drupal";
-// import CommonComboBox from "@/components/CommonComboBox";
 import { CONSTS } from "@/lib/constants";
 import { clearQueryString, createQueryString } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -132,15 +131,7 @@ const ExploreToolsScreen: React.FC<ExploreToolsScreenProps> = ({
       });
       router.push(`${path}${query}`);
     }
-    // const result = [newQuery, query].map(i => i?.replace?.('?', '')).join('&')
-    // const clearedQuery = clearQueryString(result);
-    // setNewQuery(`?${clearedQuery}`?.replace('?&', '?'))
   };
-  // useEffect(() => {
-  // 	if(newQuery){
-  // 		router.push(`${path}${newQuery}`)
-  // 	}
-  // }, [newQuery]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

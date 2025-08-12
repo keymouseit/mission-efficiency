@@ -4,33 +4,6 @@ import { processMenuData } from '@/lib/processMenuData';
 import { RawHeaderNode } from '@/types/header';
 import { Metadata } from 'next';
 
-// type Props = {
-// 	params: { newsSlug: string };
-// };
-
-// export async function generateMetadata({ params }: Props): Promise<Metadata> {
-// 	// read route params
-// 	const { newsSlug } = params;
-// 	const cardDetails = await DrupalService.getNormalisedCardDataFromId(
-// 		newsSlug,
-// 		'NEWS',
-// 	);
-// 	const mediaLink =
-// 		cardDetails?.media ||
-// 		'https://missionefficiency.org/assets/Uploads/ME-social-v3.png';
-
-// 	return {
-// 		title: `${cardDetails?.title} - Mission Efficiency`,
-// 		description: cardDetails?.description?.value || '',
-// 		openGraph: {
-// 			title: `${cardDetails?.title} - Mission Efficiency`,
-// 			description: cardDetails?.description?.value || '',
-// 			images: [mediaLink],
-// 			videos: [mediaLink || ''],
-// 		},
-// 	};
-// }
-
 export async function generateMetadata(): Promise<Metadata> {
 	const data = await DrupalService.getCommonMetaTags();
 	return {

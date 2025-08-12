@@ -7,11 +7,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Image from "next/image";
 import { DrupalNode } from "next-drupal";
 import { CONSTS } from "@/lib/constants";
 import { getColorFromStat } from "@/lib/utils";
 import StatColourWithTooltip from "../SectorEnergyTooltip";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface TableProps {
   isCountryDetail: boolean;
@@ -77,7 +77,7 @@ const OverAllCountryTable: React.FC<TableProps> = ({
               <TableCell className={`${isCountryDetail ? "pl-2" : "pl-14"}`}>
                 <div className="flex items-start text-small text-purple text-left leading-[25px] font-poppins mobileMax:text-xsmall mobileMax:leading-[20px]">
                   <div className="mt-[2px] map-imageWrap">
-                    <Image
+                    <DynamicImage
                       src={`/static/images/${sector.icon}.svg`}
                       alt={sector.icon}
                       width={25}
@@ -121,7 +121,7 @@ const OverAllCountryTable: React.FC<TableProps> = ({
           <TableCell className={`${isCountryDetail ? "pl-2" : "pl-14"}`}>
             <div className="flex items-start text-small text-purple text-left leading-[25px] font-poppins mobileMax:text-xsmall mobileMax:leading-[20px]">
               <div className="mt-[2px] map-imageWrap">
-                <Image
+                <DynamicImage
                   src="/static/images/overall.png"
                   alt="overall"
                   width={25}

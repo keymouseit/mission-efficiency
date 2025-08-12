@@ -1,4 +1,5 @@
 "use client";
+import DynamicImage from "@/components/ResuableDynamicImage";
 import { motion, useScroll, useTransform } from "framer-motion";
 import React from "react";
 
@@ -14,10 +15,18 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
   return (
     <div className="banner-wrap-styling relative min-h-[80vh] mobileMax:min-h-[70vh] mobileMax:min-h-[85vh] overflow-hidden">
       <div className="top-[-20%] left-0 z-[-3] absolute pointer-events-none mobileMax:top-[-60%]">
-        <img src="/static/images/left-home-hero.svg" alt="left-bg" />
+        <DynamicImage
+          width={632}
+          height={665}
+          src="/static/images/left-home-hero.svg" alt="left-bg"
+        />
       </div>
       <div className="top-[-20%] right-0 z-[-2] absolute pointer-events-none mobileMax:top-[-60%]">
-        <img src="/static/images/right-home-hero.svg" alt="right-bg" />
+        <DynamicImage
+          src="/static/images/right-home-hero.svg" alt="right-bg"
+          width={526}
+          height={645}
+        />
       </div>
       {/* title section */}
       <div className="mini-container">
@@ -31,7 +40,9 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
         </div>
       </div>
       {/* banner-building image */}
-      <img
+      <DynamicImage
+        fill
+        height={525}
         src="/static/images/banner-building.svg"
         className="absolute z-[-1] bottom-0 w-full mobileMax:w-[700px] mobileMax:max-w-[700px] mobileMax:left-1/2 mobileMax:-translate-x-1/2 pointer-events-none"
         alt="building"
@@ -43,14 +54,20 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
           style={{
             left: moveValue,
           }}
-        >
-          <img
+        >=
+          <DynamicImage
+            width={110}
+            height={52}
             src="/static/images/banner-bus.svg"
             alt="bus-bg"
           />
         </motion.div>
       </div>
-      <img src="/static/images/white-curve.png" alt="curve" className="absolute z-[3] w-full bottom-[-2px] h-[18px] "/>
+      <DynamicImage
+        width={1880}
+        height={18}
+        src="/static/images/white-curve.png" alt="curve" className="absolute z-[3] w-full bottom-[-2px] h-[18px] "
+      />
     </div>
   );
 };

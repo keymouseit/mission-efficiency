@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { DrupalNode } from "next-drupal";
 import {
   createQueryString,
@@ -23,6 +22,7 @@ import NextBreadcrumb from "@/components/Breadcrumbs";
 import { MdChevronRight } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
 import CommonReactSelect from "@/components/CommonReactSelect";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface DashboardScreenProps {
   countryList?: DrupalNode[];
@@ -144,7 +144,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 <div className="mb-6 text-base flex items-center justify-start w-full mobileMax:mb-2">
                   <Card className="country-card border-none shadow-none w-full max-w-[62px] h-[62px] mobileMax:max-w-[50px] mobileMax:max-h-[50px] mobileMax:w-[50px] mobileMax:w-[50px] rounded-full overflow-hidden common-dropShadow">
                     {countryCode ? (
-                      <Image
+                      <DynamicImage
                         className="h-full rounded-full object-cover w-full"
                         src={`/static/flags/${countryCode.toLowerCase()}.svg`}
                         width={62}
@@ -156,48 +156,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
                     )}
                   </Card>
                   <div className="flex items-center justify-center max-w-[85%] aboveMinMobile:max-w-[430px] lieTablets:max-w-[550px] mx-auto minMobile:max-w-[240px] desktopMax:max-w-[350px] largeDesk:max-w-[350px]">
-                    {/* <Select
-                      onValueChange={(value: any) => {
-                        handleCountrySelect(value);
-                      }}
-                      value={countryData?.id}
-                    >
-                      <SelectTrigger className="country-selector text-lg font-bold commonGradientColor leading-[42px] selectEllipsed justify-center laptopMax:text-xlg">
-                        {countryData?.title ? (
-                          <SelectValue placeholder="Select Country" />
-                        ) : (
-                          <div className="animate-pulse min-w-[500px] aboveMinMobile:min-w-[300px] h-[50px] rounded-md bg-skeleton minMobile:min-w-[200px] desktopMax:min-w-[350px] largeDesk:min-w-[350px]" />
-                        )}
-                      </SelectTrigger>
-                      <SelectContent>
-                        {countryList.map((country, index) => {
-                          return (
-                            <div className="!overflow-auto" key={index}>
-                              <SelectItem key={index} value={country.id}>
-                                {country.title}
-                              </SelectItem>
-                            </div>
-                          );
-                        })}
-                      </SelectContent>
-                    </Select> */}
                     {countryData.id ? (
-                      // <CommonComboBox
-                      //   list={makeCountryOptions()}
-                      //   value={countryData?.id}
-                      //   placeholder={countryData?.id}
-                      //   searchPlaceholder="Search"
-                      //   onSelectChange={handleCountrySelect}
-                      //   multiSelect={[]}
-                      //   popoverButtonClassName={`dashboard-country-comboBox ${
-                      //     isIOS
-                      //       ? "no-gradient-countrySelect text-[#81BBF7] hover:text-[#81BBF7]"
-                      //       : "country-selector"
-                      //   }`}
-                      //   commandGrpClassName="mobileMax:max-h-[100px]"
-                      //   popoverTitleClassName="text-lg font-bold leading-[42px] selectEllipsed justify-center laptopMax:text-xlg font-poppins"
-                      //   popoverContentClass="mobileMax:w-[200px]"
-                      // />
                       <div
                         className={`w-full dashboard-country-comboBox ${
                           isIOS && "no-gradient-countrySelect"
@@ -234,7 +193,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
                           backgroundColor: potentSectorColor,
                         }}
                       >
-                        <Image
+                        <DynamicImage
                           src={`/static/images/${potentSector?.icon}.svg`}
                           alt="home"
                           width={50}
@@ -265,7 +224,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
                           backgroundColor: countryAverageColor,
                         }}
                       >
-                        <Image
+                        <DynamicImage
                           src="/static/images/white-mount-flow.png"
                           alt="mount-flow"
                           width={50}

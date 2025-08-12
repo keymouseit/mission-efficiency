@@ -1,10 +1,10 @@
 "use client";
-import Image from "next/image";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import NextBreadcrumb from "@/components/Breadcrumbs";
 import { MdChevronRight } from "react-icons/md";
 import Link from "next/link";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface AboutUsScreenProps {
   searchParams: any;
@@ -32,7 +32,7 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({ searchParams }) => {
             <p className="commonGradientColor text-lg font-normal text-numans leading-[60px] text-center mobileMax:text-odd">
               About
             </p>
-            <Image
+            <DynamicImage
               src="/static/images/footer-logo.svg"
               alt="logo"
               width={42}
@@ -137,7 +137,7 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({ searchParams }) => {
           <div className="h-[100px]  mobileMax:h-[80px]" />
           <div className="flex items-center justify-center pb-4 mobileMax:flex-col">
             <Link href="https://www.seforall.org/" className="order-3">
-              <Image
+              <DynamicImage
                 src="https://knowledgehub.vercel.app/static/images/SEforALL_Logo_Colour.png"
                 alt="SEForAll"
                 width={100}
@@ -146,7 +146,7 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({ searchParams }) => {
               />
             </Link>
             <Link href="https://www.unido.org/" className="order-1">
-              <Image
+              <DynamicImage
                 src="/static/images/Unido_EN_Light_Blue.png"
                 alt="unido"
                 width={400}
@@ -155,7 +155,7 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({ searchParams }) => {
               />
             </Link>
             <Link href="https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero" className="order-2">
-              <Image
+              <DynamicImage
                 src="/static/images/UKGov.png"
                 alt="ukGov"
                 width={350}

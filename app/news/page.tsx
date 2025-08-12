@@ -18,18 +18,6 @@ export async function generateMetadata(): Promise<Metadata> {
 	};
 }
 
-// export async function generateMetadata(): Promise<Metadata> {
-// 	return {
-// 		title: 'News - Mission Efficiency',
-// 		description: `Stay updated on Mission Efficiency's latest news and events. Join us in our mission for efficiency and success`,
-// 		openGraph: {
-// 			title: 'News - Mission Efficiency',
-// 			description: `Stay updated on Mission Efficiency's latest news and events. Join us in our mission for efficiency and success`,
-// 			images: ['https://missionefficiency.org/assets/Uploads/ME-social-v3.png'],
-// 		},
-// 	};
-// }
-
 const News = async ({ searchParams }: any) => {
 	const { resource = '', month = '', year = '', search = '' } = searchParams;
 	const filteredNewsCards =

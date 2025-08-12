@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { DrupalNode } from "next-drupal";
 import { motion } from "framer-motion";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface FAQSectionProps {
   data: DrupalNode;
@@ -21,7 +22,11 @@ function FAQSections({ data }: FAQSectionProps) {
     >
       {/* Background SVG */}
       <div className="absolute top-[-90px] left-0 z-[-2] pointer-events-none">
-        <img src="/static/images/ewpartners-bg.svg" alt="left-bg" />
+        <DynamicImage
+          width={851}
+          height={1703}
+          src="/static/images/ewpartners-bg.svg" alt="left-bg"
+        />
       </div>
 
       <div className="mini-container h-full">

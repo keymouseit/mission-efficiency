@@ -32,6 +32,7 @@ import { CiVideoOn } from "react-icons/ci";
 import ReactPlayer from "react-player";
 import { getTrainingPaginatedData } from "@/services/api";
 import { motion } from "framer-motion";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface DetailScreenProps {
   headerData: DrupalNode;
@@ -139,6 +140,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
           noHeight={true}
           lightBgClip={true}
           isCallToAction={true}
+          isSmallImage={true}
         />
         <div className="py-16 mobileMax:py-12 relative min-h-[60vh]">
           <div className=" overflow-hidden">
@@ -152,7 +154,9 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
               }}
               className="absolute pointer-events-none z-[1] max-w-[50%] top-[10%]  mt-10 mobileMax:max-w-[40%]"
             >
-              <img
+              <DynamicImage
+              width={316}
+              height={576}
                 src="/static/images/cta-section-bg.svg"
                 alt="overlay-bg"
                 className="opacity-60 mobileMax:opacity-40"
@@ -189,7 +193,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                   />
                 </div>
               ) : mediaTypeAndSrc.type === "image" ? (
-                <Image
+                 <DynamicImage
                   src={`${mediaTypeAndSrc.src}`}
                   alt="category img"
                   height={450}

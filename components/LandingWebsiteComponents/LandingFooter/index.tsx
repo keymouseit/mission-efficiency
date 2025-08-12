@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { DrupalNode } from "next-drupal";
 import { DEV_PUBLIC_URL } from "@/services/api";
+import DynamicImage from "@/components/ResuableDynamicImage";
 
 interface LandingFooterProps {
   data: DrupalNode;
@@ -21,7 +22,9 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
 
   return (
     <div className="relative mt-10 footerWrap">
-      <img
+      <DynamicImage
+        width={1880}
+        height={15}
         src="/static/images/blue-curve.png"
         alt="curve"
         className="absolute z-[1] w-full top-[-13px] h-[15px] pointer-events-none"
@@ -29,7 +32,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
       <div className="overflow-hidden relative">
         <div className="px-4 py-10 bg-footerbg inner-footer min-h-[380px] mobileMax:min-h-[260px]">
           {field_logo?.uri?.url && (
-            <Image
+            <DynamicImage
               src={`${DEV_PUBLIC_URL}${field_logo.uri.url}`}
               alt={field_logo?.resourceIdObjMeta?.alt || "logo"}
               width={42}
@@ -64,7 +67,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
                   rel="noopener noreferrer"
                 >
                   {icon && (
-                    <Image
+                    <DynamicImage
                       src={`${DEV_PUBLIC_URL}${icon}`}
                       alt={
                         item?.field_icon?.resourceIdObjMeta?.alt ||
@@ -109,7 +112,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
         </div>
 
         <div className="absolute bottom-0 left-0 pointer-events-none">
-          <Image
+          <DynamicImage
             src="/static/images/footer-bubble.svg"
             alt="footer bubble"
             width={40}

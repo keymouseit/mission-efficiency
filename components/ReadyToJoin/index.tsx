@@ -3,7 +3,7 @@
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
-import Image from "next/image";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface ReadyToJoinProps {
   data: DrupalNode;
@@ -50,7 +50,7 @@ const ReadyToJoin: React.FC<ReadyToJoinProps> = ({ data }) => {
               className="remove-animation-fluctuation w-[50%] mobileToDesk:w-full mobileToDesk:order-1"
             >
               <div className="h-full w-full rounded-[40px] mobileToDesk:rounded-[30px] overflow-hidden">
-                <Image
+                <DynamicImage
                   src={imageUrl}
                   alt="Ready to move image"
                   height={350}

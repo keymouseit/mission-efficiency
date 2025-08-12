@@ -7,6 +7,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface TitleDescriptionBlockProps {
   data?: DrupalNode;
@@ -69,7 +70,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
     backgroundImageClass,
     isImageRight = false,
   } = variantConfig[backgroundColor as keyof typeof variantConfig] ??
-  variantConfig.cta_white;
+    variantConfig.cta_white;
 
   const content =
     data?.field_cta_description?.processed ||
@@ -82,23 +83,28 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
   return (
     <section
       id={sectionId}
-      className={`${
-        bgImageUrl ? "bg-black" : backgroundClass
-      } overflow-hidden relative pt-5 pb-[60px] mobileMax:pt-0 mobileMax:pb-[80px] betweenMobileTab:pb-12`}
+      className={`${bgImageUrl ? "bg-black" : backgroundClass
+        } overflow-hidden relative pt-5 pb-[60px] mobileMax:pt-0 mobileMax:pb-[80px] betweenMobileTab:pb-12`}
     >
       {bgImageUrl ? (
-        <img
+
+        <DynamicImage
+          fill
+          height={467}
           src={bgImageUrl}
           alt="background"
           className="absolute top-0 left-0 w-full h-full object-cover z-0 pointer-events-none opacity-40"
         />
       ) : backgroundImageSrc && !data?.field_cta_button ? (
         <motion.div
-          className={`absolute pointer-events-none opacity-25 top-[50%] -translate-y-1/2 z-[1] ${
-            isImageRight ? "right-0" : "left-0"
-          } ${backgroundImageClass}`}
+          className={`absolute pointer-events-none opacity-25 top-[50%] -translate-y-1/2 z-[1] ${isImageRight ? "right-0" : "left-0"
+            } ${backgroundImageClass}`}
         >
-          <img src={backgroundImageSrc} alt="background" />
+          <DynamicImage
+          width={301}
+          height={603}
+          src={backgroundImageSrc} alt="background"
+          />
         </motion.div>
       ) : (
         <motion.div
@@ -108,7 +114,9 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
           transition={{ type: "spring", duration: 2.8 }}
           className="absolute bottom-[2px] right-0 pointer-events-none max-w-[80%] aboveLaptop:max-w-[70%] desktop:opacity-100 z-[1]"
         >
-          <img
+          <DynamicImage
+            width={618}
+            height={897}
             src="/static/images/get-inv-home.svg"
             alt="get-inv-home"
             className="desktopLg:opacity-100 opacity-50"
@@ -117,22 +125,19 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
       )}
 
       <div
-        className={`mini-container h-full flex flex-col items-center justify-center relative z-[3] ${
-          !data?.field_cta_button ? "pt-[82px]" : "pt-[120px] pb-16"
-        }`}
+        className={`mini-container h-full flex flex-col items-center justify-center relative z-[3] ${!data?.field_cta_button ? "pt-[82px]" : "pt-[120px] pb-16"
+          }`}
       >
         <motion.h3
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0 }}
-          className={`${
-            data?.field_cta_button ? "text-center desktop:text-[60px]" : ""
-          } ${
-            bgImageUrl
+          className={`${data?.field_cta_button ? "text-center desktop:text-[60px]" : ""
+            } ${bgImageUrl
               ? "text-white"
               : "text-numans category-gradient text-clip"
-          } desktop:text-[54px] mb-14 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-[48px] mobileMax:text-[28px]`}
+            } desktop:text-[54px] mb-14 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-[48px] mobileMax:text-[28px]`}
         >
           {data?.field_cta_title}
         </motion.h3>
@@ -143,9 +148,8 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0 }}
-            className={`remove-animation-fluctuation text-medium ${
-              bgImageUrl ? "text-white text-center" : textColorClass
-            } --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal`}
+            className={`remove-animation-fluctuation text-medium ${bgImageUrl ? "text-white text-center" : textColorClass
+              } --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal`}
             dangerouslySetInnerHTML={{ __html: content }}
           />
         )}
@@ -157,9 +161,9 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
             href={
               data?.field_cta_button?.uri.startsWith("internal:")
                 ? `${origin}${data.field_cta_button.uri.replace(
-                    "internal:",
-                    ""
-                  )}`
+                  "internal:",
+                  ""
+                )}`
                 : data.field_cta_button.uri
             }
             className={`${bgImageUrl ? "mt-10" : ""}`}

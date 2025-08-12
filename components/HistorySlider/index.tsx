@@ -6,6 +6,7 @@ import { PiArrowCircleRightThin, PiArrowCircleLeftThin } from "react-icons/pi";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { DEV_PUBLIC_URL } from "@/services/api";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface HistorySliderProps {
   sliderData: DrupalNode;
@@ -56,11 +57,15 @@ const HistorySlider: React.FC<HistorySliderProps> = ({ sliderData }) => {
                   </h2>
                   <div className="flex items-start flex-col box-border w-full">
                     <div className="mb-[35px] flex justify-center items-center h-[215px] overflow-hidden w-full mobileMax:mb-5">
-                      <img
+                    
+                      <DynamicImage
+                        width={387}
+                        height={215}
                         src={`${DEV_PUBLIC_URL}${timelineCard?.field_icon?.uri?.url}`}
                         alt="category img"
                         className="w-full h-full object-cover"
                       />
+
                     </div>
                     <div className="h-full w-full">
                       <h4 className="text-numans tracking-tight text-left text-[27px] mb-5 text-[#313132] leading-9 line-clamp-3 mobileMax:text-medium mobileMax:leading-7 mobileMax:mb-3">

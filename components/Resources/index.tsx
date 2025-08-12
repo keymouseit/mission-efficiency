@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import PartnerCard from "../LandingWebsiteComponents/PartnersCard";
 import { DEV_PUBLIC_URL } from "@/services/api";
+import DynamicImage from "../ResuableDynamicImage";
 
 interface SupportPartnersSectionProps {
   data: DrupalNode;
@@ -23,7 +24,9 @@ function Resources({ data }: SupportPartnersSectionProps) {
         transition={{ type: "spring", duration: 2.5 }}
         className="remove-animation-fluctuation absolute top-[-20px] left-0 z-[0] pointer-events-none desktop:max-w-[30%] max-w-[70%] mobileMax:max-w-[95%] opacity-50 desktop:opacity-100 rotate-180"
       >
-        <img
+        <DynamicImage
+          width={564}
+          height={970}
           src="/static/images/ewpartners-bg-2.svg"
           alt="left-bg"
           className="desktop:opacity-70 opacity-[0.6] rotate-180"
