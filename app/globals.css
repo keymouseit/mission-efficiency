@@ -741,11 +741,17 @@ body ::selection {
 .finacial-card-alternate-border:nth-child(odd) {
   border-right: 1px solid #d4d4d4;
 }
+
+/* Hide border for the last item if total count is odd */
 .transparent-cards-border
-  .finacial-card-alternate-border:nth-child(3)
-  .alternate-bottom-border,
+  .finacial-card-alternate-border:nth-last-child(1):nth-child(odd)
+  .alternate-bottom-border {
+  display: none;
+}
+
+/* Hide border for last 2 items if total count is even */
 .transparent-cards-border
-  .finacial-card-alternate-border:nth-child(4)
+  .finacial-card-alternate-border:nth-last-child(-n + 2):nth-child(even)
   .alternate-bottom-border {
   display: none;
 }

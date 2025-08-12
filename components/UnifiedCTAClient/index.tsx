@@ -44,10 +44,10 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
           alt="cta-img"
           height={520}
           width={520}
-          className={`w-full h-full max-w-full card-shadow rounded-[12px] ${
+          className={`w-full h-full max-w-full card-shadow rounded-[12px] object-cover ${
             data?.field_twi_image_position === "center" || !imageDescription
-              ? "object-contain"
-              : "object-cover transform transition-transform duration-500 hover:scale-105"
+              ? ""
+              : "transform transition-transform duration-500 hover:scale-105"
           }`}
         />
       </div>

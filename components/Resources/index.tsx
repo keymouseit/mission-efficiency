@@ -46,14 +46,16 @@ function Resources({ data }: SupportPartnersSectionProps) {
         )}
 
         {/* Partner Cards */}
-        <div className="flex items-center flex-wrap pb-[25px] w-[90%] mx-auto justify-center transparent-cards-border">
+        <div className="flex items-center flex-wrap pb-[25px] mobileMax:block transparent-cards-border invest-cards">
           {data?.field_resources_cards.map((card: any, index: any) => {
-            const imageUrl = `${DEV_PUBLIC_URL}${card?.field_image[0]?.uri?.url}`;
+            const imageUrl =
+              card?.field_image[0]?.uri?.url &&
+              `${DEV_PUBLIC_URL}${card?.field_image[0]?.uri?.url}`;
 
             return (
               <motion.div
                 key={`partner-${index}`}
-                className="remove-animation-fluctuation px-[15px] w-[50%] finacial-card-alternate-border finacial-card-text mobileMax:w-full mobileMax:px-0 mb-5"
+                className="remove-animation-fluctuation px-[15px] w-[50%] finacial-card-alternate-border mobileMax:w-full pt-8"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
