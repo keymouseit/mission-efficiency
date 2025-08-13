@@ -42,9 +42,9 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
           )}
 
           {field_logo_title && (
-            <h5 className="text-sky text-[24px] text-center mb-[72px] text-numans mobileMax:text-xmedium">
+            <p className="text-sky text-[24px] text-center mb-[72px] text-numans mobileMax:text-xmedium">
               {field_logo_title}
-            </h5>
+            </p>
           )}
 
           {field_follow_title && (
@@ -85,24 +85,22 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
           <div className="border border-white my-8 w-[33px] mx-auto" />
 
           <ul className="flex items-center justify-center flex-col mb-[27px]">
-            {field_link_with_title?.map(
-              (menuItem: DrupalNode, index: number) => {
-                return (
-                  <Link
-                    href={
-                      menuItem?.title.toLocaleLowerCase().includes("contact")
-                        ? `mailTo:${menuItem?.uri}`
-                        : menuItem?.uri || "#"
-                    }
-                    key={index}
-                  >
-                    <li className="text-center leading-[25px] text-xsmall text-[#fff] hover:text-[#8e7ec9] text-poppins cursor-pointer">
-                      {menuItem?.title || ""}
-                    </li>
-                  </Link>
-                );
-              }
-            )}
+            {field_link_with_title?.map((menuItem: DrupalNode, index: number) => (
+              <li
+                key={index}
+                className="text-center leading-[25px] text-xsmall text-[#fff] hover:text-[#8e7ec9] text-poppins cursor-pointer"
+              >
+                <Link
+                  href={
+                    menuItem?.title.toLocaleLowerCase().includes("contact")
+                      ? `mailto:${menuItem?.uri}`
+                      : menuItem?.uri || "#"
+                  }
+                >
+                  {menuItem?.title || ""}
+                </Link>
+              </li>
+            ))}
           </ul>
 
           <p className="text-center leading-[18px] text-xs text-footerPurple text-poppins">

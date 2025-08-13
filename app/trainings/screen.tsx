@@ -640,9 +640,9 @@ const TrainingScreen: React.FC<trainingProps> = ({
                   className="exactLaptop:hidden text-odd text-black absolute right-2.5 top-1.5 cursor-pointer"
                   onClick={() => setShowMobileFilters(false)}
                 />
-                <h5 className="--font-poppins text-medium leading-normal mobileMax:text-small font-bold">
+                <p className="--font-poppins text-medium leading-normal mobileMax:text-small font-bold">
                   Filters by:
-                </h5>
+                </p>
                 <div className="flex items-center">
                   {showClearBtn && (
                     <button

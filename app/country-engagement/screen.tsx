@@ -106,9 +106,9 @@ const CountryScreen: React.FC<countryProps> = ({
                         width={200}
                         className="h-full w-full mb-5"
                       />
-                      <h4 className="text-numans text-center text-[23px] text-landingBlue leading-7 mobileMax:text-medium mobileMax:leading-7 hover:underline">
+                      <h3 className="text-numans text-center text-[23px] text-landingBlue leading-7 mobileMax:text-medium mobileMax:leading-7 hover:underline">
                         {getAllCountries?.title}
-                      </h4>
+                      </h3>
                     </motion.div>
                   </motion.div>
                 </Link>

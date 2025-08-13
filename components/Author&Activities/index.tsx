@@ -89,11 +89,10 @@ const Taskforce = ({ data }: TaskforceProps) => {
 
                     {data?.field_button?.length > 0 && (
                       <div
-                        className={`flex flex-row justify-between mobileMax:flex-col ${
-                          data.field_button.length > 0
+                        className={`flex flex-row justify-between mobileMax:flex-col ${data.field_button.length > 0
                             ? "my-10 mobileMax:my-2"
                             : ""
-                        }`}
+                          }`}
                       >
                         {data.field_button.map((btn: any, index: number) => (
                           <Link
@@ -117,20 +116,20 @@ const Taskforce = ({ data }: TaskforceProps) => {
                         <div className="w-full flex items-center justify-between mx-auto pt-10 mobileMax:flex-col">
                           {data?.field_author_details.field_image[0]?.uri
                             ?.url && (
-                            <div className="max-w-[220px] min-w-[220px] mobileMax:min-w-[150px] mobileMax:max-w-[150px] mr-5 mobileMax:mr-0">
-                              <DynamicImage
-                                src={`${DEV_PUBLIC_URL}${data?.field_author_details?.field_image[0]?.uri?.url}`}
-                                alt={
-                                  data.field_author_details.field_image[0]
-                                    .alt || "author image"
-                                }
-                                width={200}
-                                height={200}
-                                unoptimized
-                                className="h-full w-full min-h-[200px] max-h-[200px] max-w-[200px] mobileMax:min-h-[150px] mobileMax:max-h-[150px] mobileMax:min-w-[150px] mobileMax:max-w-[150px] rounded-full overflow-hidden object-cover object-center border-2 border-blueBorder mx-auto"
-                              />
-                            </div>
-                          )}
+                              <div className="max-w-[220px] min-w-[220px] mobileMax:min-w-[150px] mobileMax:max-w-[150px] mr-5 mobileMax:mr-0">
+                                <DynamicImage
+                                  src={`${DEV_PUBLIC_URL}${data?.field_author_details?.field_image[0]?.uri?.url}`}
+                                  alt={
+                                    data.field_author_details.field_image[0]
+                                      .alt || "author image"
+                                  }
+                                  width={200}
+                                  height={200}
+                                  unoptimized
+                                  className="h-full w-full min-h-[200px] max-h-[200px] max-w-[200px] mobileMax:min-h-[150px] mobileMax:max-h-[150px] mobileMax:min-w-[150px] mobileMax:max-w-[150px] rounded-full overflow-hidden object-cover object-center border-2 border-blueBorder mx-auto"
+                                />
+                              </div>
+                            )}
 
                           {data?.field_author_details?.field_about && (
                             <div className="quotes-imgBox w-[80%] relative">
@@ -146,9 +145,9 @@ const Taskforce = ({ data }: TaskforceProps) => {
                         </div>
 
                         {data.field_author_details.field_name && (
-                          <h6 className="text-numans text-right font-semibold text-[22px] uppercase italic history-title-gradient text-clip mobileMax:text-xsmall leading-normal pr-2 m-0">
+                          <p className="text-numans text-right font-semibold text-[22px] uppercase italic history-title-gradient text-clip mobileMax:text-xsmall leading-normal pr-2 m-0">
                             {data.field_author_details.field_name}
-                          </h6>
+                          </p>
                         )}
 
                         {data.field_author_details.field_role && (

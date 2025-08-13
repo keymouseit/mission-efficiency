@@ -26,9 +26,9 @@ const Footer = () => {
 						height={42}
 						className="mx-auto block pb-2"
 					/>
-					<h5 className="text-sky text-[24px] text-center mb-[72px] text-numans mobileMax:text-xmedium">
+					<p className="text-sky text-[24px] text-center mb-[72px] text-numans mobileMax:text-xmedium">
 						Elevate. Support. Invest.
-					</h5>
+					</p>
 					<p className="capitalize text-center text-xsmall text-white leading-[20px]">
 						Follow Us
 					</p>
@@ -50,23 +50,32 @@ const Footer = () => {
 					</div>
 					<div className="border border-[1px] border-white my-8 w-[33px] mx-auto" />
 					<ul className="flex items-center justify-center flex-col mb-[27px]">
-						<a href="mailto:info@missionefficiency.org">
-							{' '}
-							<li className="text-center leading-[25px] text-xsmall text-[#a194d2] hover:text-[#8e7ec9] text-poppins cursor-pointer text-white">
+						<li>
+							<a
+								href="mailto:info@missionefficiency.org"
+								className="text-center leading-[25px] text-xsmall text-[#a194d2] hover:text-[#8e7ec9] text-poppins cursor-pointer text-white"
+							>
 								Contact us
-							</li>
-						</a>
-						<a href="/terms-and-conditions">
-							<li className="text-center leading-[25px] text-xsmall text-[#a194d2] hover:text-[#8e7ec9] text-poppins cursor-pointer text-white">
+							</a>
+						</li>
+						<li>
+							<a
+								href="/terms-and-conditions"
+								className="text-center leading-[25px] text-xsmall text-[#a194d2] hover:text-[#8e7ec9] text-poppins cursor-pointer text-white"
+							>
 								Terms and conditions
-							</li>
-						</a>
-						<a href="/privacy-policy">
-							<li className="text-center leading-[25px] text-xsmall text-[#a194d2] hover:text-[#8e7ec9] text-poppins cursor-pointer text-white">
+							</a>
+						</li>
+						<li>
+							<a
+								href="/privacy-policy"
+								className="text-center leading-[25px] text-xsmall text-[#a194d2] hover:text-[#8e7ec9] text-poppins cursor-pointer text-white"
+							>
 								Privacy Policy
-							</li>
-						</a>
+							</a>
+						</li>
 					</ul>
+
 					<p className="text-center leading-[18px] text-xs text-footerPurple text-poppins">
 						<span className="mr-0.5">©</span>Mission Efficiency 2024. All rights
 						reserved.

@@ -68,9 +68,9 @@ const HistorySlider: React.FC<HistorySliderProps> = ({ sliderData }) => {
 
                     </div>
                     <div className="h-full w-full">
-                      <h4 className="text-numans tracking-tight text-left text-[27px] mb-5 text-[#313132] leading-9 line-clamp-3 mobileMax:text-medium mobileMax:leading-7 mobileMax:mb-3">
+                      <h3 className="text-numans tracking-tight text-left text-[27px] mb-5 text-[#313132] leading-9 line-clamp-3 mobileMax:text-medium mobileMax:leading-7 mobileMax:mb-3">
                         {timelineCard?.field_sub_title}
-                      </h4>
+                      </h3>
                       <div
                         className="--font-poppins text-left text-small text-cardText leading-6 line-clamp-5 mobileMax;text-xsmall"
                         dangerouslySetInnerHTML={{

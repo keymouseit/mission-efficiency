@@ -41,9 +41,9 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
           transition={{ type: "spring", duration: 2.5 }}
           className="w-[50%] mobileMax:w-full mobileMax:order-2 mobileMax:mt-5"
         >
-          <motion.h4 className="desktop:text-[55px] text-numans mb-6 tracking-tight leading-normal text-left multi-text text-clip text-[48px] mobileMax:text-[28px] mobileMax:mb-3">
+          <motion.h3 className="desktop:text-[55px] text-numans mb-6 tracking-tight leading-normal text-left multi-text text-clip text-[48px] mobileMax:text-[28px] mobileMax:mb-3">
             {data?.field_twi_title}
-          </motion.h4>
+          </motion.h3>
 
           <motion.div
             dangerouslySetInnerHTML={{

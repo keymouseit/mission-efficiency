@@ -131,11 +131,11 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                     resourcesData?.field_twi_image_position === "twi_right"
                       ? "order-1 mr-16 lieExactTab:mr-0 lieExactTab:mt-8"
                       : "ml-16 lieExactTab:ml-0 lieExactTab:mt-8"
-                  } laptop:flex-1 h-full lieExactTab:order-1 lieExactTab:pb-12`}
+                  } laptop:flex-1 h-full lieExa ctTab:order-1 lieExactTab:pb-12`}
                 >
-                  <h5 className="text-numans text-[#545d6f] text-[35px] mb-[30px] lieTablets:mb-5 lieTablets:text-[25px] leading-normal mobileMax:text-medium mobileMax:mb-3 uppercase">
+                  <h4 className="text-numans text-[#545d6f] text-[35px] mb-[30px] lieTablets:mb-5 lieTablets:text-[25px] leading-normal mobileMax:text-medium mobileMax:mb-3 uppercase">
                     {resourcesData?.field_twi_title}
-                  </h5>
+                  </h4>
                   <div
                     className="--font-poppins text-left text-cardText text-medium leading-normal mobileMax:text-small mb-8 mobileMax:mb-5 elevate-link"
                     dangerouslySetInnerHTML={{

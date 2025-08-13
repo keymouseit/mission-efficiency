@@ -49,7 +49,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
       </motion.div>
 
       <div className="mini-container relative z-[1]">
-        <motion.h3
+        <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -57,7 +57,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
           className="remove-animation-fluctuation desktop:text-[66px] text-numans mb-4 tracking-tight desktop:leading-[85px] text-center history-title-gradient text-clip text-[48px] leading-normal mobileMax:text-[32px] mobileMax:mb-1"
         >
           {missionData?.field_title}
-        </motion.h3>
+        </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 40 }}
@@ -94,9 +94,9 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
                     </div>
                   )}
                   <div className="h-full w-full">
-                    <h4 className="--font-poppins text-center desktop:text-[27px] mb-2 text-landingBlue leading-normal capitalize text-medium">
+                    <h2 className="--font-poppins text-center desktop:text-[27px] mb-2 text-landingBlue leading-normal capitalize text-medium">
                       {card?.field_title}
-                    </h4>
+                    </h2>
                     <div
                       className="--font-poppins text-center text-small text-[#7b99c7] leading-6 mobileMax:leading-normal mobileMax:text-xsmall line-clamp-5"
                       dangerouslySetInnerHTML={{

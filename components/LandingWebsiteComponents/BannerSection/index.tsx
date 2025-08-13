@@ -42,11 +42,14 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
         </div>
       </div>
       {/* banner-building image */}
-      <img
-        src="/static/images/banner-building.svg"
-        className="absolute z-[-1] bottom-0 w-full mobileMax:w-[700px] mobileMax:max-w-[700px] mobileMax:left-1/2 mobileMax:-translate-x-1/2 pointer-events-none"
-        alt="building"
-      />
+        <DynamicImage
+          width={700}
+          src="/static/images/banner-building.svg"
+          className="absolute z-[-1] bottom-0 w-full mobileMax:w-[700px] mobileMax:max-w-[700px] mobileMax:left-1/2 mobileMax:-translate-x-1/2 pointer-events-none"
+          alt="building"
+          priority={true}
+        />
+
       {/* banner bus */}
       <div className="h-[55px] absolute bottom-3 left-[29%] pointer-events-none mobileMax:left-[25%]">
         <motion.div
@@ -68,7 +71,7 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
         height={18}
         src="/static/images/white-curve.png"
         alt="curve"
-        className="absolute z-[3] w-full bottom-[-2px] h-[18px] "
+        className="absolute z-[3] w-full bottom-[-2px] h-[18px]"
       />
     </div>
   );

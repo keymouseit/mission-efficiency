@@ -106,9 +106,9 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
         >
           {/* Title */}
           <div className={isLeftPosition ? "" : "overflow-hidden"}>
-            <motion.h3 className="desktop:text-[60px] text-numans mb-10 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-center category-gradient text-clip px-5 text-[48px] mobileMax:text-[28px]">
+            <motion.h2 className="desktop:text-[60px] text-numans mb-10 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-center category-gradient text-clip px-5 text-[48px] mobileMax:text-[28px]">
               {data?.field_twi_title}
-            </motion.h3>
+            </motion.h2>
           </div>
 
           {/* Description content */}
@@ -261,9 +261,9 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                       {/*object images cards */}
                       <div className="w-full py-3 px-5 flex flex-col justify-start">
                         {obj?.field_title && (
-                          <motion.h5 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
+                          <motion.h3 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
                             {obj.field_title}
-                          </motion.h5>
+                          </motion.h3>
                         )}
                         <motion.div
                           className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small"

@@ -127,7 +127,7 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
                   target="_blank"
                   className="border-2 border-transparent hover:border-blueBorder transition block rounded-[25px] flex justify-center items-center bg-white px-[15px] py-[10px] box-border w-full card-shadow"
                 >
-                  <div className="max-w-[160px] w-full h-[110px] max-h-[110px] min-w-[120px] min-h-[100px] overflow-hidden">
+                  <div className="max -w-[160px] w-full h-[110px] max-h-[110px] min-w-[120px] min-h-[100px] overflow-hidden">
                     <DynamicImage
                       src={`${DEV_PUBLIC_URL}${partnerCard?.field_icon?.uri?.url}`}
                       alt="img"

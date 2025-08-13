@@ -190,12 +190,12 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
       <div className="mini-container relative z-[1]">
         {/* Section Title */}
         {data?.field_title && (
-          <motion.h3
+          <motion.h2
             {...animationConfig}
             className="remove-animation-fluctuation desktop:text-[66px] text-numans mb-4 tracking-tight desktop:leading-[85px] text-center history-title-gradient text-clip text-[48px] leading-normal mobileMax:text-[32px] mobileMax:mb-1"
           >
             {data.field_title}
-          </motion.h3>
+          </motion.h2>
         )}
 
         {/* Section Description */}

@@ -98,6 +98,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
 
           {/* Mobile toggle */}
           <button
+            aria-label="hamburger-menu-button"
             className="mobileMax:block hidden mobile-menu-toggle"
             onClick={toggleMobileMenu}
           >
