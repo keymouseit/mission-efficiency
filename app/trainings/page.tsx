@@ -95,50 +95,22 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const Training = async ({ searchParams }: { searchParams: SearchParams }) => {
   const totalStart = Date.now();
+  console.log("🚀 Starting Training page load with progressive loading...");
 
-  console.log("🚀 Starting Training page load...");
-
-  // Track API calls
+  // Load only essential data on server side
   const queryObject = prepareQueryObject(searchParams);
 
-  const apiStart = Date.now();
-  const [
-    headerSection,
-    menuData,
-    footerSection,
-    topicData,
-    languagefilterData,
-    resourcesData,
-    organizationData,
-    modalityData,
-    regionData,
-    sectorData,
-    filteredTrainingResult,
-    trainingCardImages,
-  ] = await Promise.all([
+  const serverStart = Date.now();
+  const [headerSection, menuData, footerSection] = await Promise.all([
     getNewHeader() as Promise<RawHeaderNode[]>,
     getMenuDetails(),
     getNewFooter(),
-    DrupalService.getTopicData(),
-    DrupalService.getLanguageData(),
-    DrupalService.getResourcesData(),
-    DrupalService.getOrganizationData(),
-    DrupalService.getModalityData(),
-    DrupalService.getTrainingRegionData(),
-    DrupalService.getTrainingSectorData(),
-    DrupalService.getFilteredTrainingCards(queryObject),
-    DrupalService.getTrainingCardImages(),
   ]);
-  const apiEnd = Date.now();
-  console.log(`📡 All API calls completed: ${apiEnd - apiStart}ms`);
+  const serverEnd = Date.now();
+  console.log(`⚡ Essential server data loaded: ${serverEnd - serverStart}ms`);
+
   const processedMenuItems = processMenuData(menuData);
-
-  // Track data processing
-  const processStart = Date.now();
   const headerProps = prepareHeaderProps(headerSection, processedMenuItems);
-
-  const { data: filteredTrainingData = [], totalRecords = 0 } =
-    filteredTrainingResult || {};
 
   const { search: searchParam, ...filterParams } = searchParams;
   const showClearBtn = Boolean(Object.keys(filterParams).length);
@@ -152,26 +124,26 @@ const Training = async ({ searchParams }: { searchParams: SearchParams }) => {
     modality = "",
     resource = "",
   } = searchParams;
-  const processEnd = Date.now();
-  console.log(`⚙️ Data processing: ${processEnd - processStart}ms`);
 
   const totalEnd = Date.now();
   console.log(`✅ Total server execution: ${totalEnd - totalStart}ms`);
+
   return (
     <TrainingScreen
       searchParams={searchParams}
       trainingDataQuery={queryObject}
       headerData={headerProps}
       footerData={footerSection[0]}
-      topicData={topicData}
-      languagefilterData={languagefilterData}
-      resourcesData={resourcesData}
-      organizationData={organizationData}
-      modalityData={modalityData}
-      regionData={regionData}
-      sectorData={sectorData}
-      filteredTrainingData={filteredTrainingData}
-      totalFilteredRecords={totalRecords}
+      // Filter data will be loaded progressively on client side
+      topicData={[]}
+      languagefilterData={[]}
+      resourcesData={[]}
+      organizationData={[]}
+      modalityData={[]}
+      regionData={[]}
+      sectorData={[]}
+      filteredTrainingData={[]}
+      totalFilteredRecords={0}
       selectedLanguage={language}
       showClearBtn={showClearBtn}
       selectedTopic={splitParams(topic)}
@@ -180,6 +152,8 @@ const Training = async ({ searchParams }: { searchParams: SearchParams }) => {
       selectedRegion={splitParams(region)}
       selectedModality={splitParams(modality)}
       selectedResources={splitParams(resource)}
+      // Add flag to indicate progressive loading
+      useProgressiveLoading={true}
     />
   );
 };

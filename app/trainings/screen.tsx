@@ -26,6 +26,7 @@ import { CiVideoOn } from "react-icons/ci";
 import { GiBlackBook, GiNotebook } from "react-icons/gi";
 import { IoMdImages } from "react-icons/io";
 import ReactPlayer from "react-player";
+import { useProgressiveData } from "@/hooks/useProgressiveData";
 
 interface trainingProps {
   headerData: DrupalNode;
@@ -38,7 +39,7 @@ interface trainingProps {
   topicData: DrupalTaxonomyTerm[];
   regionData: DrupalTaxonomyTerm[];
   sectorData: DrupalTaxonomyTerm[];
-  filteredTrainingData: DrupalNode[];
+  filteredTrainingData: DrupalTaxonomyTerm[];
   totalFilteredRecords: number;
   selectedLanguage: string;
   selectedOrganization: string[];
@@ -49,39 +50,39 @@ interface trainingProps {
   selectedResources: string[];
   showClearBtn: boolean;
   trainingDataQuery: { [key: string]: string };
+  useProgressiveLoading?: boolean;
 }
 
 const TrainingScreen: React.FC<trainingProps> = ({
   headerData,
   footerData,
   searchParams,
-  languagefilterData,
-  topicData,
-  organizationData,
-  modalityData,
-  resourcesData,
-  sectorData,
-  filteredTrainingData,
+  languagefilterData: initialLanguageData,
+  topicData: initialTopicData,
+  organizationData: initialOrganizationData,
+  modalityData: initialModalityData,
+  resourcesData: initialResourcesData,
+  sectorData: initialSectorData,
+  regionData: initialRegionData,
+  filteredTrainingData: initialFilteredTrainingData,
+  totalFilteredRecords: initialTotalFilteredRecords,
   selectedLanguage,
   selectedOrganization,
   selectedSector,
   selectedTopic,
-  regionData,
   selectedRegion,
   selectedModality,
   selectedResources,
   showClearBtn,
   trainingDataQuery,
-  totalFilteredRecords,
+  useProgressiveLoading = false,
 }) => {
   const router = useRouter();
   const path = usePathname();
-  const [loading, setLoading] = useState(false); // Changed from true to false
+  const [loading, setLoading] = useState(false);
   const [paginatedFilterTrainingData, setPaginatedTrainingData] = useState<
-    DrupalNode[]
-  >(
-    filteredTrainingData // Initialize directly with data
-  );
+    DrupalTaxonomyTerm[]
+  >(initialFilteredTrainingData);
 
   const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
   const [isTablet, setIsTablet] = useState<Boolean>(false);
@@ -90,9 +91,61 @@ const TrainingScreen: React.FC<trainingProps> = ({
     [key: number]: boolean | Boolean;
   }>({});
 
+  // Use progressive data loading if enabled
+  const { filterData, isFilterDataLoading, error } = useProgressiveData();
+
+  // Use progressive data when available, fallback to initial data
+  const filteredTrainingData =
+    useProgressiveLoading && filterData.filteredTrainingData.length > 0
+      ? filterData.filteredTrainingData
+      : initialFilteredTrainingData;
+
+  const totalFilteredRecords =
+    useProgressiveLoading && filterData.totalFilteredRecords > 0
+      ? filterData.totalFilteredRecords
+      : initialTotalFilteredRecords;
+
+  const topicData =
+    useProgressiveLoading && filterData.topicData.length > 0
+      ? filterData.topicData
+      : initialTopicData;
+
+  const languagefilterData =
+    useProgressiveLoading && filterData.languagefilterData.length > 0
+      ? filterData.languagefilterData
+      : initialLanguageData;
+
+  const organizationData =
+    useProgressiveLoading && filterData.organizationData.length > 0
+      ? filterData.organizationData
+      : initialOrganizationData;
+
+  const modalityData =
+    useProgressiveLoading && filterData.modalityData.length > 0
+      ? filterData.modalityData
+      : initialModalityData;
+
+  const resourcesData =
+    useProgressiveLoading && filterData.resourcesData.length > 0
+      ? filterData.resourcesData
+      : initialResourcesData;
+
+  const sectorData =
+    useProgressiveLoading && filterData.sectorData.length > 0
+      ? filterData.sectorData
+      : initialSectorData;
+
+  const regionData =
+    useProgressiveLoading && filterData.regionData.length > 0
+      ? filterData.regionData
+      : initialRegionData;
+
   const handleToggleOpen = useCallback((index: number) => {
     setOpenIndex((prev) => ({ ...prev, [index]: !Boolean(prev[index]) }));
   }, []);
+
+  // Show loading state for filters if using progressive loading
+  const showFilterLoadingState = useProgressiveLoading && isFilterDataLoading;
 
   // Memoize options to prevent recreation on every render
   const topicOptions = useMemo(
@@ -271,6 +324,122 @@ const TrainingScreen: React.FC<trainingProps> = ({
     }
   }, []);
 
+  // Render filter section with loading state
+  const renderFilterSection = () => {
+    if (showFilterLoadingState) {
+      return (
+        <div className="commonBoxShadow w-full mt-5 mobileMax:mt-3 border-box max-h-[75vh] lieTablets:max-h-[80vh] mobileMax:max-h-[80vh] overflow-auto py-2">
+          {Array(6)
+            .fill(0)
+            .map((_, index) => (
+              <div key={index} className="w-full px-3 py-1">
+                <div className="bg-emptyState animate-pulse h-10 w-full" />
+              </div>
+            ))}
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="bg-white commonBoxShadow w-full mt-5 mobileMax:mt-3 border-box p-4">
+          <div className="text-red-500 text-center">
+            Failed to load filters. Please refresh the page.
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="bg-white commonBoxShadow w-full mt-5 mobileMax:mt-3 border-box max-h-[75vh] lieTablets:max-h-[80vh] mobileMax:max-h-[80vh] overflow-auto">
+        <div className="w-full">
+          <CommonMultiCheckox
+            menuTitle="Topic"
+            value={selectedTopic}
+            list={topicOptions}
+            onSelectChange={handleTopicSelect}
+            menuListHeight={130}
+            isOpen={Boolean(openIndex[0])}
+            toggleOpen={() => handleToggleOpen(0)}
+          />
+        </div>
+        <div className="w-full">
+          <CommonMultiCheckox
+            menuTitle="Sector"
+            value={selectedSector}
+            list={sectorOptions}
+            onSelectChange={handleSectorSelect}
+            menuListHeight={130}
+            isOpen={Boolean(openIndex[1])}
+            toggleOpen={() => handleToggleOpen(1)}
+          />
+        </div>
+        <div className="w-full">
+          <CommonMultiCheckox
+            menuTitle="Region"
+            value={selectedRegion}
+            list={regionOptions}
+            onSelectChange={handleRegionSelect}
+            menuListHeight={isTablet ? 195 : 200}
+            isOpen={Boolean(openIndex[2])}
+            toggleOpen={() => handleToggleOpen(2)}
+          />
+        </div>
+        <div className="w-full">
+          <CommonMultiCheckox
+            menuTitle="organization"
+            value={selectedOrganization}
+            list={organizationOptions}
+            onSelectChange={handleOrganizationSelect}
+            menuListHeight={170}
+            isOpen={Boolean(openIndex[3])}
+            toggleOpen={() => handleToggleOpen(3)}
+          />
+        </div>
+        <div className="w-full">
+          <CommonMultiCheckox
+            menuTitle="Training"
+            value={""}
+            list={[]}
+            onSelectChange={() => {}}
+            isOpen={Boolean(openIndex[4])}
+            toggleOpen={() => handleToggleOpen(4)}
+          />
+        </div>
+        <div className="w-full">
+          <CommonMultiCheckox
+            menuTitle="Language"
+            value={selectedLanguage}
+            list={languageFilterOptions}
+            onSelectChange={handleLanguageSelect}
+            isOpen={Boolean(openIndex[5])}
+            toggleOpen={() => handleToggleOpen(5)}
+          />
+        </div>
+        <div className="w-full">
+          <CommonMultiCheckox
+            menuTitle="Resources"
+            value={selectedResources}
+            list={resourceOptions}
+            onSelectChange={handleResourceSelect}
+            isOpen={Boolean(openIndex[6])}
+            toggleOpen={() => handleToggleOpen(6)}
+          />
+        </div>
+        <div className="w-full">
+          <CommonMultiCheckox
+            menuTitle="Modality"
+            value={selectedModality}
+            list={modalityOptions}
+            onSelectChange={handleModalitySelect}
+            isOpen={Boolean(openIndex[7])}
+            toggleOpen={() => handleToggleOpen(7)}
+          />
+        </div>
+      </div>
+    );
+  };
+
   // Update data when filteredTrainingData changes
   useEffect(() => {
     setPaginatedTrainingData(filteredTrainingData);
@@ -294,7 +463,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
   // Memoize training cards rendering
   const trainingCards = useMemo(() => {
     return paginatedFilterTrainingData?.map(
-      (trainingItems: DrupalNode, index: number) => {
+      (trainingItems: DrupalTaxonomyTerm, index: number) => {
         const titleLength = trainingItems.title.length;
         const sluggedLink =
           titleLength > 20
@@ -315,7 +484,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
         return (
           <Link
             href={sluggedLink || "#"}
-            key={`${trainingItems.id}-${index}`} // Better key
+            key={`${trainingItems.id}-${index}`}
             className="px-[15px] w-[33%] mb-8 mobileMax:w-full mobileMax:px-0 aboveLaptop:w-[50%] lieTablets:w-[50%] betweenMobileTab:mb-6 mobileMax:mb-6"
           >
             <motion.div
@@ -331,7 +500,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
                       id="react-video-player"
                       width="100%"
                       height="100%"
-                      light={true} // Add light mode for better performance
+                      light={true}
                     />
                   </div>
                 ) : mediaTypeAndSrc.type === "image" ? (
@@ -339,7 +508,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
                     src={`${mediaTypeAndSrc.src}`}
                     alt={`Training: ${trainingItems.title}`}
                     className="w-full h-full max-w-full object-cover card-shadow"
-                    loading="lazy" // Add lazy loading
+                    loading="lazy"
                   />
                 ) : (
                   <div className="w-full h-full bg-placeholder flex items-center justify-center">
@@ -408,6 +577,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
     );
   }, [paginatedFilterTrainingData, path, renderIcon]);
 
+  // Performance tracking effects
   useEffect(() => {
     const start = performance.now();
     console.log("🎨 TrainingScreen client render started");
@@ -419,6 +589,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
       );
     };
   }, []);
+
   // Track data updates
   useEffect(() => {
     const start = performance.now();
@@ -427,6 +598,14 @@ const TrainingScreen: React.FC<trainingProps> = ({
     const end = performance.now();
     console.log(`📊 Data update: ${(end - start).toFixed(2)}ms`);
   }, [filteredTrainingData]);
+
+  // Track progressive loading performance
+  useEffect(() => {
+    if (useProgressiveLoading && !isFilterDataLoading) {
+      console.log("✅ Progressive filter data loading complete");
+    }
+  }, [useProgressiveLoading, isFilterDataLoading]);
+
   return (
     <>
       <Header data={headerData} />
@@ -482,92 +661,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
                 </div>
               </div>
               <div className="w-full laptopMax:px-3 custom-react-combbox">
-                <div className="bg-white commonBoxShadow w-full mt-5 mobileMax:mt-3 border-box max-h-[75vh] lieTablets:max-h-[80vh] mobileMax:max-h-[80vh] overflow-auto">
-                  <div className="w-full">
-                    <CommonMultiCheckox
-                      menuTitle="Topic"
-                      value={selectedTopic}
-                      list={topicOptions}
-                      onSelectChange={handleTopicSelect}
-                      menuListHeight={130}
-                      isOpen={Boolean(openIndex[0])}
-                      toggleOpen={() => handleToggleOpen(0)}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <CommonMultiCheckox
-                      menuTitle="Sector"
-                      value={selectedSector}
-                      list={sectorOptions}
-                      onSelectChange={handleSectorSelect}
-                      menuListHeight={130}
-                      isOpen={Boolean(openIndex[1])}
-                      toggleOpen={() => handleToggleOpen(1)}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <CommonMultiCheckox
-                      menuTitle="Region"
-                      value={selectedRegion}
-                      list={regionOptions}
-                      onSelectChange={handleRegionSelect}
-                      menuListHeight={isTablet ? 195 : 200}
-                      isOpen={Boolean(openIndex[2])}
-                      toggleOpen={() => handleToggleOpen(2)}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <CommonMultiCheckox
-                      menuTitle="organization"
-                      value={selectedOrganization}
-                      list={organizationOptions}
-                      onSelectChange={handleOrganizationSelect}
-                      menuListHeight={170}
-                      isOpen={Boolean(openIndex[3])}
-                      toggleOpen={() => handleToggleOpen(3)}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <CommonMultiCheckox
-                      menuTitle="Training"
-                      value={""}
-                      list={[]}
-                      onSelectChange={() => {}}
-                      isOpen={Boolean(openIndex[4])}
-                      toggleOpen={() => handleToggleOpen(4)}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <CommonMultiCheckox
-                      menuTitle="Language"
-                      value={selectedLanguage}
-                      list={languageFilterOptions}
-                      onSelectChange={handleLanguageSelect}
-                      isOpen={Boolean(openIndex[5])}
-                      toggleOpen={() => handleToggleOpen(5)}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <CommonMultiCheckox
-                      menuTitle="Resources"
-                      value={selectedResources}
-                      list={resourceOptions}
-                      onSelectChange={handleResourceSelect}
-                      isOpen={Boolean(openIndex[6])}
-                      toggleOpen={() => handleToggleOpen(6)}
-                    />
-                  </div>
-                  <div className="w-full">
-                    <CommonMultiCheckox
-                      menuTitle="Modality"
-                      value={selectedModality}
-                      list={modalityOptions}
-                      onSelectChange={handleModalitySelect}
-                      isOpen={Boolean(openIndex[7])}
-                      toggleOpen={() => handleToggleOpen(7)}
-                    />
-                  </div>
-                </div>
+                {renderFilterSection()}
               </div>
             </div>
           </div>
@@ -586,7 +680,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
             ) : (
               <p className="h-[30px]" />
             )}
-            {!loading ? (
+            {!loading && !showFilterLoadingState ? (
               <>
                 {!paginatedFilterTrainingData?.length ? (
                   <motion.div
