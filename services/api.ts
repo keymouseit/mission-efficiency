@@ -196,3 +196,24 @@ export const getJoinFormData = async () => {
     throw error;
   }
 };
+
+export const getProgressiveTrainingData = async (params: {
+  loadType: "essential" | "complete";
+  [key: string]: any;
+}) => {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value) {
+      searchParams.append(key, value.toString());
+    }
+  });
+
+  const response = await fetch(`/api/training?${searchParams.toString()}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch training data");
+  }
+
+  return response.json();
+};
