@@ -54,7 +54,16 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                 <div className="desktop:w-[70%] flex items-start flex-wrap w-full">
                   {sector?.field_add_card?.map(
                     (listItem: DrupalNode, index: number) => {
-                      const { } = listItem;
+                      const bgColor = listItem?.field_background_color;
+                      const bgClass =
+                        bgColor === "blue"
+                          ? "blueBg-gradient text-[#9af9ff]"
+                          : bgColor === "gray"
+                          ? "bg-[#ebf0f7]"
+                          : "bg-white";
+
+                      const linkColor =
+                        bgColor === "blue" ? "text-[#fff]" : "text-[#004ee4]";
                       return (
                         <motion.div
                           key={index}
@@ -67,7 +76,7 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                           }}
                         >
                           <div
-                            className={`flex items-center justify-center flex-col box-border w-full h-full card-shadow bg-white rounded-[30px] px-4 py-[25px] laptopMax:py-5 min-h-[320px] mobileMax:min-h-full`}
+                            className={`${bgClass} flex items-center justify-center flex-col box-border w-full h-full card-shadow rounded-[30px] px-4 py-[25px] laptopMax:py-5 min-h-[320px] mobileMax:min-h-full`}
                           >
                             <div
                               className={`flex justify-center items-center w-full laptopMax:max-w-[180px] object-contain h-full max-w-[220px] mb-5 max-h-[130px]
@@ -83,14 +92,18 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                             </div>
                             <div className="h-full mobileMax:flex mobileMax:flex-col mobileMax:justify-end mobileMax:items-center">
                               <p
-                                className={`--font-poppins text-center text-[20px] text-cardHeading leading-7 laptopMax:mb-2 mobileMax:text-medium`}
+                                className={`--font-poppins text-center text-[20px]  leading-7 laptopMax:mb-2 mobileMax:text-medium ${
+                                  bgColor === "blue"
+                                    ? "text-[#9af9ff]"
+                                    : "text-cardHeading"
+                                }`}
                               >
                                 {listItem?.field_title}
                               </p>
                               <Link
                                 href={listItem?.field_button[0]?.uri}
                                 target="_blank"
-                                className="--font-poppins text-center text-xsmall text-[#004ee4] leading-6 flex items-center justify-center"
+                                className={`--font-poppins text-center text-xsmall leading-6 flex items-center justify-center ${linkColor}`}
                               >
                                 <ExternalLink className="w-[16px] h-[16px] max-w-[16px] mr-2" />
                                 {listItem?.field_button[0]?.title}
