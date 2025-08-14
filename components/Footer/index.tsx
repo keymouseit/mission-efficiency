@@ -6,17 +6,14 @@ import { BsYoutube } from 'react-icons/bs';
 import { FaTwitter } from 'react-icons/fa6';
 import { TfiLinkedin } from 'react-icons/tfi';
 import DynamicImage from '../ResuableDynamicImage';
+import { useOrigin } from '@/hooks/useOrigin';
+import Curve from '../Curve';
 
 const Footer = () => {
+	const origin = useOrigin();
 	return (
 		<div className="relative mt-12 footerWrap">
-			<DynamicImage
-				width={1880}
-				height={15}
-				src="/static/images/blue-curve.png"
-				alt="curve"
-				className="absolute z-[1] w-full top-[-13px] h-[15px] pointer-events-none"
-			/>
+			<Curve color="bg-[#2909a7]" />
 			<div className="overflow-hidden relative">
 				<div className="px-4 py-10 bg-footerbg inner-footer min-h-[350px] mobileMax:min-h-[260px]">
 					<DynamicImage
@@ -33,12 +30,10 @@ const Footer = () => {
 						Follow Us
 					</p>
 					<div className="flex items-center justify-center mt-5">
-						{/* <BsYoutube className="text-white text-xlg mx-2 w-[30px] h-[30px]" /> */}
 						<Link href="https://twitter.com/Mission_EE">
 							<FaTwitter className="text-white text-[26px] mx-2 w-[30px] h-[28px]" />
 						</Link>
 						<Link href="https://www.linkedin.com/company/mission-efficiency/">
-							{/* <TfiLinkedin className="text-white text-xlg mx-2" /> */}
 							<DynamicImage
 								src="/static/images/linketin-logo.png"
 								alt="img"
@@ -60,7 +55,7 @@ const Footer = () => {
 						</li>
 						<li>
 							<a
-								href="/terms-and-conditions"
+								href={`${origin}/terms-and-conditions`}
 								className="text-center leading-[25px] text-xsmall text-[#a194d2] hover:text-[#8e7ec9] text-poppins cursor-pointer text-white"
 							>
 								Terms and conditions
@@ -68,7 +63,7 @@ const Footer = () => {
 						</li>
 						<li>
 							<a
-								href="/privacy-policy"
+								href={`${origin}/privacy-policy`}
 								className="text-center leading-[25px] text-xsmall text-[#a194d2] hover:text-[#8e7ec9] text-poppins cursor-pointer text-white"
 							>
 								Privacy Policy

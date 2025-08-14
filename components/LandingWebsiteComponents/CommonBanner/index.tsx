@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import Curve from "@/components/Curve";
 
 interface CommonBannerProps {
   title?: string;
@@ -42,8 +43,8 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
           src={leftImg as string}
           {...(
             isSmallImage
-              ? { width: 392, height: 412 } 
-              : { width: 800, height: 600 } 
+              ? { width: 392, height: 412 }
+              : { width: 800, height: 600 }
           )}
           alt="left-bg"
           className={` ${noHeight && "tab:w-[62%]"}`}
@@ -54,8 +55,8 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
           src={rightImg as string}
           {...(
             isSmallImage
-              ? { width: 392, height: 412 } 
-              : { width: 632, height: 665 } 
+              ? { width: 392, height: 412 }
+              : { width: 632, height: 665 }
           )}
           alt="right-bg"
           className={`${noHeight && "tab:w-[70%] tab:ml-auto"}`}
@@ -91,23 +92,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
           </motion.p>
         </div>
       </div>
-      {lightBgClip ? (
-        <DynamicImage
-          src="/static/images/gray-curve.png"
-          alt="curve"
-          className="absolute z-[3] w-full bottom-[-2px] h-[18px] "
-          width={1880}
-          height={18}
-        />
-      ) : (
-        <DynamicImage
-          src="/static/images/gray-curve.png"
-          alt="curve"
-          className="absolute z-[3] w-full bottom-[-2px] h-[18px] "
-          width={1880}
-          height={18}
-        />
-      )}
+      <Curve color="bg-[#f5f9ff]"/>
     </div>
   );
 };

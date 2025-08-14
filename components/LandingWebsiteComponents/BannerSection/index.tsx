@@ -1,4 +1,5 @@
 "use client";
+import Curve from "@/components/Curve";
 import DynamicImage from "@/components/ResuableDynamicImage";
 import { motion, useScroll, useTransform } from "framer-motion";
 import React from "react";
@@ -66,13 +67,7 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
           />
         </motion.div>
       </div>
-      <DynamicImage
-        width={1880}
-        height={18}
-        src="/static/images/white-curve.png"
-        alt="curve"
-        className="absolute z-[3] w-full bottom-[-2px] h-[18px]"
-      />
+      <Curve color="bg-[#f5f9ff]"/>
     </div>
   );
 };

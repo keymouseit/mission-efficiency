@@ -57,31 +57,35 @@ const HomeGridLayout: React.FC<HomeGridProps> = (props) => {
           )}
 
           <div className="flex items-start w-full mt-5 overflow-hidden">
-            {gridImages.slice(1, 3).map((img, index) => (
-              <motion.div
-                key={index}
-                className={`overflow-hidden rounded-[25px] max-w-full ${index === 0 ? "max-w-[50%]" : "ml-5"
-                  }`}
-                initial={{ opacity: 0, y: motionSettings[index + 1].y }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  type: "spring",
-                  duration: motionSettings[index + 1].duration,
-                }}
-              >
-                <DynamicImage
-                  src={img}
-                  alt={`grid img${index + 2}`}
-                  width={index === 1 ? 300 : 500}   
-                  height={index === 1 ? 200 : 300}  
-                  className="w-full h-full transform transition-transform duration-500 hover:scale-105"
-                />
-              </motion.div>
-            ))}
+            {gridImages.slice(1, 3).map((img, index) => {
+              return (
+                <motion.div
+                  key={index}
+                  className={`overflow-hidden rounded-[25px] max-w-full ${index === 0 ? "max-w-[50%]" : "ml-5"
+                    }`}
+                  initial={{ opacity: 0, y: motionSettings[index + 1].y }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    type: "spring",
+                    duration: motionSettings[index + 1].duration,
+                  }}
+                >
+                  <DynamicImage
+                    src={img}
+                    alt={`grid img${index + 1}`}
+                    width={index === 0 ? 304 : 247}
+                    height={index === 0 ? 204 : 165}
+                    className="w-full h-full transform transition-transform duration-500 hover:scale-105"
+                  />
+
+                
+                </motion.div>
+              )
+            })}
           </div>
 
-        </div>  
+        </div>
       </div>
 
       <motion.div

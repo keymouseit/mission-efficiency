@@ -6,6 +6,7 @@ import { ExternalLink } from "lucide-react";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
 import DynamicImage from "../ResuableDynamicImage";
+import Curve from "../Curve";
 
 interface EconomyWidePartnersProps {
   data: DrupalNode;
@@ -17,13 +18,7 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
       id="Resources-and-Tools-support"
       className="relative support-bottom-banner"
     >
-      <DynamicImage
-        width={1880}
-        height={15}
-        src="/static/images/blue-curve.png"
-        alt="curve"
-        className="absolute z-[3] w-full top-[-14px] h-[15px] pointer-events-none"
-      />
+     <Curve color="bg-footerbg"/>
 
       {/* Top Section */}
       <div className="overflow-hidden relative min-h-[560px] pt-[140px] pb-[100px] box-border mobileMax:py-10">

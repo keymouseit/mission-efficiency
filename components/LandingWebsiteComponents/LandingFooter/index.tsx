@@ -5,12 +5,14 @@ import Link from "next/link";
 import { DrupalNode } from "next-drupal";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "@/components/ResuableDynamicImage";
-
+import { useOrigin } from "@/hooks/useOrigin";
+import Curve from "@/components/Curve";
 interface LandingFooterProps {
   data: DrupalNode;
 }
 
 const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
+  const origin = useOrigin();
   const {
     field_logo,
     field_logo_title,
@@ -22,13 +24,8 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
 
   return (
     <div className="relative mt-10 footerWrap">
-      <DynamicImage
-        width={1880}
-        height={15}
-        src="/static/images/blue-curve.png"
-        alt="curve"
-        className="absolute z-[1] w-full top-[-13px] h-[15px] pointer-events-none"
-      />
+      <Curve color="bg-[#2909a7]"/>
+      
       <div className="overflow-hidden relative">
         <div className="px-4 py-10 bg-footerbg inner-footer min-h-[380px] mobileMax:min-h-[260px]">
           {field_logo?.uri?.url && (
@@ -94,7 +91,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
                   href={
                     menuItem?.title.toLocaleLowerCase().includes("contact")
                       ? `mailto:${menuItem?.uri}`
-                      : menuItem?.uri || "#"
+                      : `${origin}${menuItem.uri.replace("internal:", "")}` || "#"
                   }
                 >
                   {menuItem?.title || ""}
@@ -103,7 +100,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
             ))}
           </ul>
 
-          <p className="text-center leading-[18px] text-xs text-footerPurple text-poppins">
+          <p className="text-center leading-[18px] text-xs text-gray text-poppins">
             {field_website_rights}
             reserved.
           </p>

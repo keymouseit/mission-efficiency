@@ -1850,6 +1850,10 @@ body ::selection {
     margin: 10px 0 10px 20px;
   }
 }
+.curve {
+  border-top-left-radius: 100% 60%;
+  border-top-right-radius: 90% 50%;
+}
 
 @media only screen and (max-width: 520px) {
   .custom-tooltip {
@@ -1918,14 +1922,3 @@ body ::selection {
   margin: 0;
   padding-left: 20px;
 }
-
-/* .activeTab{
-
-  transform: translateY(6px);
-  transition: all ease-in-out 100ms;
-}
-.inactiveTab{
-
-  transition: all ease-in-out 100ms;
-
-} */
