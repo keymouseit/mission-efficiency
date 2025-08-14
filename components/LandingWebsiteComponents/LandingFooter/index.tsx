@@ -88,24 +88,24 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
             {field_link_with_title?.map(
               (menuItem: DrupalNode, index: number) => {
                 return (
-                  <Link
-                    href={
-                      menuItem?.title.toLocaleLowerCase().includes("contact")
-                        ? `mailTo:${menuItem?.uri}`
-                        : menuItem?.uri || "#"
-                    }
-                    key={index}
-                  >
-                    <li className="text-center leading-[25px] text-xsmall text-[#fff] hover:text-[#8e7ec9] text-poppins cursor-pointer">
+                  <li className="text-center leading-[25px] text-xsmall text-[#fff] hover:text-[#8e7ec9] text-poppins cursor-pointer">
+                    <Link
+                      href={
+                        menuItem?.title.toLocaleLowerCase().includes("contact")
+                          ? `mailTo:${menuItem?.uri}`
+                          : menuItem?.uri || "#"
+                      }
+                      key={index}
+                    >
                       {menuItem?.title || ""}
-                    </li>
-                  </Link>
+                    </Link>
+                  </li>
                 );
               }
             )}
           </ul>
 
-          <p className="text-center leading-[18px] text-xs text-footerPurple text-poppins">
+          <p className="text-center leading-[18px] text-xs text-gray text-poppins">
             {field_website_rights}
             reserved.
           </p>
