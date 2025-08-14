@@ -67,7 +67,7 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
           />
         </motion.div>
       </div>
-      <Curve color="bg-[#f5f9ff]"/>
+      <Curve color="bg-white"/>
     </div>
   );
 };
