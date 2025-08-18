@@ -16,8 +16,16 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
   resourcesData,
 }) => {
   const drupalBaseUrl = DEV_PUBLIC_URL;
+  const backgroundColor = resourcesData?.field_layout_background_color;
+
+  const bgColor =
+    backgroundColor === "gray"
+      ? "bg-mapGray"
+      : backgroundColor === "dark_gray"
+      ? "bg-[#ebf0f7]"
+      : "bg-mapGray";
   return (
-    <div className="relative bg-mapGray overflow-hidden">
+    <div className={`${bgColor} relative overflow-hidden`}>
       <div className="mini-container relative z-[2]">
         {/* Campaign Materials */}
         {materialsData && (
@@ -92,7 +100,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                 transition={{ duration: 0 }}
                 className="remove-animation-fluctuation text-[48px] text-numans mb-10 mobileMax:mb-5 leading-normal text-center history-title-gradient text-clip mobileMax:text-[28px]"
               >
-                Campaign Resources
+                {resourcesData?.field_twi_title}
               </motion.h3>
             )}
             <div className="flex items-start flex-wrap mt-8 lieExactTab:mt-10 lieExactTab:flex-col">
@@ -133,11 +141,8 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                       : "ml-16 lieExactTab:ml-0 lieExactTab:mt-8"
                   } laptop:flex-1 h-full lieExa ctTab:order-1 lieExactTab:pb-12`}
                 >
-                  <h4 className="text-numans text-[#545d6f] text-[35px] mb-[30px] lieTablets:mb-5 lieTablets:text-[25px] leading-normal mobileMax:text-medium mobileMax:mb-3 uppercase">
-                    {resourcesData?.field_twi_title}
-                  </h4>
                   <div
-                    className="--font-poppins text-left text-cardText text-medium leading-normal mobileMax:text-small mb-8 mobileMax:mb-5 elevate-link"
+                    className="--font-poppins text-left text-cardText text-medium leading-normal mobileMax:text-small mb-8 mobileMax:mb-5 elevate-link numans-text-heading"
                     dangerouslySetInnerHTML={{
                       __html: resourcesData?.field_twi_image_description.value,
                     }}

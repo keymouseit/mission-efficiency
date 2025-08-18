@@ -73,23 +73,20 @@ const DynamicTemplateClient = ({
           skipNext: false,
         };
       case "paragraph--text_with_image":
-        const heading = pageComponent?.field_twi_title;
+        const variant = pageComponent?.field_select_variant;
 
-        const isInvite =
-          heading ===
-          "We invite you to join our movement and embrace three key principles for an Energy Efficient Life:";
-        const isCampaignRes =
-          heading ===
-          "PROMOTING ENERGY EFFICIENCY LIFESTYLE AND DECISION-MAKING";
-        const isPlayBook =
-          heading === "Mission Efficiency Playbook of Key Actions";
-        const isTraining = heading === "Training";
+        const isCTA =
+          variant === "call_to_action_with_image" || variant === null;
+        const isTwoColumn = variant === "two_column_with_text_and_image";
+        const isTitleTwoColumn =
+          variant === "title_two_column_with_text_and_image";
+
         return {
-          component: isInvite ? (
-            <ReadyToJoin data={pageComponent} />
-          ) : isCampaignRes || isPlayBook ? (
+          component: isCTA ? (
+            <UnifiedCTAClient data={pageComponent} />
+          ) : isTitleTwoColumn ? (
             <CampaignSection resourcesData={pageComponent} />
-          ) : isTraining ? (
+          ) : isTwoColumn ? (
             <TrainingSection data={pageComponent} />
           ) : (
             <UnifiedCTAClient data={pageComponent} />
