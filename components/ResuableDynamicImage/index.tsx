@@ -52,7 +52,7 @@ const DynamicImage: React.FC<DynamicImageProps> = ({
     return fullUrl;
   };
   const finalSrc = getValidImageSrc(src, fallbackImage);
-  
+
   return (
     <Image
       src={finalSrc || fallbackImage}
@@ -65,6 +65,8 @@ const DynamicImage: React.FC<DynamicImageProps> = ({
       priority={priority}
       unoptimized={unoptimized}
       quality={80}
+      fetchPriority={priority ? "high" : "auto"}
+      loading={priority ? "eager" : "lazy"}
       objectFit={objectFit}
     />
   );

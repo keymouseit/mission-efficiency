@@ -331,6 +331,7 @@ const CfdToolScreen: React.FC<cfdToolProps> = ({
                 duration: 2.5,
               }}
               className="absolute pointer-events-none max-w-[40%] top-[150px] left-0 mobileMax:max-w-[55%] mobileMax:opacity-40 z-[1]"
+              alt="left-image"
             />
           <div className="mini-container relative z-[2]">
             <motion.h3

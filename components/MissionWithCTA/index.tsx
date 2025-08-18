@@ -42,9 +42,11 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
         className="absolute pointer-events-none z-[0]"
       >
         <DynamicImage
-          src="/static/images/about-us-home.svg" alt="overlay-bg"
+          src="/static/images/about-us-home.svg" 
+          alt="overlay-bg"
           width={657}
           height={955}
+          priority={true}
         />
       </motion.div>
 
@@ -98,7 +100,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
                       {card?.field_title}
                     </h2>
                     <div
-                      className="--font-poppins text-center text-small text-[#7b99c7] leading-6 mobileMax:leading-normal mobileMax:text-xsmall line-clamp-5"
+                      className="--font-poppins text-center text-small text-gray-500 leading-6 mobileMax:leading-normal mobileMax:text-xsmall line-clamp-5"
                       dangerouslySetInnerHTML={{
                         __html: card?.field_description?.processed,
                       }}

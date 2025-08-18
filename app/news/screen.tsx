@@ -332,10 +332,10 @@ const NewsScreen: React.FC<newsProps> = ({
                 )}
               </div>
               {!loading ? (
-                <h5 className="--font-poppins text-medium leading-normal mobileMax:text-small font-bold exactLaptop:pr-[35px]">
+                <h6 className="--font-poppins text-medium leading-normal mobileMax:text-small font-bold exactLaptop:pr-[35px]">
                   {sortedNewsData?.length}
                   <span className="ml-2">results</span>
-                </h5>
+                </h6>
               ) : (
                 <p className="h-[30px]" />
               )}

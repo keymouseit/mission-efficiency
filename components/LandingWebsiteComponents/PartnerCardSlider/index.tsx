@@ -94,6 +94,8 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
                 className="px-[15px] mb-[30px] mt-10 w-[16%] mobileMax:w-[50%] betweenMobileTab:w-[25%] mobileMax:mb-5 mobileMax:px-[10px]"
               >
                 <Link
+                  aria-hidden="true"
+                  tabIndex={-1}
                   href={partnerCard?.field_link?.uri}
                   target="_blank"
                   className="border-2 border-transparent hover:border-blueBorder transition block rounded-[25px] flex justify-center items-center bg-white px-[15px] py-[10px] box-border w-full card-shadow"
@@ -123,6 +125,8 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
                 className="px-[15px] mb-[30px] w-[16%] mobileMax:w-[50%] betweenMobileTab:w-[25%] mobileMax:mb-5 mobileMax:px-[10px]"
               >
                 <Link
+                  aria-hidden="true"
+                  tabIndex={-1}
                   href={partnerCard?.field_link?.uri}
                   target="_blank"
                   className="border-2 border-transparent hover:border-blueBorder transition block rounded-[25px] flex justify-center items-center bg-white px-[15px] py-[10px] box-border w-full card-shadow"

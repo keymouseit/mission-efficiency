@@ -18,9 +18,9 @@ const EnergyActivities: React.FC<EnergyActivitiesProps> = ({ data }) => {
           transition={{ duration: 0 }}
           className="remove-animation-fluctuation"
         >
-          <motion.h5 className="text-clip support-gradient tracking-tight text-[35px] leading-normal mb-8 text-center text-numans mobileMax:text-[28px] mobileMax:mb-5">
+          <motion.h3   className="text-clip support-gradient tracking-tight text-[35px] leading-normal mb-8 text-center text-numans mobileMax:text-[28px] mobileMax:mb-5">
             {data?.field_title}
-          </motion.h5>
+          </motion.h3>
 
           <div className="flex flex-wrap justify-start box-border pb-14 mobileMax:mb-8">
             {data?.field_add_card?.map(

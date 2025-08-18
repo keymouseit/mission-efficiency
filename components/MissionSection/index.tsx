@@ -96,13 +96,13 @@ const MissionCard = ({
 
         {/* Title */}
         {card?.field_title && (
-          <h4
+          <h3
             className={`${hasIcon ? "desktop:text-[27px]" : "text-[22px]"} ${
               bgColor === "blue" ? "text-[#9af9ff]" : "text-landingBlue"
             } --font-poppins text-center mb-2 leading-normal capitalize text-medium`}
           >
             {card.field_title}
-          </h4>
+          </h3>
         )}
 
         {/* Description */}
@@ -180,9 +180,11 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
           className="absolute pointer-events-none z-[0]"
         >
           <DynamicImage
-            src="/static/images/about-us-home.svg" alt="overlay-bg"
+            src="/static/images/about-us-home.svg" 
+            alt="overlay-bg"
             width={657}
             height={955}
+            priority={true}
           />
         </motion.div>
       )}

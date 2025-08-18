@@ -128,7 +128,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
         className={`mini-container h-full flex flex-col items-center justify-center relative z-[3] ${!data?.field_cta_button ? "pt-[82px]" : "pt-[120px] pb-16"
           }`}
       >
-        <motion.h3
+        <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -140,7 +140,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
             } desktop:text-[54px] mb-14 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-[48px] mobileMax:text-[28px]`}
         >
           {data?.field_cta_title}
-        </motion.h3>
+        </motion.h2>
 
         {content && (
           <motion.div

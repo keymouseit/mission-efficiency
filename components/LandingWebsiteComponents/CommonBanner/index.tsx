@@ -60,6 +60,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
             : { width: 632, height: 665 })}
           alt="right-bg"
           className={`${noHeight && "tab:w-[70%] tab:ml-auto"}`}
+          priority={true}
         />
       </div>
       {/* title section */}

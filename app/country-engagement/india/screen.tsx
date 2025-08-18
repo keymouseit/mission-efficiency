@@ -147,9 +147,9 @@ const CountryScreen: React.FC<countryProps> = ({
 															className="w-[30%] h-[30%] object-contain"
 														/>
 
-														<h5 className="font-bold text-[25px] category-gradient text-numans text-clip betweenMobileTab:text-[20px] mobileMax:text-medium text-center mt-3">
+														<h3 className="font-bold text-[25px] category-gradient text-numans text-clip betweenMobileTab:text-[20px] mobileMax:text-medium text-center mt-3">
 															<AnimatedCounter text={card?.title} />
-														</h5>
+														</h3>
 														<div
 															className="--font-poppins text-[#545D6F] text-center font-semibold text-xmedium mobileMax:text-xsmall leading-normal lieTablets:text-small"
 															dangerouslySetInnerHTML={{
