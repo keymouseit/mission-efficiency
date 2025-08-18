@@ -77,6 +77,7 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
   const [selectedFileBase64, setSelectedFileBase64] = useState<string>("");
   const [isMobile, setIsMobile] = useState<Boolean>(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -252,6 +253,7 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
     // const verifiedToken = response.data.success;
 
     if (formData) {
+      setIsLoading(true);
       const mappedPledges = mapIdsToTitles(formData.globalProgress);
       const mappedSectors = mapIdsToTitles(formData.energyEfficiencySectors);
       savePledgeFormData({
@@ -272,13 +274,16 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
         specific_actions: formData.supportAction,
         direct_investment: formData.percentageIncrease,
         organization_logo: formData.organisationLogoImage,
-      }).then(() => {
-        setUploadedImageUrl("");
-        setSelectedFileBase64("");
-        setOpenSuccessModal(!openSuccessModal);
-        setCurrentStep(0);
-        reset();
-      });
+      })
+        .then(() => {
+          setIsLoading(false);
+          setUploadedImageUrl("");
+          setSelectedFileBase64("");
+          setOpenSuccessModal(!openSuccessModal);
+          setCurrentStep(0);
+          reset();
+        })
+        .catch(() => setIsLoading(false));
       return;
     } else {
       alert("Could not Verify ReCaptcha, Please Try Again!");
@@ -724,7 +729,26 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                         onClick={handleFormProceedNextStep}
                         className="ml-auto px-4 min-w-[100px] flex items-center rounded-lg justify-center mobileMax:!text-xsmall !text-small text-white font-medium visit-site-btn --font-poppins mobileMax:w-full"
                       >
-                        Submit
+                        {isLoading ? (
+                          <svg
+                            className="animate-spin h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              fill="currentColor"
+                              d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a6 6 0 110 12 6 6 0 010-12z"
+                              className="opacity-30"
+                            />
+                            <path
+                              fill="currentColor"
+                              d="M12 2a10 10 0 0110 10h-4a6 6 0 00-6-6V2z"
+                            />
+                          </svg>
+                        ) : (
+                          "Submit"
+                        )}
                       </Button>
                     )}
                   </div>
