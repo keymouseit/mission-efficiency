@@ -24,6 +24,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
       : backgroundColor === "dark_gray"
       ? "bg-[#ebf0f7]"
       : "bg-mapGray";
+
   return (
     <div className={`${bgColor} relative overflow-hidden`}>
       <div className="mini-container relative z-[2]">
@@ -92,7 +93,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
         {/* Campaign Resources */}
         {resourcesData && (
           <section className="mb-16 mobileMax:mb-0">
-            {resourcesData?.field_twi_image_position === "twi_left" && (
+            {resourcesData?.field_twi_title && (
               <motion.h3
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -104,7 +105,13 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
               </motion.h3>
             )}
             <div className="flex items-start flex-wrap mt-8 lieExactTab:mt-10 lieExactTab:flex-col">
-              <div className="flex items-start justify-between mb-24 last:mb-0 lieExactTab:mb-6 lieExactTab:flex-col">
+              <div
+                className={`${
+                  resourcesData?.field_twi_image_position === "center"
+                    ? "flex-col"
+                    : ""
+                } flex items-start justify-between mb-24 last:mb-0 lieExactTab:mb-6 lieExactTab:flex-col`}
+              >
                 {/* Image */}
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
@@ -124,7 +131,11 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                       height={400}
                       width={400}
                       objectFit="cover"
-                      className="h-full w-full card-shadow transform transition-transform duration-500 hover:scale-105"
+                      className={`${
+                        resourcesData?.field_twi_image_position === "center"
+                          ? ""
+                          : "transform transition-transform duration-500 hover:scale-105"
+                      } h-full w-full card-shadow`}
                     />
                   )}
                 </motion.div>
@@ -139,6 +150,10 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                     resourcesData?.field_twi_image_position === "twi_right"
                       ? "order-1 mr-16 lieExactTab:mr-0 lieExactTab:mt-8"
                       : "ml-16 lieExactTab:ml-0 lieExactTab:mt-8"
+                  } ${
+                    resourcesData?.field_twi_image_position === "center"
+                      ? "flex flex-col items-center mt-10"
+                      : ""
                   } laptop:flex-1 h-full lieExa ctTab:order-1 lieExactTab:pb-12`}
                 >
                   <div
