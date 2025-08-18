@@ -45,6 +45,31 @@ body ::selection {
 .text-numans {
   font-family: var(--font-numans);
 }
+
+.numans-text-heading strong {
+  font-family: var(--font-numans);
+  color: #545d6f;
+  font-size: 35px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .numans-text-heading strong {
+    margin-bottom: 1.25rem;
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 640px) {
+  .numans-text-heading strong {
+    font-size: medium;
+    margin-bottom: 0.75rem;
+  }
+}
+
 .parent-card-container {
   margin-top: 20px !important;
   width: 1368px;

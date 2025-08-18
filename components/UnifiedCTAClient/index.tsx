@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
@@ -17,8 +17,10 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
   const imageUrl = data?.field_twi_image?.uri?.url;
   const imageDescription = data?.field_twi_image_description?.processed;
   const customHeight = data?.field_image_height;
+  const customFontSize = data?.field_title_font_size;
   const grayBackground = data?.field_twi_title == "Energy Efficient Life";
   const isPowerTitle = "The Power of Energy Efficiency";
+  const backgroundColor = data?.field_layout_background_color;
 
   const renderImageBlock = () => (
     <div
@@ -35,8 +37,9 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
       style={customHeight ? { height: `${customHeight}px` } : undefined}
     >
       <div
-        className={`w-full h-full rounded-[40px] overflow-hidden ${imageDescription ? "" : "max-w-[600px]"
-          }`}
+        className={`w-full h-full rounded-[40px] overflow-hidden ${
+          imageDescription ? "" : "max-w-[600px]"
+        }`}
       >
         <DynamicImage
           src={`${DEV_PUBLIC_URL}${imageUrl}`}
@@ -59,13 +62,20 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
         grayBackground
           ? "Energy-Efficient-Life"
           : isPowerTitle
-            ? "The-Power-of-Energy-Efficiency"
-            : ""
+          ? "The-Power-of-Energy-Efficiency"
+          : ""
       }
-      className={`relative overflow-hidden ${isLeftPosition
+      className={`relative overflow-hidden ${
+        isLeftPosition
           ? "pt-[92px] mobileMax:pt-10 betweenMobileTab:pt-16 pb-8 CTA-wrap"
           : ""
-        } ${grayBackground ? "bg-[#ebf0f7]" : "bg-white"}`}
+      } ${
+        backgroundColor === "gray"
+          ? "bg-mapGray"
+          : backgroundColor === "dark_gray"
+          ? "bg-[#ebf0f7]"
+          : "bg-white"
+      }`}
     >
       {/* Background shape - only for left position */}
       {isLeftPosition && (
@@ -87,9 +97,11 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
       )}
 
       <div
-        className={`mini-container relative ${isLeftPosition ? "z-[1]" : ""
-          } overflow-hidden ${!isLeftPosition ? "pt-5 pb-[60px] mobileMax:pb-10" : ""
-          }`}
+        className={`mini-container relative ${
+          isLeftPosition ? "z-[1]" : ""
+        } overflow-hidden ${
+          !isLeftPosition ? "pt-5 pb-[60px] mobileMax:pb-10" : ""
+        }`}
       >
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -106,7 +118,17 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
         >
           {/* Title */}
           <div className={isLeftPosition ? "" : "overflow-hidden"}>
-            <motion.h2 className="desktop:text-[60px] text-numans mb-10 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-center category-gradient text-clip px-5 text-[48px] mobileMax:text-[28px]">
+            <motion.h2
+              style={
+                customFontSize
+                  ? {
+                      fontSize: `${customFontSize}px`,
+                      lineHeight: 1.5,
+                    }
+                  : undefined
+              }
+              className="desktop:text-[60px] text-numans mb-10 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-center category-gradient text-clip px-5 text-[48px] mobileMax:text-[28px]"
+            >
               {data?.field_twi_title}
             </motion.h2>
           </div>
@@ -124,7 +146,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                   ? "flex items-center mobileToDesk:flex-col overflow-hidden"
                   : "flex items-center mb-20 mobileToDesk:flex-col overflow-hidden"
                 : `w-[100%] text-list relative mobileToDesk:w-full mobileToDesk:order-2`
-              }`}
+            }`}
           >
             <div
               className={`${
@@ -134,14 +156,15 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                     ? ""
                     : "w-full text-list relative mobileToDesk:order-2 mobileToDesk:w-full mobileToDesk:mt-6"
                   : ""
-                }`}
+              }`}
             >
               {data?.field_twi_description?.processed && (
                 <div
-                  className={`--font-poppins leading-8 ${isLeftPosition
-                      ? "text-medium text-[#545D6F] mb-12 !text-left mobileMax:text-xsmall mobileMax:leading-normal"
+                  className={`--font-poppins leading-8 ${
+                    isLeftPosition
+                      ? "text-medium text-[#545D6F] mb-12 text-center mobileMax:text-xsmall mobileMax:leading-normal"
                       : "text-lightBlueText text-[22px] mb-16 text-center mobileMax:text-xsmall mobileMax:leading-normal"
-                    } ${isPowerTitle ? "!text-center" : ""}`}
+                  }`}
                   dangerouslySetInnerHTML={{
                     __html: data?.field_twi_description.processed,
                   }}
@@ -151,10 +174,11 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
               {/* CTA Buttons */}
               {data?.field_twi_button?.length ? (
                 <div
-                  className={`flex items-center justify-around p-0 mobileMax:flex-col ${!isLeftPosition
+                  className={`flex items-center justify-around p-0 mobileMax:flex-col ${
+                    !isLeftPosition
                       ? "remove-animation-fluctuation mb-20 mobileMax:mb-8"
                       : ""
-                    }`}
+                  }`}
                 >
                   {data?.field_twi_button?.map(
                     (link: { uri: string; title: string }) => (
@@ -184,8 +208,9 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0 }}
-            className={`remove-animation-fluctuation flex ${isLeftPosition ? "items-start" : "items-center"
-              } mobileToDesk:flex-col overflow-hidden`}
+            className={`remove-animation-fluctuation flex ${
+              isLeftPosition ? "items-start" : "items-center"
+            } mobileToDesk:flex-col overflow-hidden`}
           >
             {/* Image */}
             {imageUrl && isLeftPosition && renderImageBlock()}
@@ -253,29 +278,30 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                           ? ""
                           : "mt-12"
                       }`}
-                  >
-                    <div
-                      className={`flex items-center justify-between rounded-[30px] overflow-hidden ${!imageDescription ? "" : "gradient-border-bg"
-                        }`}
                     >
-                      {/*object images cards */}
-                      <div className="w-full py-3 px-5 flex flex-col justify-start">
-                        {obj?.field_title && (
-                          <motion.h3 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
-                            {obj.field_title}
-                          </motion.h3>
-                        )}
-                        <motion.div
-                          className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small"
-                          dangerouslySetInnerHTML={{
-                            __html: obj?.field_description?.value || "",
-                          }}
-                        />
+                      <div
+                        className={`flex items-center justify-between rounded-[30px] overflow-hidden ${
+                          !imageDescription ? "" : "gradient-border-bg"
+                        }`}
+                      >
+                        {/*object images cards */}
+                        <div className="w-full py-3 px-5 flex flex-col justify-start">
+                          {obj?.field_title && (
+                            <motion.h3 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
+                              {obj.field_title}
+                            </motion.h3>
+                          )}
+                          <motion.div
+                            className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small"
+                            dangerouslySetInnerHTML={{
+                              __html: obj?.field_description?.value || "",
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                )
-            )
+                    </motion.div>
+                  )
+              )
             : ""}
         </div>
         {/* Border - only for left position */}

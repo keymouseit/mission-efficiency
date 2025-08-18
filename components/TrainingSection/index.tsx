@@ -17,6 +17,7 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
   const isLeft = pos === "twi_left";
   const isCenter = pos === "center";
   const hasImage = !!data?.field_twi_image?.uri?.url;
+  const backgroundColor = data?.field_layout_background_color;
 
   const directionClass = isCenter
     ? "flex-col"
@@ -25,7 +26,11 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
     : "flex-row";
 
   return (
-    <div className="pt-[100px] pb-[90px] bg-white relative mobileMax:py-10 betweenMobileTab:py-12 overflow-hidden">
+    <div
+      className={`${
+        backgroundColor === "gray" ? "bg-mapGray" : "bg-white"
+      } pt-[100px] pb-[90px] relative mobileMax:py-10 betweenMobileTab:py-12 overflow-hidden`}
+    >
       {/* Background Overlay */}
       <motion.div
         initial={{ opacity: 0, x: 80 }}
