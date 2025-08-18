@@ -1,6 +1,5 @@
 import { DrupalNode } from "next-drupal";
 import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
-import TitleDescriptionBlock from "../TitleDescriptionBlock";
 import UnifiedCTAClient from "../UnifiedCTAClient";
 import FAQSections from "../FAQSections";
 import Resources from "../Resources";
@@ -22,6 +21,7 @@ import CampaignSection from "../CampaignSection";
 import SectorResources from "../SectorResources";
 import EconomyWidePartners from "../EconomyWidePartners";
 import TrainingSection from "../TrainingSection";
+import TitleDescriptionBlockServer from "../TitleDescriptionBlock";
 
 interface DynamicTemplateClientProps {
   templateData: DrupalNode;
@@ -94,7 +94,7 @@ const DynamicTemplateClient = ({
         };
       case "paragraph--call_to_action":
         return {
-          component: <TitleDescriptionBlock data={pageComponent} />,
+          component: <TitleDescriptionBlockServer data={pageComponent} />,
           skipNext: false,
         };
       case "paragraph--faq_component":
