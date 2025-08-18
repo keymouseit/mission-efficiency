@@ -25,11 +25,16 @@ const TrainingSection: React.FC<TrainingSectionProps> = ({ data }) => {
     ? "flex-row-reverse"
     : "flex-row";
 
+  const bgColor =
+    backgroundColor === "gray"
+      ? "bg-mapGray"
+      : backgroundColor === "dark_gray"
+      ? "bg-[#ebf0f7]"
+      : "bg-white";
+
   return (
     <div
-      className={`${
-        backgroundColor === "gray" ? "bg-mapGray" : "bg-white"
-      } pt-[100px] pb-[90px] relative mobileMax:py-10 betweenMobileTab:py-12 overflow-hidden`}
+      className={`${bgColor} pt-[100px] pb-[90px] relative mobileMax:py-10 betweenMobileTab:py-12 overflow-hidden`}
     >
       {/* Background Overlay */}
       <motion.div
