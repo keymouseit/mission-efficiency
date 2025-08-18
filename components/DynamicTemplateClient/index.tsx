@@ -18,7 +18,6 @@ import Taskforce from "../Author&Activities";
 import GetInvolvedCardWithoutTitle from "../GetInvolvedCardWithoutTitle";
 import PartnerCardSlider from "../LandingWebsiteComponents/PartnerCardSlider";
 import EnergyActivities from "../EnergyActivities";
-import ReadyToJoin from "../ReadyToJoin";
 import CampaignSection from "../CampaignSection";
 import SectorResources from "../SectorResources";
 import EconomyWidePartners from "../EconomyWidePartners";
