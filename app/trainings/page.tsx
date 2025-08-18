@@ -94,20 +94,14 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const Training = async ({ searchParams }: { searchParams: SearchParams }) => {
-  const totalStart = Date.now();
-  console.log("🚀 Starting Training page load with progressive loading...");
-
   // Load only essential data on server side
   const queryObject = prepareQueryObject(searchParams);
 
-  const serverStart = Date.now();
   const [headerSection, menuData, footerSection] = await Promise.all([
     getNewHeader() as Promise<RawHeaderNode[]>,
     getMenuDetails(),
     getNewFooter(),
   ]);
-  const serverEnd = Date.now();
-  console.log(`⚡ Essential server data loaded: ${serverEnd - serverStart}ms`);
 
   const processedMenuItems = processMenuData(menuData);
   const headerProps = prepareHeaderProps(headerSection, processedMenuItems);
@@ -124,9 +118,6 @@ const Training = async ({ searchParams }: { searchParams: SearchParams }) => {
     modality = "",
     resource = "",
   } = searchParams;
-
-  const totalEnd = Date.now();
-  console.log(`✅ Total server execution: ${totalEnd - totalStart}ms`);
 
   return (
     <TrainingScreen

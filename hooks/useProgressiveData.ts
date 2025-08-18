@@ -39,19 +39,12 @@ export const useProgressiveData = (): UseProgressiveDataReturn => {
   useEffect(() => {
     const loadCompleteData = async () => {
       try {
-        console.log("🔄 Loading complete filter data on client...");
-        const start = Date.now();
-
         const response = await fetch("/api/training?loadType=complete");
         if (!response.ok) {
           throw new Error("Failed to load complete data");
         }
 
         const result = await response.json();
-        const end = Date.now();
-
-        console.log(`📊 Client filter data loaded: ${end - start}ms`);
-        console.log(`🌐 API reported load time: ${result.loadTime}ms`);
 
         setFilterData(result.data);
         setIsFilterDataLoading(false);

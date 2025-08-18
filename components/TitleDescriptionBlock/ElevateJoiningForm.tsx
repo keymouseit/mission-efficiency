@@ -47,7 +47,7 @@ const ElevateJoiningForm: React.FC<ElevateJoiningFormProps> = ({
   const handleReCaptchaVerifyAndDataSubmit = useCallback(
     async (data: any) => {
       //   if (!executeRecaptcha) {
-      //     console.log("Execute recaptcha not yet available");
+      //     console.error("Execute recaptcha not yet available");
       //     return;
       //   }
 
@@ -70,7 +70,6 @@ const ElevateJoiningForm: React.FC<ElevateJoiningFormProps> = ({
       if (data) {
         setTermsChecked(true);
         setIsLoading(true);
-        console.log("CAPTCHA VERIFIED !!!");
         saveElevatePageFormData({
           webform_id: process.env.NEXT_PUBLIC_JOIN_WEBFORM_ID,
           name: data.ready_to_move_name,
@@ -87,7 +86,6 @@ const ElevateJoiningForm: React.FC<ElevateJoiningFormProps> = ({
         });
         return;
       } else {
-        console.log("CAPTCHA FAILED !!!");
         alert("Could not Verify ReCaptcha, Please Try Again!");
       }
     },

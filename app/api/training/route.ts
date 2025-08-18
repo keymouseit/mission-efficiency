@@ -49,7 +49,6 @@ export async function GET(request: NextRequest) {
   try {
     if (loadType === "essential") {
       // Load only critical data for initial render
-      console.log("🚀 Loading essential data...");
       const essentialStart = Date.now();
 
       const [headerSection, menuData, footerSection] = await Promise.all([
@@ -66,9 +65,6 @@ export async function GET(request: NextRequest) {
       };
 
       const essentialEnd = Date.now();
-      console.log(
-        `⚡ Essential data loaded: ${essentialEnd - essentialStart}ms`
-      );
 
       return NextResponse.json({
         type: "essential",
@@ -80,7 +76,6 @@ export async function GET(request: NextRequest) {
       });
     } else if (loadType === "complete") {
       // Load all filter data in background
-      console.log("🔄 Loading complete filter data...");
       const completeStart = Date.now();
 
       const [
@@ -109,7 +104,6 @@ export async function GET(request: NextRequest) {
         filteredTrainingResult || {};
 
       const completeEnd = Date.now();
-      console.log(`📊 Complete data loaded: ${completeEnd - completeStart}ms`);
 
       return NextResponse.json({
         type: "complete",

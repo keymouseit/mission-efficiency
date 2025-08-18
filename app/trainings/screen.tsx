@@ -577,35 +577,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
     );
   }, [paginatedFilterTrainingData, path, renderIcon]);
 
-  // Performance tracking effects
-  useEffect(() => {
-    const start = performance.now();
-    console.log("🎨 TrainingScreen client render started");
-
-    return () => {
-      const end = performance.now();
-      console.log(
-        `🏁 TrainingScreen total render time: ${(end - start).toFixed(2)}ms`
-      );
-    };
-  }, []);
-
-  // Track data updates
-  useEffect(() => {
-    const start = performance.now();
-    setPaginatedTrainingData(filteredTrainingData);
-    setLoading(false);
-    const end = performance.now();
-    console.log(`📊 Data update: ${(end - start).toFixed(2)}ms`);
-  }, [filteredTrainingData]);
-
-  // Track progressive loading performance
-  useEffect(() => {
-    if (useProgressiveLoading && !isFilterDataLoading) {
-      console.log("✅ Progressive filter data loading complete");
-    }
-  }, [useProgressiveLoading, isFilterDataLoading]);
-
   return (
     <>
       <Header data={headerData} />
