@@ -146,15 +146,15 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
     const idArray = value.split(",");
     const titlesArray = idArray.length
       ? idArray.map((checklistItemId: string) => {
-        const foundChecklistItem = formChecklist.find(
-          (checklistItem: DrupalNode) => checklistItem.id === checklistItemId
-        );
-        if (foundChecklistItem) {
-          return foundChecklistItem.title;
-        } else {
-          return "---";
-        }
-      })
+          const foundChecklistItem = formChecklist.find(
+            (checklistItem: DrupalNode) => checklistItem.id === checklistItemId
+          );
+          if (foundChecklistItem) {
+            return foundChecklistItem.title;
+          } else {
+            return "---";
+          }
+        })
       : [];
 
     return titlesArray.join("|");
@@ -230,28 +230,28 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
 
   const handleReCaptchaVerifyAndDataSubmit = useCallback(async () => {
     const formData = getValues();
-    if (!executeRecaptcha) {
-      console.error("Execute recaptcha not yet available");
-      return;
-    }
+    // if (!executeRecaptcha) {
+    //   console.error("Execute recaptcha not yet available");
+    //   return;
+    // }
 
-    const token = await executeRecaptcha("onSubmit");
+    // const token = await executeRecaptcha("onSubmit");
 
-    const response = await axios({
-      method: "post",
-      url: "/api/verifyCaptchaToken",
-      data: {
-        gRecaptchaToken: token,
-      },
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-    });
+    // const response = await axios({
+    //   method: "post",
+    //   url: "/api/verifyCaptchaToken",
+    //   data: {
+    //     gRecaptchaToken: token,
+    //   },
+    //   headers: {
+    //     Accept: "application/json, text/plain, */*",
+    //     "Content-Type": "application/json",
+    //   },
+    // });
 
-    const verifiedToken = response.data.success;
+    // const verifiedToken = response.data.success;
 
-    if (verifiedToken) {
+    if (formData) {
       const mappedPledges = mapIdsToTitles(formData.globalProgress);
       const mappedSectors = mapIdsToTitles(formData.energyEfficiencySectors);
       savePledgeFormData({
@@ -284,8 +284,6 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
       alert("Could not Verify ReCaptcha, Please Try Again!");
     }
   }, [executeRecaptcha]);
-
-
 
   const handleCheckListUpdate = (formKey: any, value: string) => {
     const fieldState = getValues() as any;
@@ -359,8 +357,9 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                   Organization Logo
                 </Label>
                 <div
-                  className={`!w-[200px] !h-[160px] border border-[#c7c7c7] relative overflow-hidden rounded-[6px] ${uploadedImageUrl && "show-org-logo"
-                    }`}
+                  className={`!w-[200px] !h-[160px] border border-[#c7c7c7] relative overflow-hidden rounded-[6px] ${
+                    uploadedImageUrl && "show-org-logo"
+                  }`}
                 >
                   {!Boolean(uploadedImageUrl || selectedFileBase64) && (
                     <>
