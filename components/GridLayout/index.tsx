@@ -50,6 +50,7 @@ const GridLayout: React.FC<GridLayoutProps> = ({ data }) => {
           width={657}
           height={955}
           src="/static/images/about-us-home.svg" alt="overlay-bg"
+          priority={true}
         />
       </motion.div>
 

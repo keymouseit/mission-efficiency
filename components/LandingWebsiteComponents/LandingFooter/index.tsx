@@ -100,7 +100,7 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
             ))}
           </ul>
 
-          <p className="text-center leading-[18px] text-xs text-gray text-poppins">
+          <p className="text-center leading-[18px] text-xs text-white text-poppins">
             {field_website_rights}
             reserved.
           </p>

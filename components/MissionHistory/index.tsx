@@ -60,7 +60,7 @@ const MissionHistory: React.FC<MissionHistoryProps> = ({ data }) => {
               transition={{
                 duration: 0,
               }}
-              className="remove-animation-fluctuation text-xsmall text-[#a09a9a] tracking-[3.64px] pb-3 uppercase --font-poppins border-b border-[#6ea8ed]"
+              className="remove-animation-fluctuation text-xsmall text-gray-500 tracking-[3.64px] pb-3 uppercase --font-poppins border-b border-[#6ea8ed]"
             >
               TIMELINE
             </motion.p>

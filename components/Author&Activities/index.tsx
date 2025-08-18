@@ -69,9 +69,9 @@ const Taskforce = ({ data }: TaskforceProps) => {
 
                 <motion.div className="mt-5">
                   <motion.div className="py-3 px-5 flex flex-col justify-start mobileMax:px-0">
-                    <motion.h5 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
+                    <motion.h3 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
                       {data?.field_activities_title || "Activities"}
-                    </motion.h5>
+                    </motion.h3>
 
                     {data?.field_add_activities?.length > 0 && (
                       <motion.div className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small">
