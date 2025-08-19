@@ -21,7 +21,15 @@ import CampaignSection from "../CampaignSection";
 import SectorResources from "../SectorResources";
 import EconomyWidePartners from "../EconomyWidePartners";
 import TrainingSection from "../TrainingSection";
-import TitleDescriptionBlockServer from "../TitleDescriptionBlock";
+import dynamic from "next/dynamic";
+
+const TitleDescriptionBlockServer = dynamic(
+  () => import("../TitleDescriptionBlock"),
+  {
+    ssr: false,
+    loading: () => <div style={{ minHeight: 400 }} />,
+  }
+);
 
 interface DynamicTemplateClientProps {
   templateData: DrupalNode;
@@ -94,7 +102,7 @@ const DynamicTemplateClient = ({
         };
       case "paragraph--call_to_action":
         return {
-          component: <TitleDescriptionBlockServer data={pageComponent} />,
+          component: <TitleDescriptionBlockServer  data={pageComponent} />,
           skipNext: false,
         };
       case "paragraph--faq_component":

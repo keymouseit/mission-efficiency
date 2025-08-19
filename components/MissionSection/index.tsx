@@ -108,6 +108,7 @@ const MissionCard = ({
         {/* Description */}
         {card?.field_description?.processed && (
           <div
+            style={{ color: "#1a4a8f" }}
             className={`--font-poppins text-center text-small leading-6 mobileMax:leading-normal mobileMax:text-xsmall ${
               hasIcon ? "line-clamp-5" : "mb-5 elevate-card-ellipse font-normal"
             } ${descriptionColor}`}
@@ -177,7 +178,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
           style={{
             top: isMobile ? mobileOverlayImage : moveOverlayImage,
           }}
-          className="absolute pointer-events-none z-[0]"
+          className="absolute pointer-events-none z-[0] hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block"
         >
           <DynamicImage
             src="/static/images/about-us-home.svg" 
@@ -204,7 +205,8 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
         {data?.field_description && (
           <motion.p
             {...animationConfig}
-            className="remove-animation-fluctuation text-lightBlueText mb-20 text-[22px] text-center mobileMax:text-small mobileMax:mb-8"
+            style={{ color: "#1a4a8f" }}
+            className="remove-animation-fluctuation text-[#3366cc] mb-20 text-[22px] text-center mobileMax:text-small mobileMax:mb-8"
             dangerouslySetInnerHTML={{
               __html: data.field_description.processed,
             }}

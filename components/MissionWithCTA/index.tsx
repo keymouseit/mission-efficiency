@@ -39,7 +39,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
     <div className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10">
       <motion.div
         style={{ top: isMobile ? mobileOverlayImage : moveOverlayImage }}
-        className="absolute pointer-events-none z-[0]"
+        className="absolute pointer-events-none z-[0] hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block"
       >
         <DynamicImage
           src="/static/images/about-us-home.svg" 
@@ -100,6 +100,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
                       {card?.field_title}
                     </h2>
                     <div
+                      style={{ color: "#1a4a8f" }}
                       className="--font-poppins text-center text-small text-gray-500 leading-6 mobileMax:leading-normal mobileMax:text-xsmall line-clamp-5"
                       dangerouslySetInnerHTML={{
                         __html: card?.field_description?.processed,

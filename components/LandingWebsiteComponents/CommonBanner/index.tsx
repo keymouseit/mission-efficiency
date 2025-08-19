@@ -67,7 +67,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
       <div className="mini-container h-full flex flex-col items-center justify-center">
         <div className="w-[75%] mx-auto mobileMax:w-full betweenMobileTab:w-[80%]">
           <motion.h1
-            initial={{ opacity: 0, y: 40 }}
+            initial={{  y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
@@ -81,7 +81,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
             {trimTitle}
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{

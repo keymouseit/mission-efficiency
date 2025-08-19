@@ -1,6 +1,11 @@
 import { DrupalService } from "@/lib/DrupalService";
 import { DrupalNode } from "next-drupal";
-import TitleDescriptionBlock from "./TitleDescriptionBlock";
+import dynamic from "next/dynamic";
+
+const TitleDescriptionBlock = dynamic(
+  () => import("./TitleDescriptionBlock"),
+  { ssr: false, loading: () => <div style={{ minHeight: 400 }} />, }
+);
 
 interface TitleDescriptionBlockServerProps {
   data?: DrupalNode;
@@ -12,8 +17,10 @@ async function TitleDescriptionBlockServer({
   let elevatePageData;
   if (data?.field_cta_title === "Join the Energy Efficient Life Campaign") {
     let newBanner: DrupalNode[] = [];
-    const elevateFormData = await DrupalService.getElevatePageData();
-    const allCards = await DrupalService.getAllCards();
+    const [elevateFormData, allCards] = await Promise.all([
+      DrupalService.getElevatePageData(),
+      DrupalService.getAllCards(),
+    ]);
 
     elevateFormData[0].field_campaign_life_banner.forEach(
       (bannerCard: DrupalNode) => {

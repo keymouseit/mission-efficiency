@@ -16,7 +16,7 @@ const Taskforce = ({ data }: TaskforceProps) => {
   const origin = useOrigin();
 
   return (
-    <section id="TaskForces" className="pb-24 bg-[#ebf0f7]">
+    <section id="Taskforces" className="pb-24 bg-[#ebf0f7]">
       <div className="mini-container">
         <motion.h3
           initial={{ opacity: 0, y: 40 }}

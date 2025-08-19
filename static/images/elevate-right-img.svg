@@ -1,16 +1,1 @@
-<svg width="665" height="1109" viewBox="0 0 665 1109" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g opacity=".8">
-        <path d="M603.442 344.155C490.938 240.31 474.172 135.157 624.729 131.01c150.556-4.147 526.321 256.73 337.183 340.212-189.135 83.482-202.561 266.737-283.465 237.786-99.869-49.439 80.318-221.486-75.005-364.853z" fill="url(#ggggrmpdna)" fill-opacity=".6"/>
-        <path d="M773.687 361.171c146.182 56.955 79.471 187.363-23.521 229.8-143.237 59.018-452.097-102.463-326.661-225.262 151.287-148.105 41.061-159.66 122.669-215.998 106.984-24.518 25.693 132.828 227.513 211.46z" fill="url(#w6ng2c73tb)" fill-opacity=".9" style="mix-blend-mode:screen"/>
-    </g>
-    <defs>
-        <linearGradient id="ggggrmpdna" x1="746.88" y1="490.055" x2="662.652" y2="189.666" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#5DE29B"/>
-            <stop offset="1" stop-color="#2353FF"/>
-        </linearGradient>
-        <linearGradient id="w6ng2c73tb" x1="660.303" y1="560.373" x2="584.39" y2="129.404" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#01DC59"/>
-            <stop offset="1" stop-color="#2353FF"/>
-        </linearGradient>
-    </defs>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="665" height="1109" fill="none" xmlns:v="https://vecta.io/nano"><g opacity=".8"><path d="M603.442 344.155C490.938 240.31 474.172 135.157 624.729 131.01s526.321 256.73 337.183 340.212-202.561 266.737-283.465 237.786c-99.869-49.439 80.318-221.486-75.005-364.853z" fill="url(#A)" fill-opacity=".6"/><path d="M773.687 361.171c146.182 56.955 79.471 187.363-23.521 229.8-143.237 59.018-452.097-102.463-326.661-225.262 151.287-148.105 41.061-159.66 122.669-215.998 106.984-24.518 25.693 132.828 227.513 211.46z" fill="url(#B)" fill-opacity=".9" style="mix-blend-mode:screen"/></g><defs><linearGradient id="A" x1="746.88" y1="490.055" x2="662.652" y2="189.666" gradientUnits="userSpaceOnUse"><stop stop-color="#5de29b"/><stop offset="1" stop-color="#2353ff"/></linearGradient><linearGradient id="B" x1="660.303" y1="560.373" x2="584.39" y2="129.404" gradientUnits="userSpaceOnUse"><stop stop-color="#01dc59"/><stop offset="1" stop-color="#2353ff"/></linearGradient></defs></svg>
