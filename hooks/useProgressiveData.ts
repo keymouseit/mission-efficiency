@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { DrupalTaxonomyTerm } from "next-drupal";
 
@@ -10,8 +11,6 @@ interface FilterData {
   regionData: DrupalTaxonomyTerm[];
   sectorData: DrupalTaxonomyTerm[];
   trainingCardImages: any[];
-  filteredTrainingData: DrupalTaxonomyTerm[];
-  totalFilteredRecords: number;
 }
 
 interface UseProgressiveDataReturn {
@@ -30,8 +29,6 @@ export const useProgressiveData = (): UseProgressiveDataReturn => {
     regionData: [],
     sectorData: [],
     trainingCardImages: [],
-    filteredTrainingData: [],
-    totalFilteredRecords: 0,
   });
   const [isFilterDataLoading, setIsFilterDataLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
