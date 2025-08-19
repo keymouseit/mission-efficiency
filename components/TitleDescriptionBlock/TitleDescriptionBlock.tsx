@@ -113,6 +113,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
                 height={603}
                 src={backgroundImageSrc}
                 alt="background"
+                priority={true}
               />
             </motion.div>
           ) : (
