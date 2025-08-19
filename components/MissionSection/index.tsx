@@ -177,7 +177,7 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
           style={{
             top: isMobile ? mobileOverlayImage : moveOverlayImage,
           }}
-          className="absolute pointer-events-none z-[0]"
+          className="absolute pointer-events-none z-[0] hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block"
         >
           <DynamicImage
             src="/static/images/about-us-home.svg" 
