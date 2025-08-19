@@ -39,7 +39,7 @@ interface trainingProps {
   topicData: DrupalTaxonomyTerm[];
   regionData: DrupalTaxonomyTerm[];
   sectorData: DrupalTaxonomyTerm[];
-  filteredTrainingData: DrupalTaxonomyTerm[];
+  filteredTrainingData: DrupalNode[];
   totalFilteredRecords: number;
   selectedLanguage: string;
   selectedOrganization: string[];
@@ -64,8 +64,8 @@ const TrainingScreen: React.FC<trainingProps> = ({
   resourcesData: initialResourcesData,
   sectorData: initialSectorData,
   regionData: initialRegionData,
-  filteredTrainingData: initialFilteredTrainingData,
-  totalFilteredRecords: initialTotalFilteredRecords,
+  filteredTrainingData,
+  totalFilteredRecords,
   selectedLanguage,
   selectedOrganization,
   selectedSector,
@@ -80,9 +80,8 @@ const TrainingScreen: React.FC<trainingProps> = ({
   const router = useRouter();
   const path = usePathname();
   const [loading, setLoading] = useState(false);
-  const [paginatedFilterTrainingData, setPaginatedTrainingData] = useState<
-    DrupalTaxonomyTerm[]
-  >(initialFilteredTrainingData);
+  const [paginatedFilterTrainingData, setPaginatedTrainingData] =
+    useState<DrupalNode[]>(filteredTrainingData);
 
   const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
   const [isTablet, setIsTablet] = useState<Boolean>(false);
@@ -93,17 +92,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   // Use progressive data loading if enabled
   const { filterData, isFilterDataLoading, error } = useProgressiveData();
-
-  // Use progressive data when available, fallback to initial data
-  const filteredTrainingData =
-    useProgressiveLoading && filterData.filteredTrainingData.length > 0
-      ? filterData.filteredTrainingData
-      : initialFilteredTrainingData;
-
-  const totalFilteredRecords =
-    useProgressiveLoading && filterData.totalFilteredRecords > 0
-      ? filterData.totalFilteredRecords
-      : initialTotalFilteredRecords;
 
   const topicData =
     useProgressiveLoading && filterData.topicData.length > 0
@@ -214,7 +202,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
   // Memoize handlers to prevent recreations
   const handleTopicSelect = useCallback(
     (value: string[]) => {
-      setLoading(true);
       const query = createQueryString({
         ...searchParams,
         topic: value,
@@ -226,7 +213,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   const handleLanguageSelect = useCallback(
     (value: string[]) => {
-      setLoading(true);
       const query = createQueryString({
         ...searchParams,
         language: value,
@@ -238,7 +224,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   const handleSectorSelect = useCallback(
     (value: string[]) => {
-      setLoading(true);
       const query = createQueryString({
         ...searchParams,
         sector: value,
@@ -250,7 +235,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   const handleOrganizationSelect = useCallback(
     (value: string[]) => {
-      setLoading(true);
       const query = createQueryString({
         ...searchParams,
         organization: value,
@@ -262,7 +246,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   const handleRegionSelect = useCallback(
     (value: string[]) => {
-      setLoading(true);
       const query = createQueryString({
         ...searchParams,
         region: value,
@@ -274,7 +257,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   const handleModalitySelect = useCallback(
     (value: string[]) => {
-      setLoading(true);
       const query = createQueryString({
         ...searchParams,
         modality: value,
@@ -286,7 +268,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   const handleResourceSelect = useCallback(
     (value: string[]) => {
-      setLoading(true);
       const query = createQueryString({
         ...searchParams,
         resource: value,
@@ -440,11 +421,19 @@ const TrainingScreen: React.FC<trainingProps> = ({
     );
   };
 
-  // Update data when filteredTrainingData changes
   useEffect(() => {
+    // Reset pagination data when filtered data changes
     setPaginatedTrainingData(filteredTrainingData);
     setLoading(false);
   }, [filteredTrainingData]);
+
+  // Additional effect to handle search params changes
+  useEffect(() => {
+    setLoading(true);
+    // Reset the paginated data when search params change
+    setPaginatedTrainingData(filteredTrainingData);
+    setLoading(false);
+  }, [searchParams, filteredTrainingData]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -460,10 +449,10 @@ const TrainingScreen: React.FC<trainingProps> = ({
     };
   }, [showMobileFilters]);
 
-  // Memoize training cards rendering
+  // Memoize training cards rendering with proper dependency
   const trainingCards = useMemo(() => {
     return paginatedFilterTrainingData?.map(
-      (trainingItems: DrupalTaxonomyTerm, index: number) => {
+      (trainingItems: DrupalNode, index: number) => {
         const titleLength = trainingItems.title.length;
         const sluggedLink =
           titleLength > 20
@@ -637,7 +626,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
             </div>
           </div>
           <div className="exactLaptop:min-h-[80vh] w-[75%] desktopLg:w-[80%] betweenMobileTab:w-[70%] lieTablets lieTablets:w-full laptopMax:w-full pt-[20px] laptopMax:pt-0">
-            {!loading ? (
+            {!loading && !showFilterLoadingState ? (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}

@@ -87,7 +87,6 @@ export async function GET(request: NextRequest) {
         regionData,
         sectorData,
         trainingCardImages,
-        filteredTrainingResult,
       ] = await Promise.all([
         DrupalService.getTopicData(),
         DrupalService.getLanguageData(),
@@ -97,11 +96,7 @@ export async function GET(request: NextRequest) {
         DrupalService.getTrainingRegionData(),
         DrupalService.getTrainingSectorData(),
         DrupalService.getTrainingCardImages(),
-        DrupalService.getFilteredTrainingCards(queryObject),
       ]);
-
-      const { data: filteredTrainingData = [], totalRecords = 0 } =
-        filteredTrainingResult || {};
 
       const completeEnd = Date.now();
 
@@ -116,8 +111,6 @@ export async function GET(request: NextRequest) {
           regionData,
           sectorData,
           trainingCardImages,
-          filteredTrainingData,
-          totalFilteredRecords: totalRecords,
         },
         loadTime: completeEnd - completeStart,
       });

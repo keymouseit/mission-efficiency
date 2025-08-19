@@ -114,15 +114,31 @@ const Training = async ({ searchParams }: { searchParams: SearchParams }) => {
     language = "",
     organization = "",
     sector = "",
+    search = "",
     region = "",
     modality = "",
     resource = "",
   } = searchParams;
 
+  const queryObjectt = {
+    topic,
+    language,
+    organization,
+    sector,
+    searchQuery: search,
+    region,
+    modality,
+    resource,
+  };
+
+  const { data: filteredTrainingData, totalRecords } =
+    (await DrupalService.getFilteredTrainingCards(queryObjectt)) ||
+    ({} as { data: DrupalNode[]; totalRecords: number });
+
   return (
     <TrainingScreen
       searchParams={searchParams}
-      trainingDataQuery={queryObject}
+      trainingDataQuery={queryObjectt}
       headerData={headerProps}
       footerData={footerSection[0]}
       // Filter data will be loaded progressively on client side
@@ -133,8 +149,8 @@ const Training = async ({ searchParams }: { searchParams: SearchParams }) => {
       modalityData={[]}
       regionData={[]}
       sectorData={[]}
-      filteredTrainingData={[]}
-      totalFilteredRecords={0}
+      filteredTrainingData={filteredTrainingData || []}
+      totalFilteredRecords={totalRecords || 0}
       selectedLanguage={language}
       showClearBtn={showClearBtn}
       selectedTopic={splitParams(topic)}
