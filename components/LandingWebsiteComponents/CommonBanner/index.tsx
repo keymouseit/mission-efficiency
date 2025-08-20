@@ -52,7 +52,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
           className={` ${noHeight && "tab:w-[62%]"}`}
         />
       </div>
-      <div className="top-[-84px] right-0 z-[-2] absolute pointer-events-none laptopMax:max-w-[55%] mobileMax:top-[-33px] mobileMax:max-w-1/2">
+      <div className="top-[-84px] right-0 z-[-2] absolute pointer-events-none laptopMax:max-w-[55%] hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block mobileMax:top-[-33px] mobileMax:max-w-1/2">
         <DynamicImage
           src={rightImg as string}
           {...(isSmallImage
@@ -67,7 +67,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
       <div className="mini-container h-full flex flex-col items-center justify-center">
         <div className="w-[75%] mx-auto mobileMax:w-full betweenMobileTab:w-[80%]">
           <motion.h1
-            initial={{  y: 40 }}
+            initial={{ y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{

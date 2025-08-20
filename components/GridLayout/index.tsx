@@ -44,12 +44,13 @@ const GridLayout: React.FC<GridLayoutProps> = ({ data }) => {
         style={{
           top: isMobile ? mobileOverlayImage : moveOverlayImage,
         }}
-        className="absolute pointer-events-none w-full betweenMobileTab:w-[70%] laptopMax:opacity-60 laptopMax:w-[80%]"
+        className="absolute pointer-events-none hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block  w-full betweenMobileTab:w-[70%] laptopMax:opacity-60 laptopMax:w-[80%]"
       >
         <DynamicImage
           width={657}
           height={955}
-          src="/static/images/about-us-home.svg" alt="overlay-bg"
+          src="/static/images/about-us-home.svg"
+          alt="overlay-bg"
           priority={true}
         />
       </motion.div>
