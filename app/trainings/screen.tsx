@@ -94,7 +94,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
         const params = new URLSearchParams({
           ...trainingDataQuery,
           offset: "0",
-          limit: "12",
+          limit: "11",
         });
 
         const response = await fetch(
