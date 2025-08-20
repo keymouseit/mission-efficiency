@@ -2,13 +2,12 @@
 import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
-import { DrupalNode, DrupalTaxonomyTerm } from "next-drupal";
+import { DrupalNode } from "next-drupal";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { buildMediaTypeAndSrc, createQueryString } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { getTrainingPaginatedData } from "@/services/api";
 import { motion } from "framer-motion";
 import slugify from "slugify";
 import { MdOutlineMessage } from "react-icons/md";
@@ -32,56 +31,46 @@ interface trainingProps {
   headerData: DrupalNode;
   footerData: DrupalNode;
   searchParams: any;
-  languagefilterData: DrupalTaxonomyTerm[];
-  resourcesData: DrupalTaxonomyTerm[];
-  organizationData: DrupalTaxonomyTerm[];
-  modalityData: DrupalTaxonomyTerm[];
-  topicData: DrupalTaxonomyTerm[];
-  regionData: DrupalTaxonomyTerm[];
-  sectorData: DrupalTaxonomyTerm[];
-  filteredTrainingData: DrupalNode[];
-  totalFilteredRecords: number;
-  selectedLanguage: string;
-  selectedOrganization: string[];
-  selectedSector: string[];
-  selectedTopic: string[];
-  selectedModality: string[];
-  selectedRegion: string[];
-  selectedResources: string[];
-  showClearBtn: boolean;
-  trainingDataQuery: { [key: string]: string };
-  useProgressiveLoading?: boolean;
 }
+
+interface QueryObject {
+  [key: string]: string;
+  topic: string;
+  language: string;
+  organization: string;
+  sector: string;
+  searchQuery: string;
+  region: string;
+  modality: string;
+  resource: string;
+}
+
+const splitParams = (param: string): string[] =>
+  param.length ? param.split(",") : [];
+
+const prepareQueryObject = (searchParams: any): QueryObject => ({
+  topic: searchParams.topic || "",
+  language: searchParams.language || "",
+  organization: searchParams.organization || "",
+  sector: searchParams.sector || "",
+  searchQuery: searchParams.search || "",
+  region: searchParams.region || "",
+  modality: searchParams.modality || "",
+  resource: searchParams.resource || "",
+});
 
 const TrainingScreen: React.FC<trainingProps> = ({
   headerData,
   footerData,
   searchParams,
-  languagefilterData: initialLanguageData,
-  topicData: initialTopicData,
-  organizationData: initialOrganizationData,
-  modalityData: initialModalityData,
-  resourcesData: initialResourcesData,
-  sectorData: initialSectorData,
-  regionData: initialRegionData,
-  filteredTrainingData,
-  totalFilteredRecords,
-  selectedLanguage,
-  selectedOrganization,
-  selectedSector,
-  selectedTopic,
-  selectedRegion,
-  selectedModality,
-  selectedResources,
-  showClearBtn,
-  trainingDataQuery,
-  useProgressiveLoading = false,
 }) => {
   const router = useRouter();
   const path = usePathname();
-  const [loading, setLoading] = useState(false);
-  const [paginatedFilterTrainingData, setPaginatedTrainingData] =
-    useState<DrupalNode[]>(filteredTrainingData);
+  const [loading, setLoading] = useState(true);
+  const [totalFilteredRecords, setTotalFilteredRecords] = useState(0);
+  const [paginatedFilterTrainingData, setPaginatedTrainingData] = useState<
+    DrupalNode[]
+  >([]);
 
   const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
   const [isTablet, setIsTablet] = useState<Boolean>(false);
@@ -90,113 +79,135 @@ const TrainingScreen: React.FC<trainingProps> = ({
     [key: number]: boolean | Boolean;
   }>({});
 
-  // Use progressive data loading if enabled
   const { filterData, isFilterDataLoading, error } = useProgressiveData();
 
-  const topicData =
-    useProgressiveLoading && filterData.topicData.length > 0
-      ? filterData.topicData
-      : initialTopicData;
+  const trainingDataQuery = useMemo(
+    () => prepareQueryObject(searchParams),
+    [searchParams]
+  );
 
-  const languagefilterData =
-    useProgressiveLoading && filterData.languagefilterData.length > 0
-      ? filterData.languagefilterData
-      : initialLanguageData;
+  // Load training data when route params change
+  useEffect(() => {
+    const loadTrainingData = async () => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams({
+          ...trainingDataQuery,
+          offset: "0",
+          limit: "12",
+        });
 
-  const organizationData =
-    useProgressiveLoading && filterData.organizationData.length > 0
-      ? filterData.organizationData
-      : initialOrganizationData;
+        const response = await fetch(
+          `/api/filterTraining?${params.toString()}`
+        );
+        const result = await response.json();
 
-  const modalityData =
-    useProgressiveLoading && filterData.modalityData.length > 0
-      ? filterData.modalityData
-      : initialModalityData;
+        if (!response.ok) {
+          throw new Error(result.error || "Failed to fetch training data");
+        }
 
-  const resourcesData =
-    useProgressiveLoading && filterData.resourcesData.length > 0
-      ? filterData.resourcesData
-      : initialResourcesData;
+        setTotalFilteredRecords(result.totalRecords || 0);
+        setPaginatedTrainingData(Array.isArray(result.data) ? result.data : []);
+      } catch (error) {
+        console.error("Error loading training data:", error);
+        setTotalFilteredRecords(0);
+        setPaginatedTrainingData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const sectorData =
-    useProgressiveLoading && filterData.sectorData.length > 0
-      ? filterData.sectorData
-      : initialSectorData;
-
-  const regionData =
-    useProgressiveLoading && filterData.regionData.length > 0
-      ? filterData.regionData
-      : initialRegionData;
+    loadTrainingData();
+  }, [trainingDataQuery]);
 
   const handleToggleOpen = useCallback((index: number) => {
     setOpenIndex((prev) => ({ ...prev, [index]: !Boolean(prev[index]) }));
   }, []);
 
-  // Show loading state for filters if using progressive loading
-  const showFilterLoadingState = useProgressiveLoading && isFilterDataLoading;
+  // Extract selected values from search params
+  const {
+    topic = "",
+    language = "",
+    organization = "",
+    sector = "",
+    region = "",
+    modality = "",
+    resource = "",
+  } = searchParams;
+
+  const selectedTopic = splitParams(topic);
+  const selectedOrganization = splitParams(organization);
+  const selectedSector = splitParams(sector);
+  const selectedRegion = splitParams(region);
+  const selectedModality = splitParams(modality);
+  const selectedResources = splitParams(resource);
+
+  // Show clear button logic
+  const { search: searchParam, ...filterParams } = searchParams;
+  const showClearBtn = Boolean(Object.keys(filterParams).length);
 
   // Memoize options to prevent recreation on every render
   const topicOptions = useMemo(
     () =>
-      topicData?.map((data) => ({
+      filterData.topicData?.map((data) => ({
         value: data.name.replaceAll(",", "-"),
         label: data.name,
       })) || [],
-    [topicData]
+    [filterData.topicData]
   );
 
   const languageFilterOptions = useMemo(
     () =>
-      languagefilterData?.map((data) => ({
+      filterData.languagefilterData?.map((data) => ({
         value: data.name,
         label: data.name,
       })) || [],
-    [languagefilterData]
+    [filterData.languagefilterData]
   );
 
   const organizationOptions = useMemo(
     () =>
-      organizationData?.map((data) => ({
+      filterData.organizationData?.map((data) => ({
         value: data.name.replaceAll(",", "-"),
         label: data.name,
       })) || [],
-    [organizationData]
+    [filterData.organizationData]
   );
 
   const sectorOptions = useMemo(
     () =>
-      sectorData?.map((data) => ({
+      filterData.sectorData?.map((data) => ({
         value: data.name.replaceAll(",", "-"),
         label: data.name,
       })) || [],
-    [sectorData]
+    [filterData.sectorData]
   );
 
   const regionOptions = useMemo(
     () =>
-      regionData?.map((data) => ({
+      filterData.regionData?.map((data) => ({
         value: data.name.replaceAll(",", "-"),
         label: data.name,
       })) || [],
-    [regionData]
+    [filterData.regionData]
   );
 
   const modalityOptions = useMemo(
     () =>
-      modalityData?.map((data) => ({
+      filterData.modalityData?.map((data) => ({
         value: data.name,
         label: data.name,
       })) || [],
-    [modalityData]
+    [filterData.modalityData]
   );
 
   const resourceOptions = useMemo(
     () =>
-      resourcesData?.map((data) => ({
+      filterData.resourcesData?.map((data) => ({
         value: data.name.replaceAll(",", "-"),
         label: data.name,
       })) || [],
-    [resourcesData]
+    [filterData.resourcesData]
   );
 
   // Memoize handlers to prevent recreations
@@ -278,13 +289,24 @@ const TrainingScreen: React.FC<trainingProps> = ({
   );
 
   const handleTrainingData = useCallback(async () => {
-    setLoading(false);
     try {
-      const response = await getTrainingPaginatedData({
+      const params = new URLSearchParams({
         ...trainingDataQuery,
-        offset: paginatedFilterTrainingData.length,
+        offset: paginatedFilterTrainingData.length.toString(),
+        limit: "11",
       });
-      setPaginatedTrainingData((prev) => [...prev, ...response.data]);
+
+      const response = await fetch(`/api/filterTraining?${params.toString()}`);
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result.error || "Failed to fetch paginated training data"
+        );
+      }
+
+      const newData = Array.isArray(result.data) ? result.data : [];
+      setPaginatedTrainingData((prev) => [...prev, ...newData]);
     } catch (error) {
       console.error("Error loading more training data:", error);
     }
@@ -307,7 +329,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   // Render filter section with loading state
   const renderFilterSection = () => {
-    if (showFilterLoadingState) {
+    if (isFilterDataLoading) {
       return (
         <div className="commonBoxShadow w-full mt-5 mobileMax:mt-3 border-box max-h-[75vh] lieTablets:max-h-[80vh] mobileMax:max-h-[80vh] overflow-auto py-2">
           {Array(6)
@@ -390,7 +412,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
         <div className="w-full">
           <CommonMultiCheckox
             menuTitle="Language"
-            value={selectedLanguage}
+            value={language}
             list={languageFilterOptions}
             onSelectChange={handleLanguageSelect}
             isOpen={Boolean(openIndex[5])}
@@ -422,20 +444,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
   };
 
   useEffect(() => {
-    // Reset pagination data when filtered data changes
-    setPaginatedTrainingData(filteredTrainingData);
-    setLoading(false);
-  }, [filteredTrainingData]);
-
-  // Additional effect to handle search params changes
-  useEffect(() => {
-    setLoading(true);
-    // Reset the paginated data when search params change
-    setPaginatedTrainingData(filteredTrainingData);
-    setLoading(false);
-  }, [searchParams, filteredTrainingData]);
-
-  useEffect(() => {
     if (typeof window !== "undefined") {
       setIsTablet(window.innerWidth < 1024);
       setAboveMobile(window.innerWidth > 767);
@@ -451,7 +459,14 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
   // Memoize training cards rendering with proper dependency
   const trainingCards = useMemo(() => {
-    return paginatedFilterTrainingData?.map(
+    if (
+      !Array.isArray(paginatedFilterTrainingData) ||
+      paginatedFilterTrainingData.length === 0
+    ) {
+      return [];
+    }
+
+    return paginatedFilterTrainingData.map(
       (trainingItems: DrupalNode, index: number) => {
         const titleLength = trainingItems.title.length;
         const sluggedLink =
@@ -463,7 +478,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
                 `${trainingItems.title} ${trainingItems.id}`
               )}`;
 
-        const language = (CONSTS.LANGUAGE_CODE as any)[
+        const languageCode = (CONSTS.LANGUAGE_CODE as any)[
           trainingItems?.field_t_language?.name?.toLowerCase()
         ];
         const mediaTypeAndSrc = buildMediaTypeAndSrc(
@@ -551,10 +566,12 @@ const TrainingScreen: React.FC<trainingProps> = ({
                       </p>
                     </div>
                   )}
-                  {language && (
+                  {languageCode && (
                     <div className="mb-2 flex items-start text-left text-small text-cardText leading-6 mobileMax:mb-2 mobileMax:text-xsmall mobileMax:leading-normal">
                       <LiaLanguageSolid className="block text-odd max-w-[30px] w-[30px] mr-2 text-[#4441EB]" />
-                      <p className="--font-poppins font-normal">{language}</p>
+                      <p className="--font-poppins font-normal">
+                        {languageCode}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -564,7 +581,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
         );
       }
     );
-  }, [paginatedFilterTrainingData, path, renderIcon]);
+  }, [paginatedFilterTrainingData, path, renderIcon, language]);
 
   return (
     <>
@@ -626,7 +643,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
             </div>
           </div>
           <div className="exactLaptop:min-h-[80vh] w-[75%] desktopLg:w-[80%] betweenMobileTab:w-[70%] lieTablets lieTablets:w-full laptopMax:w-full pt-[20px] laptopMax:pt-0">
-            {!loading && !showFilterLoadingState ? (
+            {!loading && !isFilterDataLoading ? (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -640,9 +657,10 @@ const TrainingScreen: React.FC<trainingProps> = ({
             ) : (
               <p className="h-[30px]" />
             )}
-            {!loading && !showFilterLoadingState ? (
+            {!loading && !isFilterDataLoading ? (
               <>
-                {!paginatedFilterTrainingData?.length ? (
+                {!Array.isArray(paginatedFilterTrainingData) ||
+                !paginatedFilterTrainingData?.length ? (
                   <motion.div
                     initial={{ opacity: 0, y: 5 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -658,8 +676,13 @@ const TrainingScreen: React.FC<trainingProps> = ({
                   <InfiniteScroll
                     scrollThreshold={0.5}
                     className="pt-[20px]"
-                    dataLength={paginatedFilterTrainingData?.length}
+                    dataLength={
+                      Array.isArray(paginatedFilterTrainingData)
+                        ? paginatedFilterTrainingData.length
+                        : 0
+                    }
                     hasMore={
+                      Array.isArray(paginatedFilterTrainingData) &&
                       paginatedFilterTrainingData.length < totalFilteredRecords
                     }
                     next={handleTrainingData}
