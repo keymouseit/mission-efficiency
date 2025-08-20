@@ -3,7 +3,6 @@ import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import UnifiedCTAClient from "../UnifiedCTAClient";
 import FAQSections from "../FAQSections";
 import Resources from "../Resources";
-import NewsAndEventsSection from "../NewsAndEventsSection";
 import MissionSection from "../MissionSection";
 import MissionWithCTA from "../MissionWithCTA";
 import MissionHistory from "../MissionHistory";
@@ -22,6 +21,7 @@ import SectorResources from "../SectorResources";
 import EconomyWidePartners from "../EconomyWidePartners";
 import TrainingSection from "../TrainingSection";
 import dynamic from "next/dynamic";
+import NewsAndEventBlockServer from "../NewsAndEventsSection";
 
 const TitleDescriptionBlockServer = dynamic(
   () => import("../TitleDescriptionBlock"),
@@ -117,7 +117,7 @@ const DynamicTemplateClient = ({
         };
       case "paragraph--slider_component":
         return {
-          component: <NewsAndEventsSection data={pageComponent} />,
+          component: <NewsAndEventBlockServer data={pageComponent} />,
           skipNext: false,
         };
       case "paragraph--cards_section_with_text":

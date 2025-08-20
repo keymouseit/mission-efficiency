@@ -71,15 +71,11 @@ const HomeGridLayout: React.FC<HomeGridProps> = (props) => {
                     duration: motionSettings[index + 1].duration,
                   }}
                 >
-                  <DynamicImage
+                  <img
                     src={img}
                     alt={`grid img${index + 1}`}
-                    width={index === 0 ? 304 : 247}
-                    height={index === 0 ? 204 : 165}
                     className="w-full h-full transform transition-transform duration-500 hover:scale-105"
                   />
-
-                
                 </motion.div>
               )
             })}
