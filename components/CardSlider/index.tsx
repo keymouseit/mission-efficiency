@@ -59,14 +59,6 @@ const CardSlider: React.FC<NewsCardSliderProps> = ({
             <div className="flex items-start box-border exactLaptop:bg-white remove-news-shadow card-shadow w-full laptop:h-[320px] h-[245px] aboveMinMobile:h-[160px] minMobile:h-[140px] exactLaptop:rounded-[4px] overflow-hidden">
               <div className="tab:w-[40%] tab:max-w-[50%] flex justify-center items-center w-full overflow-hidden relative mobileMax:mb-0 h-full minMobile:w-[90%] mobileMax:mr-2 lieTablets:mr-3">
 
-                {/* <DynamicImage
-                width={463}
-                height={320}
-                  src={`${mediaTypeAndSrc.src}`}
-                  alt="category img"
-                  className="w-full h-full max-w-full object-scale-down card-shadow"
-                /> */}
-                
                 {mediaTypeAndSrc.type === 'image' ? (
                   <img
                     src={`${mediaTypeAndSrc.src}`}
@@ -106,21 +98,10 @@ const CardSlider: React.FC<NewsCardSliderProps> = ({
                       }}
                     />
                     <Link
-                      // href={
-                      //   newsData?.field_slider_botton?.uri?.startsWith(
-                      //     "internal:"
-                      //   )
-                      //     ? `${origin}${newsData.field_slider_botton.uri.replace(
-                      //       "internal:",
-                      //       ""
-                      //     )}`
-                      //     : newsData?.field_slider_botton?.uri || "#"
-                      // }
                       href={sluggedLink || '#'}
                       target="_blank"
                       className="--font-poppins laptop:mt-10 mt-6 text-small text-defaultLink leading-6 flex items-center cursor-pointer  mobileMax:text-xsmall"
                     >
-                      {/* {newsData?.field_slider_botton?.title} */}
                       Learn more
                       <MdChevronRight className="w-[18px] h-[18px] max-w-[18px] ml-0.5 mt-0." />
                     </Link>
