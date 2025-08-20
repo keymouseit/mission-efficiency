@@ -118,7 +118,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ error: "Invalid loadType" }, { status: 400 });
   } catch (error) {
-    console.error("API Error:", error);
     return NextResponse.json(
       { error: "Failed to load training data" },
       { status: 500 }

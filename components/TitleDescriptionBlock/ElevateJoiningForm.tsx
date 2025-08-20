@@ -47,7 +47,6 @@ const ElevateJoiningForm: React.FC<ElevateJoiningFormProps> = ({
   const handleReCaptchaVerifyAndDataSubmit = useCallback(
     async (data: any) => {
       //   if (!executeRecaptcha) {
-      //     console.error("Execute recaptcha not yet available");
       //     return;
       //   }
 

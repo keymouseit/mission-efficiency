@@ -59,7 +59,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    console.error("Error fetching training data:", error);
     return NextResponse.json(
       {
         error: "Failed to fetch training data",

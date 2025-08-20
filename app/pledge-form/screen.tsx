@@ -232,7 +232,6 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
   const handleReCaptchaVerifyAndDataSubmit = useCallback(async () => {
     const formData = getValues();
     // if (!executeRecaptcha) {
-    //   console.error("Execute recaptcha not yet available");
     //   return;
     // }
 

@@ -115,12 +115,10 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
           }
         },
         (error) => {
-          console.error(error.message);
           setUserLocationMode(false);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
       setUserLocationMode(false);
     }
   };
@@ -305,9 +303,7 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
             setIsTooltipOpen(true);
           }
         });
-    } catch (error) {
-      console.error("Error fetching country coordinates", error);
-    }
+    } catch (error) {}
   };
 
   const countrySelectorSelect = (countryIso?: string) => {

@@ -46,7 +46,6 @@ export const useProgressiveData = (): UseProgressiveDataReturn => {
         setFilterData(result.data);
         setIsFilterDataLoading(false);
       } catch (err) {
-        console.error("Error loading complete data:", err);
         setError(err instanceof Error ? err.message : "Unknown error");
         setIsFilterDataLoading(false);
       }

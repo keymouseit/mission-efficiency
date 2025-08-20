@@ -59,7 +59,6 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     };
   } catch (error) {
-    console.error("Error generating metadata:", error);
     return {
       title: "",
       description: "",

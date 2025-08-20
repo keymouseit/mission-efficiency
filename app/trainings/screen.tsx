@@ -109,7 +109,6 @@ const TrainingScreen: React.FC<trainingProps> = ({
         setTotalFilteredRecords(result.totalRecords || 0);
         setPaginatedTrainingData(Array.isArray(result.data) ? result.data : []);
       } catch (error) {
-        console.error("Error loading training data:", error);
         setTotalFilteredRecords(0);
         setPaginatedTrainingData([]);
       } finally {
@@ -307,9 +306,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
 
       const newData = Array.isArray(result.data) ? result.data : [];
       setPaginatedTrainingData((prev) => [...prev, ...newData]);
-    } catch (error) {
-      console.error("Error loading more training data:", error);
-    }
+    } catch (error) {}
   }, [trainingDataQuery, paginatedFilterTrainingData.length]);
 
   const renderIcon = useCallback((resourceName: string) => {

@@ -20,9 +20,7 @@ export async function POST(request: Request, response: Response) {
         },
       }
     );
-  } catch (e) {
-    console.error("recaptcha error:", e);
-  }
+  } catch (e) {}
 
   if (res && res.data?.success && res.data?.score > 0.5) {
     // Save data to the database from here

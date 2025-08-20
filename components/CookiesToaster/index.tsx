@@ -14,9 +14,7 @@ const CookiesToaster = () => {
       fetch("https://geolocation-db.com/json/")
         .then((response) => response.json())
         .then((data) => localStorage.setItem("ip", data.IPv4));
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
     document.cookie = "cookieconsent_status=1";
     setShowConsent(false);
   };

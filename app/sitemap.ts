@@ -8,7 +8,6 @@ const toolkitDashboardPaths = countries.map((country) => {
 	const countrySlug = slugify(country?.name, {
 		lower: true,
 	});
-	console;
 	return {
 		url: `${BASE_URL}toolkit/${countrySlug}/dashboard`,
 		lastModified: new Date(),

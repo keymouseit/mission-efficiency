@@ -1157,7 +1157,6 @@ export async function getMenuDetails() {
 
     return data.data;
   } catch (error) {
-    console.error("Error fetching menu details:", error);
     return [];
   }
 }

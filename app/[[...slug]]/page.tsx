@@ -10,6 +10,8 @@ import NotFoundPage from "@/components/NotFound";
 import { processMenuData } from "@/lib/processMenuData";
 import { RawHeaderNode } from "@/types/header";
 
+export const dynamic = "force-static"; // fully static
+
 const HomePage = async ({ params }: { params: { slug?: string[] } }) => {
   const slugArray = params?.slug || [];
   const slug = slugArray.length === 0 ? "/" : slugArray.join("/");
