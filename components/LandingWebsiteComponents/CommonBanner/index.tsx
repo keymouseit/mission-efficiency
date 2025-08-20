@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import DynamicImage from "@/components/ResuableDynamicImage";
 import Curve from "@/components/Curve";
 
@@ -49,7 +48,9 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
             ? { width: 392, height: 412 }
             : { width: 800, height: 600 })}
           alt="left-bg"
-          className={` ${noHeight && "tab:w-[62%]"}`}
+          className={` ${
+            noHeight && "tab:w-[62%]"
+          }  hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block mobileMax:top-[-33px]`}
         />
       </div>
       <div className="top-[-84px] right-0 z-[-2] absolute pointer-events-none laptopMax:max-w-[55%] hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block mobileMax:top-[-33px] mobileMax:max-w-1/2">
@@ -65,34 +66,34 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
       </div>
       {/* title section */}
       <div className="mini-container h-full flex flex-col items-center justify-center">
-        <div className="w-[75%] mx-auto mobileMax:w-full betweenMobileTab:w-[80%]">
-          <motion.h1
-            initial={{ y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+        <div className="fade-in-up-delayed w-[75%] mx-auto mobileMax:w-full betweenMobileTab:w-[80%]">
+          <h1
+            // initial={{ y: 40 }}
+            // whileInView={{ opacity: 1, y: 0 }}
+            // viewport={{ once: true }}
+            // transition={{
+            //   duration: 0,
+            // }}
             className={`${
               isCallToAction ||
               (isCfdpage && "belowTab:mx-auto !text-[50px] mobileMax:!text-xlg")
             } remove-animation-fluctuation title-green-gradient text-clip text-xlarge mb-3.5 mt-0 leading-tight text-center text-numans mobileMax:text-[42px]`}
           >
             {trimTitle}
-          </motion.h1>
-          <motion.p
-            initial={{ y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+          </h1>
+          <p
+            // initial={{ y: 40 }}
+            // whileInView={{ opacity: 1, y: 0 }}
+            // viewport={{ once: true }}
+            // transition={{
+            //   duration: 0,
+            // }}
             className={`${
               isCallToAction && "!text-odd mobileMax:!text-medium"
             } remove-animation-fluctuation !text-odd mobileMax:!text-medium leading-normal text-white text-center --font-poppins mobileMax:leading-[25px]`}
           >
             {subTitle}
-          </motion.p>
+          </p>
         </div>
       </div>
       <Curve

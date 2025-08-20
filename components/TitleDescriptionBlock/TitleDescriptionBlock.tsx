@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
 import React from "react";
@@ -94,6 +93,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
             bgImageUrl ? "bg-black" : backgroundClass
           } overflow-hidden relative pt-5 pb-[60px] mobileMax:pt-0 mobileMax:pb-[80px] betweenMobileTab:pb-12`}
         >
+          {/* Background Image - No animation for LCP critical images */}
           {bgImageUrl ? (
             <DynamicImage
               fill
@@ -103,8 +103,9 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
               className="absolute top-0 left-0 w-full h-full object-cover z-0 pointer-events-none opacity-40"
             />
           ) : backgroundImageSrc && !data?.field_cta_button ? (
-            <motion.div
-              className={`absolute pointer-events-none opacity-25 top-[50%] -translate-y-1/2 z-[1] ${
+            // Static background for simple cases (no animation needed)
+            <div
+              className={`absolute pointer-events-none opacity-25 top-[50%] -translate-y-1/2 z-[1] hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block ${
                 isImageRight ? "right-0" : "left-0"
               } ${backgroundImageClass}`}
             >
@@ -115,13 +116,14 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
                 alt="background"
                 priority={true}
               />
-            </motion.div>
+            </div>
           ) : (
-            <motion.div
-              initial={{ opacity: 0, x: 90 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", duration: 2.8 }}
+            // Keep animation only for decorative elements that don't affect LCP
+            <div
+              // initial={{ opacity: 0, x: 90 }}
+              // whileInView={{ opacity: 1, x: 0 }}
+              // viewport={{ once: true }}
+              // transition={{ type: "spring", duration: 2.8 }}
               className="absolute bottom-[2px] right-0 pointer-events-none max-w-[80%] aboveLaptop:max-w-[70%] desktop:opacity-100 z-[1]"
             >
               <DynamicImage
@@ -131,7 +133,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
                 alt="get-inv-home"
                 className="desktopLg:opacity-100 opacity-50"
               />
-            </motion.div>
+            </div>
           )}
 
           <div
@@ -139,11 +141,8 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
               !data?.field_cta_button ? "pt-[82px]" : "pt-[120px] pb-16"
             }`}
           >
-            <motion.h2
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
+            {/* CRITICAL: Title - NO ANIMATION for potential LCP element */}
+            <h2
               className={`${
                 data?.field_cta_button ? "text-center desktop:text-[60px]" : ""
               } ${
@@ -153,14 +152,11 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
               } desktop:text-[54px] mb-14 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-[48px] mobileMax:text-[28px]`}
             >
               {data?.field_cta_title}
-            </motion.h2>
+            </h2>
 
+            {/* CRITICAL: Content - NO ANIMATION for potential LCP element */}
             {content && (
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0 }}
+              <div
                 className={`remove-animation-fluctuation text-medium ${
                   bgImageUrl ? "text-white text-center" : textColorClass
                 } --font-poppins leading-8 mobileMax:text-xsmall mobileMax:leading-normal`}
@@ -168,24 +164,28 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
               />
             )}
 
+            {/* Button - Can keep subtle animation since it's not LCP */}
             {data?.field_cta_button && (
-              <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                href={
-                  data?.field_cta_button?.uri.startsWith("internal:")
-                    ? `${origin}${data.field_cta_button.uri.replace(
-                        "internal:",
-                        ""
-                      )}`
-                    : data.field_cta_button.uri
-                }
-                className={`${bgImageUrl ? "mt-10" : ""}`}
+              <div
+                className={`${bgImageUrl ? "mt-10" : ""} fade-in-up-delayed`}
               >
-                <Button className="block mx-auto min-w-[220px] get-involve-btn modals-gradientBtn font-mediums text-white text-medium capitalize min-h-[55px] rounded-lg">
-                  {data?.field_cta_button?.title}
-                </Button>
-              </Link>
+                <Link
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={
+                    data?.field_cta_button?.uri.startsWith("internal:")
+                      ? `${origin}${data.field_cta_button.uri.replace(
+                          "internal:",
+                          ""
+                        )}`
+                      : data.field_cta_button.uri
+                  }
+                >
+                  <Button className="block mx-auto min-w-[220px] get-involve-btn modals-gradientBtn font-mediums text-white text-medium capitalize min-h-[55px] rounded-lg">
+                    {data?.field_cta_button?.title}
+                  </Button>
+                </Link>
+              </div>
             )}
           </div>
         </section>

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
@@ -77,15 +76,9 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
           : "bg-white"
       }`}
     >
-      {/* Background shape - only for left position */}
+      {/* Background shape - only for left position - REMOVED ANIMATION */}
       {isLeftPosition && (
-        <motion.div
-          initial={{ opacity: 0, x: -100 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ type: "spring", duration: 2.5 }}
-          className="absolute pointer-events-none top-[-10%] left-0 z-[0] betweenMobileTab:top-[12%] betweenMobileTab:opacity-50 mobileMax:top-[21%]"
-        >
+        <div className="absolute pointer-events-none top-[-10%] left-0 z-[0] betweenMobileTab:top-[12%] betweenMobileTab:opacity-50 mobileMax:top-[21%]">
           <DynamicImage
             src="/static/images/about-us-home.svg"
             alt="overlay-bg"
@@ -93,7 +86,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
             width={657}
             height={955}
           />
-        </motion.div>
+        </div>
       )}
 
       <div
@@ -103,11 +96,8 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
           !isLeftPosition ? "pt-5 pb-[60px] mobileMax:pb-10" : ""
         }`}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        {/* MAIN CONTENT WRAPPER - NO ANIMATION FOR LCP */}
+        <div
           className={`remove-animation-fluctuation ${
             isLeftPosition
               ? data?.field_twi_image_position === "center" || !imageDescription
@@ -116,9 +106,9 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
               : "py-6 mobileMax:pb-5"
           }`}
         >
-          {/* Title */}
+          {/* Title - NO ANIMATION */}
           <div className={isLeftPosition ? "" : "overflow-hidden"}>
-            <motion.h2
+            <h2
               style={
                 customFontSize
                   ? {
@@ -130,15 +120,11 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
               className="desktop:text-[60px] text-numans mb-10 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-center category-gradient text-clip px-5 text-[48px] mobileMax:text-[28px]"
             >
               {data?.field_twi_title}
-            </motion.h2>
+            </h2>
           </div>
 
-          {/* Description content */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          {/* Description content - NO ANIMATION FOR LCP ELEMENTS */}
+          <div
             className={`remove-animation-fluctuation ${
               isLeftPosition
                 ? data?.field_twi_image_position === "center" ||
@@ -158,6 +144,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                   : ""
               }`}
             >
+              {/* CRITICAL: This is likely your LCP element - NO ANIMATION */}
               {data?.field_twi_description?.processed && (
                 <div
                   className={`--font-poppins leading-8 ${
@@ -171,10 +158,10 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                 />
               )}
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons - Can keep animation here as they're not LCP */}
               {data?.field_twi_button?.length ? (
                 <div
-                  className={`flex items-center justify-around p-0 mobileMax:flex-col ${
+                  className={`fade-in-up-delayed flex items-center justify-around p-0 mobileMax:flex-col ${
                     !isLeftPosition
                       ? "remove-animation-fluctuation mb-20 mobileMax:mb-8"
                       : ""
@@ -200,14 +187,10 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                 </div>
               ) : null}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Image + Text Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          {/* Image + Text Section - NO ANIMATION FOR POTENTIAL LCP */}
+          <div
             className={`remove-animation-fluctuation flex ${
               isLeftPosition ? "items-start" : "items-center"
             } mobileToDesk:flex-col overflow-hidden`}
@@ -241,7 +224,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
               )}
 
             {imageUrl && !isLeftPosition && renderImageBlock()}
-          </motion.div>
+          </div>
 
           {imageDescription && data?.field_twi_image_position === "center" && (
             <div className="mt-6">
@@ -255,22 +238,17 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
               )}
             </div>
           )}
-        </motion.div>
+        </div>
 
+        {/* Objectives - Can keep animation for below-fold content */}
         <div className="flex justify-between">
           {data?.field_add_objective
             ? data.field_add_objective.map(
                 (obj: DrupalNode, index: number, arr: DrupalNode) =>
                   (obj.field_title || obj.field_description?.value) && (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, y: 40 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0,
-                      }}
-                      className={`mobileMax:mt-8 remove-animation-fluctuation ${
+                      className={`fade-in-up-delayed mobileMax:mt-8 remove-animation-fluctuation ${
                         arr.length > 1 ? "w-[47%]" : ""
                       } ${
                         data?.field_twi_image_position === "center" ||
@@ -287,11 +265,11 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                         {/*object images cards */}
                         <div className="w-full py-3 px-5 flex flex-col justify-start">
                           {obj?.field_title && (
-                            <motion.h3 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
+                            <h3 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
                               {obj.field_title}
-                            </motion.h3>
+                            </h3>
                           )}
-                          <motion.div
+                          <div
                             className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small"
                             dangerouslySetInnerHTML={{
                               __html: obj?.field_description?.value || "",
@@ -299,11 +277,12 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                           />
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   )
               )
             : ""}
         </div>
+
         {/* Border - only for left position */}
         {isLeftPosition &&
           data?.field_twi_title == "Mission Efficiency Call to Action" && (
