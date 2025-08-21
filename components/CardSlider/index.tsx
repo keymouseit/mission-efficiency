@@ -6,9 +6,6 @@ import slugify from "slugify";
 import { buildMediaTypeAndSrc, formatDateToUS } from "@/lib/utils";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
-import { DEV_PUBLIC_URL } from "@/services/api";
-import { useOrigin } from "@/hooks/useOrigin";
-import DynamicImage from "../ResuableDynamicImage";
 import ReactPlayer from "react-player";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { renderIcon } from "@/lib/parsers";
@@ -20,12 +17,9 @@ interface NewsCardSliderProps {
 }
 
 const CardSlider: React.FC<NewsCardSliderProps> = ({
-  sliderData,
   sliderConfig,
-  latestSliderData
+  latestSliderData,
 }) => {
-  const origin = useOrigin();
-
   const settings = {
     dots: sliderConfig?.field_show_dots ?? true,
     infinite: sliderConfig?.field_infinite ?? false,
@@ -48,7 +42,7 @@ const CardSlider: React.FC<NewsCardSliderProps> = ({
         )}`;
 
         const mediaTypeAndSrc = buildMediaTypeAndSrc(
-          newsData.field_news_media_url,
+          newsData.field_news_media_url
         );
 
         return (
@@ -58,32 +52,30 @@ const CardSlider: React.FC<NewsCardSliderProps> = ({
           >
             <div className="flex items-start box-border exactLaptop:bg-white remove-news-shadow card-shadow w-full laptop:h-[320px] h-[245px] aboveMinMobile:h-[160px] minMobile:h-[140px] exactLaptop:rounded-[4px] overflow-hidden">
               <div className="tab:w-[40%] tab:max-w-[50%] flex justify-center items-center w-full overflow-hidden relative mobileMax:mb-0 h-full minMobile:w-[90%] mobileMax:mr-2 lieTablets:mr-3">
-
-                {mediaTypeAndSrc.type === 'image' ? (
+                {mediaTypeAndSrc.type === "image" ? (
                   <img
                     src={`${mediaTypeAndSrc.src}`}
                     alt="category img"
                     className="w-full h-full max-w-full object-scale-down card-shadow"
                   />
-                ) : mediaTypeAndSrc.type === 'video' ? (
+                ) : mediaTypeAndSrc.type === "video" ? (
                   <div className={`w-full h-full `}>
                     <ReactPlayer
                       id="react-video-player"
-                      url={mediaTypeAndSrc?.src || ''}
+                      url={mediaTypeAndSrc?.src || ""}
                       width="100%"
                       height="100%"
                     />
                   </div>
                 ) : (
                   <div className="w-full h-full bg-placeholder flex items-center justify-center">
-                    {mediaTypeAndSrc.type === 'pdf' ? (
+                    {mediaTypeAndSrc.type === "pdf" ? (
                       <IoDocumentTextOutline className="text-white w-[65%] h-[65%]" />
                     ) : (
                       <>{renderIcon(newsData?.field_n_resource?.name)}</>
                     )}
                   </div>
-                )
-                }
+                )}
               </div>
               <div className="exactLaptop:w-[60%] exactLaptop:p-4 flex flex-col h-full w-full laptopMax:py-0.5">
                 <div className="w-full h-full flex flex-col justify-between pr-1 mobileMax:pr-0">
@@ -98,7 +90,7 @@ const CardSlider: React.FC<NewsCardSliderProps> = ({
                       }}
                     />
                     <Link
-                      href={sluggedLink || '#'}
+                      href={sluggedLink || "#"}
                       target="_blank"
                       className="--font-poppins laptop:mt-10 mt-6 text-small text-defaultLink leading-6 flex items-center cursor-pointer  mobileMax:text-xsmall"
                     >

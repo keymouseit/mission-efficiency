@@ -70,34 +70,6 @@ export const getCategoryList = async () => {
   }
 };
 
-interface PageDataInterface {
-  title: string;
-  field_form_support_to: string;
-  field_form_commitment: string;
-  field_form_first_name: string;
-  field_form_last_name: string;
-  field_form_email: string;
-  field_form_country: string;
-  mailTo: string;
-  mailFrom: string;
-  mailSubject: string;
-}
-
-export const saveGetInvolvedData = async (pageData: PageDataInterface) => {
-  try {
-    const response = await fetch("/api/saveGetInvolvedData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(pageData),
-    });
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
 interface PledgeFormDataInterface {
   webform_id: string | undefined;
   first_name: string;

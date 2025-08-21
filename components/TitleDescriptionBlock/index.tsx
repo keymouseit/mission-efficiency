@@ -2,10 +2,10 @@ import { DrupalService } from "@/lib/DrupalService";
 import { DrupalNode } from "next-drupal";
 import dynamic from "next/dynamic";
 
-const TitleDescriptionBlock = dynamic(
-  () => import("./TitleDescriptionBlock"),
-  { ssr: false, loading: () => <div style={{ minHeight: 400 }} />, }
-);
+const TitleDescriptionBlock = dynamic(() => import("./TitleDescriptionBlock"), {
+  ssr: false,
+  loading: () => <div style={{ minHeight: 400 }} />,
+});
 
 interface TitleDescriptionBlockServerProps {
   data?: DrupalNode;

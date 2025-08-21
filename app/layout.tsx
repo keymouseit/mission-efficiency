@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { numans, poppins } from "@/lib/fonts";
+import ClientErrorBoundary from "@/components/ClientErrorBoundary";
 
 export const metadata: Metadata = {
   title: "Mission Efficiency",
@@ -22,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${numans.variable} ${poppins.variable} laptop:!overflow-auto`}
       >
-        {children}
+        <ClientErrorBoundary>{children}</ClientErrorBoundary>
       </body>
     </html>
   );

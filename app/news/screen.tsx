@@ -13,9 +13,9 @@ import {
   formatDateToUS,
 } from "@/lib/utils";
 import { FiSearch } from "react-icons/fi";
-import { IoMdClose, IoMdImages } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import slugify from "slugify";
-import { IoClose, IoDocumentTextOutline, IoFilter } from "react-icons/io5";
+import { IoClose, IoDocumentTextOutline } from "react-icons/io5";
 import CommonMultiCheckox from "@/components/LandingWebsiteComponents/CommonMultiCheckbox";
 import FloatingButton from "@/components/FloatingButton";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -186,10 +186,11 @@ const NewsScreen: React.FC<newsProps> = ({
             />
           )}
           <div
-            className={`${showMobileFilters
+            className={`${
+              showMobileFilters
                 ? "lieTablets:w-[300px] lieTablets:left-0 lieTablets:top-0 fixed left-0 top-0 flex-col mb-0 !z-[5] w-full h-full dark-filter-shadow !block overflow-auto"
                 : "sticky top-24 left-0 mr-2 mb px-5 w-[25%] desktopLg:w-[20%]"
-              } aboveLaptop:w-[30%] mobileMax:w-full z-[3] h-full hidden exactLaptop:block`}
+            } aboveLaptop:w-[30%] mobileMax:w-full z-[3] h-full hidden exactLaptop:block`}
           >
             <div className="h-full bg-mapGray w-full laptopMax:h-full laptopMax:overflow-auto">
               <div className="flex laptopMax:px-3 items-center justify-between laptopMax:pb-2 min-h-[55px] laptopMax:min-h-[82px] laptopMax:pt-[40px] laptopMax:sticky laptopMax:top-0 laptopMax:z-[3] bg-mapGray">
@@ -239,9 +240,7 @@ const NewsScreen: React.FC<newsProps> = ({
           </div>
           {/* no data found */}
           <div className="w-[75%] desktopLg:w-[80%] betweenMobileTab:w-[70%] lieTablets:w-full laptopMax:w-full">
-            <div
-              className="w-full flex items-center justify-between mt-2 mb-3 mobileMax:block mobileMax:mb-0 ml-[15px] laptopMax:ml-0"
-            >
+            <div className="w-full flex items-center justify-between mt-2 mb-3 mobileMax:block mobileMax:mb-0 ml-[15px] laptopMax:ml-0">
               <div className="relative w-[48%] mobileMax:w-full mobileMax:mb-8">
                 <div className="flex items-center justify-end relative w-full">
                   <input
@@ -268,9 +267,9 @@ const NewsScreen: React.FC<newsProps> = ({
                               event.key === "ArrowUp"
                                 ? Math.max(0, searchFocus - 1)
                                 : Math.min(
-                                  filteredSearchData.length - 1,
-                                  searchFocus + 1
-                                );
+                                    filteredSearchData.length - 1,
+                                    searchFocus + 1
+                                  );
                             setSearchFocus(newIndex);
                           } else {
                             setSearchFocus(0);
@@ -306,8 +305,9 @@ const NewsScreen: React.FC<newsProps> = ({
                           return (
                             <li
                               key={index}
-                              className={`text-small px-2 rounded-[6px] leading-normal py-1 mobileMax:text-xsmall cursor-pointer search-item ${index === searchFocus ? "focused" : ""
-                                }`}
+                              className={`text-small px-2 rounded-[6px] leading-normal py-1 mobileMax:text-xsmall cursor-pointer search-item ${
+                                index === searchFocus ? "focused" : ""
+                              }`}
                               onClick={() => {
                                 setSearchListOpen(false);
                                 setSearchItem(matchedItem?.title);
@@ -363,7 +363,7 @@ const NewsScreen: React.FC<newsProps> = ({
                       className="pt-[20px]"
                       dataLength={paginatedFilterNewsData?.length}
                       hasMore={true}
-                      next={() => { }}
+                      next={() => {}}
                       loader={""}
                     >
                       <div className="flex flex-wrap justify-start box-border w-full">
@@ -374,12 +374,13 @@ const NewsScreen: React.FC<newsProps> = ({
                             const sluggedLink =
                               titleLength > 20
                                 ? `${path}/${slugify(
-                                  `${newsData.title.slice(0, 20)} ${newsData.id
-                                  }`
-                                )}`
+                                    `${newsData.title.slice(0, 20)} ${
+                                      newsData.id
+                                    }`
+                                  )}`
                                 : `${path}/${slugify(
-                                  `${newsData.title} ${newsData.id}`
-                                )}`;
+                                    `${newsData.title} ${newsData.id}`
+                                  )}`;
 
                             const mediaTypeAndSrc = buildMediaTypeAndSrc(
                               newsData.field_news_media_url
@@ -489,12 +490,14 @@ const NewsScreen: React.FC<newsProps> = ({
                               </div>
                               <div className="w-full h-[30px] mb-0.5 flex items-center">
                                 <div
-                                  className={`bg-emptyState animate-pulse rounded-md mr-2 h-[25px] ${isTablet ? "w-[40%] " : "w-[30%]"
-                                    }`}
+                                  className={`bg-emptyState animate-pulse rounded-md mr-2 h-[25px] ${
+                                    isTablet ? "w-[40%] " : "w-[30%]"
+                                  }`}
                                 />
                                 <div
-                                  className={`bg-emptyState animate-pulse rounded-md mr-2 h-[25px] ${isTablet ? "w-[40%] " : "w-[30%]"
-                                    }`}
+                                  className={`bg-emptyState animate-pulse rounded-md mr-2 h-[25px] ${
+                                    isTablet ? "w-[40%] " : "w-[30%]"
+                                  }`}
                                 />
                               </div>
                             </div>

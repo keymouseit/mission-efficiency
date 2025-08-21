@@ -49,20 +49,31 @@ function Resources({ data }: SupportPartnersSectionProps) {
         )}
 
         {/* Partner Cards */}
-        <div className="flex items-center flex-wrap pb-[25px] mobileMax:block transparent-cards-border invest-cards">
+        <div className="flex items-center flex-wrap pb-[25px] mobileMax:block transparent-cards-border">
           {data?.field_resources_cards.map((card: any, index: any) => {
             const imageUrl =
               card?.field_image[0]?.uri?.url &&
               `${DEV_PUBLIC_URL}${card?.field_image[0]?.uri?.url}`;
 
+            const totalCards = data?.field_resources_cards.length;
+            const isFirstRow = index < 2;
+            const isOdd = index % 2 === 0;
+            const hasRightBorder = totalCards > 1 && isOdd;
+            const hasBottomBorder = isFirstRow && totalCards > 2;
+
+            const cardStyles = {
+              borderRight: hasRightBorder ? "1px solid #d4d4d4" : "none",
+            };
+
             return (
               <motion.div
                 key={`partner-${index}`}
-                className="remove-animation-fluctuation px-[15px] w-[50%] finacial-card-alternate-border mobileMax:w-full pt-8"
+                className="remove-animation-fluctuation px-[15px] w-[50%] mobileMax:w-full pt-8"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0 }}
+                style={cardStyles}
               >
                 <PartnerCard
                   isTransparentCard={true}
@@ -71,7 +82,7 @@ function Resources({ data }: SupportPartnersSectionProps) {
                   link={card?.field_link?.uri}
                   buttonText={card?.field_link?.title}
                 />
-                <div className="alternate-bottom-border" />
+                {hasBottomBorder && <div className="alternate-bottom-border" />}
               </motion.div>
             );
           })}

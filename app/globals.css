@@ -763,23 +763,6 @@ body ::selection {
   margin-top: 15px;
   margin-bottom: 20px;
 }
-.finacial-card-alternate-border:nth-child(odd) {
-  border-right: 1px solid #d4d4d4;
-}
-
-/* Hide border for the last item if total count is odd */
-.transparent-cards-border
-  .finacial-card-alternate-border:nth-last-child(1):nth-child(odd)
-  .alternate-bottom-border {
-  display: none;
-}
-
-/* Hide border for last 2 items if total count is even */
-.transparent-cards-border
-  .finacial-card-alternate-border:nth-last-child(-n + 2):nth-child(even)
-  .alternate-bottom-border {
-  display: none;
-}
 .alternate-bottom-border {
   border-bottom: 1px solid #d4d4d4;
   margin: auto;
@@ -1742,9 +1725,6 @@ body ::selection {
   .not-found-wrapper {
     height: calc(100vh - 310px);
   }
-  .finacial-card-alternate-border:nth-child(odd) {
-    border-right: 0;
-  }
   .alternate-bottom-border:nth-of-type(1),
   .alternate-bottom-border:nth-of-type(2) {
     width: 100%;
@@ -1789,12 +1769,6 @@ body ::selection {
   .get-involved-content p {
     font-size: 16px;
     margin-bottom: 20px;
-  }
-  .invest-card
-    .transparent-cards-border
-    .finacial-card-alternate-border:nth-child(3)
-    .alternate-bottom-border {
-    display: block;
   }
   .cta-single-card-title,
   .cta-ndc-card-title,

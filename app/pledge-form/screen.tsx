@@ -5,7 +5,6 @@ import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DrupalNode } from "next-drupal";
-import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,12 +16,8 @@ import PledgeSuccessModal from "@/components/LandingWebsiteComponents/PledgeSucc
 import { useEffect } from "react";
 import { fileToBase64 } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { CaptchaProvider } from "@/lib/CaptchaService/Provider";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
 import { RiDeleteBin6Fill } from "react-icons/ri";
-import { BsPencilSquare } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 import DynamicImage from "@/components/ResuableDynamicImage";
 
@@ -78,8 +73,6 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
   const [isMobile, setIsMobile] = useState<Boolean>(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState<Boolean>(false);
-
-  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const setImageThumbnail = async () => {
     const fileBase64 = await fileToBase64(selectedFile as File).then(
@@ -231,25 +224,6 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
 
   const handleReCaptchaVerifyAndDataSubmit = useCallback(async () => {
     const formData = getValues();
-    // if (!executeRecaptcha) {
-    //   return;
-    // }
-
-    // const token = await executeRecaptcha("onSubmit");
-
-    // const response = await axios({
-    //   method: "post",
-    //   url: "/api/verifyCaptchaToken",
-    //   data: {
-    //     gRecaptchaToken: token,
-    //   },
-    //   headers: {
-    //     Accept: "application/json, text/plain, */*",
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-
-    // const verifiedToken = response.data.success;
 
     if (formData) {
       setIsLoading(true);
@@ -287,7 +261,7 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
     } else {
       alert("Could not Verify ReCaptcha, Please Try Again!");
     }
-  }, [executeRecaptcha]);
+  }, []);
 
   const handleCheckListUpdate = (formKey: any, value: string) => {
     const fieldState = getValues() as any;

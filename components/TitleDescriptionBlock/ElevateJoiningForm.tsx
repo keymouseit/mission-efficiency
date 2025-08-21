@@ -10,7 +10,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { saveElevatePageFormData } from "@/services/api";
 import { usePathname, useRouter } from "next/navigation";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RiLoader4Line } from "react-icons/ri";
@@ -42,54 +41,29 @@ const ElevateJoiningForm: React.FC<ElevateJoiningFormProps> = ({
   const path = usePathname();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { executeRecaptcha } = useGoogleReCaptcha();
-
-  const handleReCaptchaVerifyAndDataSubmit = useCallback(
-    async (data: any) => {
-      //   if (!executeRecaptcha) {
-      //     return;
-      //   }
-
-      //   const token = await executeRecaptcha("onSubmit");
-
-      //   const response = await axios({
-      //     method: "post",
-      //     url: "/api/verifyCaptchaToken",
-      //     data: {
-      //       gRecaptchaToken: token,
-      //     },
-      //     headers: {
-      //       Accept: "application/json, text/plain, */*",
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-
-      //   const verifiedToken = response.data.success;
-
-      if (data) {
-        setTermsChecked(true);
-        setIsLoading(true);
-        saveElevatePageFormData({
-          webform_id: process.env.NEXT_PUBLIC_JOIN_WEBFORM_ID,
-          name: data.ready_to_move_name,
-          email: data.ready_to_move_email,
-          age: data.ready_to_move_age,
-          gender: data.ready_to_move_gender,
-          country: data.ready_to_move_country,
-        }).then((res) => {
-          setTermsChecked(false);
-          setIsLoading(false);
-          reset();
-          afterFormSubmission();
-          router.push(path, { scroll: false });
-        });
-        return;
-      } else {
-        alert("Could not Verify ReCaptcha, Please Try Again!");
-      }
-    },
-    [executeRecaptcha]
-  );
+  const handleReCaptchaVerifyAndDataSubmit = useCallback(async (data: any) => {
+    if (data) {
+      setTermsChecked(true);
+      setIsLoading(true);
+      saveElevatePageFormData({
+        webform_id: process.env.NEXT_PUBLIC_JOIN_WEBFORM_ID,
+        name: data.ready_to_move_name,
+        email: data.ready_to_move_email,
+        age: data.ready_to_move_age,
+        gender: data.ready_to_move_gender,
+        country: data.ready_to_move_country,
+      }).then((res) => {
+        setTermsChecked(false);
+        setIsLoading(false);
+        reset();
+        afterFormSubmission();
+        router.push(path, { scroll: false });
+      });
+      return;
+    } else {
+      alert("Could not Verify ReCaptcha, Please Try Again!");
+    }
+  }, []);
 
   const {
     register,
