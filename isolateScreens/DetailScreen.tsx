@@ -155,8 +155,8 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
               className="absolute pointer-events-none z-[1] max-w-[50%] top-[10%]  mt-10 mobileMax:max-w-[40%]"
             >
               <DynamicImage
-              width={316}
-              height={576}
+                width={316}
+                height={576}
                 src="/static/images/cta-section-bg.svg"
                 alt="overlay-bg"
                 className="opacity-60 mobileMax:opacity-40"
@@ -193,7 +193,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                   />
                 </div>
               ) : mediaTypeAndSrc.type === "image" ? (
-                 <DynamicImage
+                <DynamicImage
                   src={`${mediaTypeAndSrc.src}`}
                   alt="category img"
                   height={450}
@@ -324,7 +324,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                       </div>
                     ) : null}
                     <div
-                      className="--font-poppins text-left text-small text-cardText leading-6 mb-5 mobileMax:text-xsmall mobileMax:leading-normal"
+                      className="--font-poppins text-list text-left text-small text-cardText leading-6 mb-5 mobileMax:text-xsmall mobileMax:leading-normal"
                       dangerouslySetInnerHTML={{
                         __html: cardDetails?.description?.value || "",
                       }}
