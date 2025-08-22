@@ -75,6 +75,10 @@ const DynamicTemplateClient = ({
                 title={pageComponent?.field_hero_title}
                 subTitle={pageComponent?.field_hero_description?.value}
                 lightBgClip
+                isSmallImage={
+                  pageComponent?.field_hero_title === "Get Involved"
+                }
+                noHeight={pageComponent?.field_hero_title === "Get Involved"  }
               />
             ),
           skipNext: false,
@@ -102,7 +106,7 @@ const DynamicTemplateClient = ({
         };
       case "paragraph--call_to_action":
         return {
-          component: <TitleDescriptionBlockServer  data={pageComponent} />,
+          component: <TitleDescriptionBlockServer data={pageComponent} />,
           skipNext: false,
         };
       case "paragraph--faq_component":
