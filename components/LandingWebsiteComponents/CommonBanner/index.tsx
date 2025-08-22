@@ -11,6 +11,7 @@ interface CommonBannerProps {
   noHeight?: boolean;
   isCfdpage?: boolean;
   isSmallImage?: boolean;
+  isNews?: boolean;
 }
 
 const CommonBanner: React.FC<CommonBannerProps> = (props) => {
@@ -24,6 +25,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
     noHeight = false,
     isCfdpage = false,
     isSmallImage,
+    isNews = false,
   } = props;
 
   const trimTitle = title?.trim();
@@ -65,26 +67,23 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
       <div className="mini-container h-full flex flex-col items-center justify-center">
         <div className="fade-in-up-delayed w-[75%] mx-auto mobileMax:w-full betweenMobileTab:w-[80%]">
           <h1
-            // initial={{ y: 40 }}
-            // whileInView={{ opacity: 1, y: 0 }}
-            // viewport={{ once: true }}
-            // transition={{
-            //   duration: 0,
-            // }}
-            className={`${
-              isCallToAction ||
-              (isCfdpage && "belowTab:mx-auto !text-[50px] mobileMax:!text-xlg")
-            } remove-animation-fluctuation title-green-gradient text-clip text-xlarge mb-3.5 mt-0 leading-tight text-center text-numans mobileMax:text-[42px]`}
+            className={`
+              ${
+                isCallToAction ||
+                (isCfdpage &&
+                  "belowTab:mx-auto !text-[50px] mobileMax:!text-xlg")
+              }
+              ${
+                isNews
+                  ? "text-[44px] mobileMax:text-[32px]"
+                  : "text-xlarge mobileMax:text-[42px]"
+              }
+              remove-animation-fluctuation title-green-gradient text-clip mb-3.5 mt-0 leading-tight text-center text-numans
+            `}
           >
             {trimTitle}
           </h1>
           <p
-            // initial={{ y: 40 }}
-            // whileInView={{ opacity: 1, y: 0 }}
-            // viewport={{ once: true }}
-            // transition={{
-            //   duration: 0,
-            // }}
             className={`${
               isCallToAction && "!text-odd mobileMax:!text-medium"
             } remove-animation-fluctuation !text-odd mobileMax:!text-medium leading-normal text-white text-center --font-poppins mobileMax:leading-[25px]`}

@@ -663,14 +663,37 @@ body ::selection {
 .card-shadow {
   box-shadow: 0px 3.90168px 7.15587px 0px rgb(96, 96, 96, 0.1);
 }
-.text-list::after {
-  /* position: absolute;
-	border-left: 4px solid #bdbdbd;
-	content: '';
-	display: block;
-	height: 94%;
-	margin-left: -10px;
-	top: 2px; */
+.news-article a,
+.news-article ul li a,
+.call-to-action-text a,
+.global-ambition-text a,
+.policy-page-text a,
+.global-dangerous-text a {
+  color: #1779ba;
+}
+.news-article ul,
+.global-ambition-text ol,
+.mission-pledge-modal ul,
+.resources-links ul,
+.invest-list ul {
+  padding-left: 22px;
+  margin-bottom: 5px;
+}
+.news-article blockquote {
+  border-left: 5px solid #1779ba;
+  padding: 20px 0px 20px 20px;
+  list-style: disc;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+.news-article ul li {
+  margin-bottom: 10px;
+  list-style: disc;
+}
+.news-article p img {
+  margin: 20px 0px;
+  list-style: disc;
 }
 .text-list a,
 .text-list ul li a,
@@ -1750,6 +1773,12 @@ body ::selection {
   .policy-page-text p,
   .global-ambition-text p {
     margin-bottom: 10px;
+  }
+  .news-article ul,
+  .global-ambition-text ol,
+  .mission-pledge-modal ul,
+  .resources-links ul {
+    padding-left: 17px;
   }
   .text-list ul,
   .global-ambition-text ol,

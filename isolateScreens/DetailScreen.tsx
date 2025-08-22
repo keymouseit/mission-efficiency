@@ -4,9 +4,8 @@ import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { DrupalNode } from "next-drupal";
-import Image from "next/image";
 import Link from "next/link";
-import { FaChartPie, FaInstagram, FaUserGraduate } from "react-icons/fa6";
+import { FaChartPie, FaInstagram } from "react-icons/fa6";
 import { FaUserCog } from "react-icons/fa";
 import {
   EmailIcon,
@@ -20,17 +19,12 @@ import {
 } from "react-share";
 import { buildMediaTypeAndSrc, formatDateToUS } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { MdEventAvailable, MdOutlineMessage } from "react-icons/md";
+import { MdOutlineMessage } from "react-icons/md";
 import { LiaLanguageSolid } from "react-icons/lia";
-import { IoDocumentTextOutline, IoLocationSharp } from "react-icons/io5";
+import { IoLocationSharp } from "react-icons/io5";
 import { SiAwsorganizations } from "react-icons/si";
-import { GrNotes, GrOrganization } from "react-icons/gr";
-import { IoMdImages } from "react-icons/io";
-import { GiBlackBook, GiNotebook } from "react-icons/gi";
-import { LucideStickyNote } from "lucide-react";
-import { CiVideoOn } from "react-icons/ci";
+import { GrOrganization } from "react-icons/gr";
 import ReactPlayer from "react-player";
-import { getTrainingPaginatedData } from "@/services/api";
 import { motion } from "framer-motion";
 import DynamicImage from "@/components/ResuableDynamicImage";
 
@@ -64,61 +58,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
     );
   };
 
-  const renderIcon = (resourceName: string) => {
-    switch (resourceName) {
-      case "Magazine":
-        return (
-          <>
-            <GiBlackBook className="text-white w-[60%] h-[60%]" />
-          </>
-        );
-      case "Report":
-        return (
-          <>
-            <GrNotes className="text-white w-[60%] h-[60%]" />
-          </>
-        );
-      case "Event":
-        return (
-          <>
-            <MdEventAvailable className="text-white w-[60%] h-[60%]" />
-          </>
-        );
-      case "Whitepaper":
-        return (
-          <>
-            <LucideStickyNote className="text-white w-[60%] h-[60%]" />
-          </>
-        );
-      case "Webinar":
-        return (
-          <>
-            <CiVideoOn className="text-white w-[60%] h-[60%]" />
-          </>
-        );
-      case "Training":
-        return (
-          <>
-            <GiNotebook className="text-white w-[60%] h-[60%]" />
-          </>
-        );
-      case "Course":
-        return (
-          <>
-            <FaUserGraduate className="text-white w-[50%] h-[50%]" />
-          </>
-        );
-      case "Guide":
-        return (
-          <>
-            <GiBlackBook className="text-white w-[60%] h-[60%]" />
-          </>
-        );
-
-      default:
-        return <IoMdImages className="text-white w-[60%] h-[60%]" />;
-    }
-  };
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (window?.innerWidth < 1024) {
@@ -139,8 +78,8 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
           title={cardDetails?.title}
           noHeight={true}
           lightBgClip={true}
-          isCallToAction={true}
           isSmallImage={true}
+          isNews={true}
         />
         <div className="py-16 mobileMax:py-12 relative min-h-[60vh]">
           <div className=" overflow-hidden">
@@ -172,45 +111,40 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
             }}
             className="remove-animation-fluctuation mini-container items-start box-border w-full relative z-[2]"
           >
-            <p className="--font-poppins text-left text-[30px] history-title-gradient text-clip font-medium leading-normal mobileMax:text-medium mobileMax:leading-normal mb-8">
+            {/* <p className="--font-poppins text-left text-[30px] history-title-gradient text-clip font-medium leading-normal mobileMax:text-medium mobileMax:leading-normal mb-8">
               {cardDetails?.title}
-            </p>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0,
-              }}
-              className="remove-animation-fluctuation flex justify-center items-center w-full detail-page-banner-size overflow-hidden mt-4 mb-8 mobileMax:mb-3"
-            >
-              {mediaTypeAndSrc.type === "video" ? (
-                <div className="w-full h-full">
-                  <ReactPlayer
-                    url={mediaTypeAndSrc?.src || ""}
-                    width="100%"
-                    height="100%"
+            </p> */}
+            {(mediaTypeAndSrc.type === "video" ||
+              mediaTypeAndSrc.type === "image") && (
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0,
+                }}
+                className="remove-animation-fluctuation flex justify-center items-center w-full detail-page-banner-size overflow-hidden mt-4 mb-8 mobileMax:mb-3"
+              >
+                {mediaTypeAndSrc.type === "video" ? (
+                  <div className="w-full h-full">
+                    <ReactPlayer
+                      url={mediaTypeAndSrc?.src || ""}
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
+                ) : mediaTypeAndSrc.type === "image" ? (
+                  <DynamicImage
+                    src={`${mediaTypeAndSrc.src}`}
+                    alt="category img"
+                    height={450}
+                    unoptimized={true}
+                    width={300}
+                    className="w-full h-full max-w-full object-scale-down card-shadow"
                   />
-                </div>
-              ) : mediaTypeAndSrc.type === "image" ? (
-                <DynamicImage
-                  src={`${mediaTypeAndSrc.src}`}
-                  alt="category img"
-                  height={450}
-                  unoptimized={true}
-                  width={300}
-                  className="w-full h-full max-w-full object-scale-down card-shadow"
-                />
-              ) : (
-                <div className="w-full h-full placeholderImage-color flex items-center justify-center">
-                  {mediaTypeAndSrc.type === "pdf" ? (
-                    <IoDocumentTextOutline className="text-white w-[60%] h-[60%]" />
-                  ) : (
-                    <>{renderIcon(cardDetails?.resource?.name)}</>
-                  )}
-                </div>
-              )}
-            </motion.div>
+                ) : null}
+              </motion.div>
+            )}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -316,7 +250,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                       </p>
                     ) : null}
                     {cardDetails?.resource?.name ? (
-                      <div className="mb-3 flex items-start text-left text-small text-cardText leading-6 mobileMax:mb-2 mobileMax:text-xsmall mobileMax:leading-normal">
+                      <div className="mb-3 flex items-start text-left text-small text-[#111111] leading-6 mobileMax:mb-2 mobileMax:text-xsmall mobileMax:leading-normal">
                         <FaUserCog className="block text-odd mobileMax:text-medium max-w-[30px] w-[30px] mr-2 text-[#4441EB]" />
                         <p className="--font-poppins font-normal">
                           {cardDetails?.resource?.name}
@@ -324,7 +258,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                       </div>
                     ) : null}
                     <div
-                      className="--font-poppins text-list text-left text-small text-cardText leading-6 mb-5 mobileMax:text-xsmall mobileMax:leading-normal"
+                      className="--font-poppins news-article text-left text-[20px] text-cardText leading-7 mb-5 mobileMax:text-xsmall mobileMax:leading-normal"
                       dangerouslySetInnerHTML={{
                         __html: cardDetails?.description?.value || "",
                       }}
