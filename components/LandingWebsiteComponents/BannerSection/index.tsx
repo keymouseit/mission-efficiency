@@ -1,7 +1,6 @@
-"use client";
+import AnimatedBus from "@/components/AnimatedBus";
 import Curve from "@/components/Curve";
 import DynamicImage from "@/components/ResuableDynamicImage";
-import { motion, useScroll, useTransform } from "framer-motion";
 import React from "react";
 
 interface BannerProps {
@@ -10,9 +9,6 @@ interface BannerProps {
 }
 
 const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
-  const { scrollYProgress } = useScroll();
-  const moveValue = useTransform(() => scrollYProgress.get() * 4000);
-
   return (
     <div className="banner-wrap-styling relative min-h-[80vh] mobileMax:min-h-[70vh] overflow-hidden">
       <div className="top-[-20%] left-0 z-[-3] absolute pointer-events-none mobileMax:top-[-60%]">
@@ -43,31 +39,19 @@ const Banner: React.FC<BannerProps> = ({ title, subtitle }) => {
         </div>
       </div>
       {/* banner-building image */}
-        <DynamicImage
-          width={700}
-          src="/static/images/banner-building.svg"
-          className="absolute z-[-1] bottom-0 w-full mobileMax:w-[700px] mobileMax:max-w-[700px] mobileMax:left-1/2 mobileMax:-translate-x-1/2 pointer-events-none"
-          alt="building"
-          priority={true}
-        />
+      <DynamicImage
+        width={700}
+        src="/static/images/banner-building.svg"
+        className="absolute z-[-1] bottom-0 w-full mobileMax:w-[700px] mobileMax:max-w-[700px] mobileMax:left-1/2 mobileMax:-translate-x-1/2 pointer-events-none"
+        alt="building"
+        priority={true}
+      />
 
       {/* banner bus */}
       <div className="h-[55px] absolute bottom-3 left-[29%] pointer-events-none mobileMax:left-[25%]">
-        <motion.div
-          className="relative"
-          style={{
-            left: moveValue,
-          }}
-        >
-          <DynamicImage
-            width={110}
-            height={52}
-            src="/static/images/banner-bus.svg"
-            alt="bus-bg"
-          />
-        </motion.div>
+        <AnimatedBus />
       </div>
-      <Curve color="bg-white"/>
+      <Curve color="bg-white" />
     </div>
   );
 };

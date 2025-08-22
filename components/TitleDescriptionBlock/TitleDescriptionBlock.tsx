@@ -1,11 +1,8 @@
-"use client";
-
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
-import { DEV_PUBLIC_URL } from "@/services/api";
-import { useOrigin } from "@/hooks/useOrigin";
+import { BASE_URL, DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "../ResuableDynamicImage";
 import JoinNow from "./JoinNow";
 
@@ -18,8 +15,6 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
   data,
   newBanner,
 }) => {
-  const origin = useOrigin();
-
   const idMapping: Record<string, string> = {
     "Mission Efficiency Pledge": "Mission-Efficiency-Pledge",
     "UN Energy Compact": "UN-Energy-Compact",
@@ -118,14 +113,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
               />
             </div>
           ) : (
-            // Keep animation only for decorative elements that don't affect LCP
-            <div
-              // initial={{ opacity: 0, x: 90 }}
-              // whileInView={{ opacity: 1, x: 0 }}
-              // viewport={{ once: true }}
-              // transition={{ type: "spring", duration: 2.8 }}
-              className="absolute bottom-[2px] right-0 pointer-events-none max-w-[80%] aboveLaptop:max-w-[70%] desktop:opacity-100 z-[1]"
-            >
+            <div className="absolute bottom-[2px] right-0 pointer-events-none max-w-[80%] aboveLaptop:max-w-[70%] desktop:opacity-100 z-[1]">
               <DynamicImage
                 width={618}
                 height={897}
@@ -141,7 +129,6 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
               !data?.field_cta_button ? "pt-[82px]" : "pt-[120px] pb-16"
             }`}
           >
-            {/* CRITICAL: Title - NO ANIMATION for potential LCP element */}
             <h2
               className={`${
                 data?.field_cta_button ? "text-center desktop:text-[60px]" : ""
@@ -154,7 +141,6 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
               {data?.field_cta_title}
             </h2>
 
-            {/* CRITICAL: Content - NO ANIMATION for potential LCP element */}
             {content && (
               <div
                 className={`remove-animation-fluctuation text-medium ${
@@ -174,7 +160,7 @@ const TitleDescriptionBlock: React.FC<TitleDescriptionBlockProps> = ({
                   rel="noopener noreferrer"
                   href={
                     data?.field_cta_button?.uri.startsWith("internal:")
-                      ? `${origin}${data.field_cta_button.uri.replace(
+                      ? `${BASE_URL}${data.field_cta_button.uri.replace(
                           "internal:",
                           ""
                         )}`

@@ -1,9 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import { DrupalNode } from "next-drupal";
-import { DEV_PUBLIC_URL } from "@/services/api";
-import { useOrigin } from "@/hooks/useOrigin";
+import { BASE_URL, DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "../ResuableDynamicImage";
 
 type PrimaryCTASectionProps = {
@@ -11,7 +8,6 @@ type PrimaryCTASectionProps = {
 };
 
 function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
-  const origin = useOrigin();
   const isLeftPosition = data?.field_twi_image_position === "twi_left";
   const imageUrl = data?.field_twi_image?.uri?.url;
   const imageDescription = data?.field_twi_image_description?.processed;
@@ -173,7 +169,7 @@ function UnifiedCTAClient({ data }: PrimaryCTASectionProps) {
                         key={link.uri}
                         href={
                           link?.uri?.startsWith("internal:")
-                            ? `${origin}${link.uri.replace("internal:", "")}`
+                            ? `${BASE_URL}${link.uri.replace("internal:", "")}`
                             : link?.uri || "#"
                         }
                         target="_blank"

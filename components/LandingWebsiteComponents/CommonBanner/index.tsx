@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import DynamicImage from "@/components/ResuableDynamicImage";
 import Curve from "@/components/Curve";
 

@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { DrupalNode } from "next-drupal";
@@ -7,6 +6,7 @@ import { DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "@/components/ResuableDynamicImage";
 import { useOrigin } from "@/hooks/useOrigin";
 import Curve from "@/components/Curve";
+
 interface LandingFooterProps {
   data: DrupalNode;
 }
@@ -24,8 +24,8 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
 
   return (
     <div className="relative mt-10 footerWrap">
-      <Curve color="bg-[#2909a7]"/>
-      
+      <Curve color="bg-[#2909a7]" />
+
       <div className="overflow-hidden relative">
         <div className="px-4 py-10 bg-footerbg inner-footer min-h-[380px] mobileMax:min-h-[260px]">
           {field_logo?.uri?.url && (
@@ -82,27 +82,29 @@ const LandingFooter: React.FC<LandingFooterProps> = ({ data }) => {
           <div className="border border-white my-8 w-[33px] mx-auto" />
 
           <ul className="flex items-center justify-center flex-col mb-[27px]">
-            {field_link_with_title?.map((menuItem: DrupalNode, index: number) => (
-              <li
-                key={index}
-                className="text-center leading-[25px] text-xsmall text-[#fff] hover:text-[#8e7ec9] text-poppins cursor-pointer"
-              >
-                <Link
-                  href={
-                    menuItem?.title.toLocaleLowerCase().includes("contact")
-                      ? `mailto:${menuItem?.uri}`
-                      : `${origin}${menuItem.uri.replace("internal:", "")}` || "#"
-                  }
+            {field_link_with_title?.map(
+              (menuItem: DrupalNode, index: number) => (
+                <li
+                  key={index}
+                  className="text-center leading-[25px] text-xsmall text-[#fff] hover:text-[#8e7ec9] text-poppins cursor-pointer"
                 >
-                  {menuItem?.title || ""}
-                </Link>
-              </li>
-            ))}
+                  <Link
+                    href={
+                      menuItem?.title.toLocaleLowerCase().includes("contact")
+                        ? `mailto:${menuItem?.uri}`
+                        : `${origin}${menuItem.uri.replace("internal:", "")}` ||
+                          "#"
+                    }
+                  >
+                    {menuItem?.title || ""}
+                  </Link>
+                </li>
+              )
+            )}
           </ul>
 
           <p className="text-center leading-[18px] text-xs text-white text-poppins">
             {field_website_rights}
-            reserved.
           </p>
         </div>
 

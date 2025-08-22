@@ -1,10 +1,7 @@
-'use client';
+import Image, { StaticImageData, ImageProps } from "next/image";
+import fallbackImage from "@/static/images/fallbackImage.png";
 
-import Image, { StaticImageData, ImageProps } from 'next/image';
-import React from 'react';
-import fallbackImage from '@/static/images/fallbackImage.png' 
-
-interface DynamicImageProps extends Omit<ImageProps, 'src'> {
+interface DynamicImageProps extends Omit<ImageProps, "src"> {
   src: string | StaticImageData;
   alt: string;
   width?: number;
@@ -28,25 +25,24 @@ const DynamicImage: React.FC<DynamicImageProps> = ({
   objectFit,
 }) => {
   const getFullUrl = (uri: string) => {
-    if (!uri) return '';
-    if (uri.startsWith('/')) return uri;
-    if (uri.startsWith('http')) return uri;
-    if (uri.startsWith('public://')) {
-      const cleanedUri = uri.replace('public://', '');
+    if (!uri) return "";
+    if (uri.startsWith("/")) return uri;
+    if (uri.startsWith("http")) return uri;
+    if (uri.startsWith("public://")) {
+      const cleanedUri = uri.replace("public://", "");
       return `${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/sites/default/files/${cleanedUri}`;
     }
     return uri;
   };
 
-  const getValidImageSrc = (src: string | StaticImageData, fallback: string | StaticImageData) => {
-    if (typeof src !== 'string') return src;
+  const getValidImageSrc = (
+    src: string | StaticImageData,
+    fallback: string | StaticImageData
+  ) => {
+    if (typeof src !== "string") return src;
 
     const fullUrl = getFullUrl(src);
-    if (
-      !fullUrl ||
-      fullUrl.includes('undefined') ||
-      fullUrl.includes('null')
-    ) {
+    if (!fullUrl || fullUrl.includes("undefined") || fullUrl.includes("null")) {
       return fallback;
     }
     return fullUrl;
@@ -56,11 +52,8 @@ const DynamicImage: React.FC<DynamicImageProps> = ({
   return (
     <Image
       src={finalSrc || fallbackImage}
-      alt={alt || 'Image'}
-      {...(fill
-        ? { fill: true }
-        : { width: width, height: height || 0 }
-      )}
+      alt={alt || "Image"}
+      {...(fill ? { fill: true } : { width: width, height: height || 0 })}
       className={className}
       priority={priority}
       unoptimized={unoptimized}
@@ -73,4 +66,3 @@ const DynamicImage: React.FC<DynamicImageProps> = ({
 };
 
 export default DynamicImage;
-
