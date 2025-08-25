@@ -618,6 +618,8 @@ body ::selection {
   box-sizing: border-box;
   padding-left: 15px;
   padding-right: 15px;
+  overflow: visible !important;
+  position: relative;
 }
 .text-clip {
   background-clip: text;
@@ -681,7 +683,7 @@ body ::selection {
 }
 .news-article blockquote {
   border-left: 5px solid #1779ba;
-  padding: 20px 0px 20px 20px;
+  padding: 20px;
   list-style: disc;
   border-radius: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -1974,4 +1976,10 @@ body ::selection {
   .fade-in-up-delayed {
     animation: none;
   }
+}
+.force-sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 90px !important;
+  align-self: flex-start !important;
 }

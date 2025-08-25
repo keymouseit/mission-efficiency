@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
@@ -60,9 +60,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (window?.innerWidth < 1024) {
-        setIsTablet(true);
-      }
+      setIsTablet(window?.innerWidth < 1024);
     }
   }, []);
 
@@ -82,7 +80,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
           isNews={true}
         />
         <div className="py-16 mobileMax:py-12 relative min-h-[60vh]">
-          <div className=" overflow-hidden">
+          <div className="overflow-hidden">
             <motion.div
               initial={{ opacity: 0, x: -100 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -91,7 +89,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                 type: "spring",
                 duration: 2.8,
               }}
-              className="absolute pointer-events-none z-[1] max-w-[50%] top-[10%]  mt-10 mobileMax:max-w-[40%]"
+              className="absolute pointer-events-none z-[1] max-w-[50%] top-[10%] mt-10 mobileMax:max-w-[40%]"
             >
               <DynamicImage
                 width={316}
@@ -106,23 +104,16 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+            transition={{ duration: 0 }}
             className="remove-animation-fluctuation mini-container items-start box-border w-full relative z-[2]"
           >
-            {/* <p className="--font-poppins text-left text-[30px] history-title-gradient text-clip font-medium leading-normal mobileMax:text-medium mobileMax:leading-normal mb-8">
-              {cardDetails?.title}
-            </p> */}
             {(mediaTypeAndSrc.type === "video" ||
               mediaTypeAndSrc.type === "image") && (
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
-                  duration: 0,
-                }}
+                transition={{ duration: 0 }}
                 className="remove-animation-fluctuation flex justify-center items-center w-full detail-page-banner-size overflow-hidden mt-4 mb-8 mobileMax:mb-3"
               >
                 {mediaTypeAndSrc.type === "video" ? (
@@ -149,10 +140,8 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{
-                duration: 0,
-              }}
-              className="remove-animation-fluctuation pb-4 flex items-start justify-between mobileMax:flex-wrap w-full"
+              transition={{ duration: 0 }}
+              className="remove-animation-fluctuation pb-4 flex items-start justify-between mobileMax:flex-wrap w-full relative"
             >
               {displayType === "TRAINING" ? (
                 <>
@@ -243,7 +232,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                 </>
               ) : (
                 <>
-                  <div className="max-w-[60%] mobileMax:w-full mobileMax:max-w-full mb-5 mobileMax:mb-3">
+                  <div className="flex-1 pr-8 mobileMax:pr-0 mobileMax:w-full mobileMax:mb-5">
                     {cardDetails?.date ? (
                       <p className="mb-5 --font-poppins text-left text-odd text-black font-medium leading-6 mobileMax:text-xmedium mobileMax:leading-normal">
                         {formatDateToUS(cardDetails?.date)}
@@ -264,83 +253,93 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                       }}
                     />
                   </div>
-                  <div className="mobileMax:w-full">
-                    <h5 className="text-numans text-xmedium leading-normal mb-3 text-cardText font-bold mobileMax:text-xmedium">
-                      Share:
-                    </h5>
-                    <div className="flex items-center mb-8">
-                      <EmailShareButton
-                        url={
-                          typeof window !== "undefined"
-                            ? `${window?.origin}${path}` || "#"
-                            : "#"
-                        }
-                        className="mr-2"
-                      >
-                        <EmailIcon size={32} round />
-                      </EmailShareButton>
-                      <FacebookShareButton
-                        url={
-                          typeof window !== "undefined"
-                            ? `${window?.origin}${path}` || "#"
-                            : "#"
-                        }
-                        className="mx-2"
-                      >
-                        <FacebookIcon size={32} round />
-                      </FacebookShareButton>
-                      <TwitterShareButton
-                        url={
-                          typeof window !== "undefined"
-                            ? `${window?.origin}${path}` || "#"
-                            : "#"
-                        }
-                        className="mx-2"
-                      >
-                        <TwitterIcon size={32} round />
-                      </TwitterShareButton>
-                      <FaInstagram
-                        size={32}
-                        className="insta-gradient-color text-white rounded-[7px] p-0.5 block mx-2 cursor-pointer"
-                        onClick={() => {
-                          if (typeof window !== "undefined") {
-                            isTablet
-                              ? window.open(
-                                  `https://www.instagram.com/accounts/login/?redirect_uri=${encodeURIComponent(
-                                    window?.origin + path
-                                  )}`
-                                )
-                              : openInstagramLoginPopover();
-                          }
-                        }}
-                      />
-                      <WhatsappShareButton
-                        url={
-                          typeof window !== "undefined"
-                            ? `${window?.origin}${path}` || "#"
-                            : "#"
-                        }
-                        className="mx-2"
-                      >
-                        <WhatsappIcon size={32} round />
-                      </WhatsappShareButton>
-                    </div>
-                    <Link
-                      href={cardDetails?.link || "#"}
-                      target="_blank"
-                      className="w-full flex-1 flex items-center rounded-[23px] justify-center text-small text-white font-medium visit-site-btn --font-poppins"
+
+                  <div className="w-80 force-sticky mobileMax:w-full flex-shrink-0">
+                    <div
+                      className={`
+                        transition-all duration-300 ease-in-out
+                        mobileMax:static mobileMax:w-full
+                        `}
                     >
-                      Learn more
-                    </Link>
-                    {mediaTypeAndSrc.type === "pdf" && (
-                      <Link
-                        href={mediaTypeAndSrc?.src || ""}
-                        target="_blank"
-                        className="w-full mt-2 flex items-center justify-center w-full text-small text-white font-medium rounded-[23px] visit-site-btn"
-                      >
-                        View PDF
-                      </Link>
-                    )}
+                      <div className="bg-white shadow-md p-5 rounded-xl">
+                        <h5 className="text-numans text-xmedium leading-normal mb-3 text-cardText font-bold mobileMax:text-xmedium">
+                          Share:
+                        </h5>
+                        <div className="flex items-center mb-8 flex-wrap gap-2">
+                          <EmailShareButton
+                            url={
+                              typeof window !== "undefined"
+                                ? `${window?.origin}${path}` || "#"
+                                : "#"
+                            }
+                            className="mr-2"
+                          >
+                            <EmailIcon size={32} round />
+                          </EmailShareButton>
+                          <FacebookShareButton
+                            url={
+                              typeof window !== "undefined"
+                                ? `${window?.origin}${path}` || "#"
+                                : "#"
+                            }
+                            className="mx-2"
+                          >
+                            <FacebookIcon size={32} round />
+                          </FacebookShareButton>
+                          <TwitterShareButton
+                            url={
+                              typeof window !== "undefined"
+                                ? `${window?.origin}${path}` || "#"
+                                : "#"
+                            }
+                            className="mx-2"
+                          >
+                            <TwitterIcon size={32} round />
+                          </TwitterShareButton>
+                          <FaInstagram
+                            size={32}
+                            className="insta-gradient-color text-white rounded-[7px] p-0.5 block mx-2 cursor-pointer"
+                            onClick={() => {
+                              if (typeof window !== "undefined") {
+                                isTablet
+                                  ? window.open(
+                                      `https://www.instagram.com/accounts/login/?redirect_uri=${encodeURIComponent(
+                                        window?.origin + path
+                                      )}`
+                                    )
+                                  : openInstagramLoginPopover();
+                              }
+                            }}
+                          />
+                          <WhatsappShareButton
+                            url={
+                              typeof window !== "undefined"
+                                ? `${window?.origin}${path}` || "#"
+                                : "#"
+                            }
+                            className="mx-2"
+                          >
+                            <WhatsappIcon size={32} round />
+                          </WhatsappShareButton>
+                        </div>
+                        <Link
+                          href={cardDetails?.link || "#"}
+                          target="_blank"
+                          className="w-full flex-1 flex items-center rounded-[23px] justify-center text-small text-white font-medium visit-site-btn --font-poppins py-3 px-4 mb-2"
+                        >
+                          Learn more
+                        </Link>
+                        {mediaTypeAndSrc.type === "pdf" && (
+                          <Link
+                            href={mediaTypeAndSrc?.src || ""}
+                            target="_blank"
+                            className="w-full flex items-center justify-center text-small text-white font-medium rounded-[23px] visit-site-btn py-3 px-4"
+                          >
+                            View PDF
+                          </Link>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </>
               )}
