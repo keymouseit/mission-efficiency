@@ -75,7 +75,7 @@ const CommonBanner: React.FC<CommonBannerProps> = (props) => {
               }
               ${
                 isNews
-                  ? "text-[44px] mobileMax:text-[32px]"
+                  ? "text-[44px] font-bold mobileMax:text-[32px]"
                   : "text-xlarge mobileMax:text-[42px]"
               }
               remove-animation-fluctuation title-green-gradient text-clip mb-3.5 mt-0 leading-tight text-center text-numans

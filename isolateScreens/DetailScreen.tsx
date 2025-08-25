@@ -258,7 +258,7 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                       </div>
                     ) : null}
                     <div
-                      className="--font-poppins news-article text-left text-[20px] text-cardText leading-7 mb-5 mobileMax:text-xsmall mobileMax:leading-normal"
+                      className="--font-poppins news-article text-left text-[18px] text-cardText leading-7 mb-5 mobileMax:text-xsmall mobileMax:leading-normal"
                       dangerouslySetInnerHTML={{
                         __html: cardDetails?.description?.value || "",
                       }}
