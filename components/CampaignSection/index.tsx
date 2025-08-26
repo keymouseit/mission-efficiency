@@ -1,10 +1,8 @@
-"use client";
-
 import { DEV_PUBLIC_URL } from "@/services/api";
-import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface CampaignSectionProps {
   materialsData?: DrupalNode;
@@ -22,8 +20,8 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
     backgroundColor === "gray"
       ? "bg-mapGray"
       : backgroundColor === "dark_gray"
-      ? "bg-[#ebf0f7]"
-      : "bg-mapGray";
+        ? "bg-[#ebf0f7]"
+        : "bg-mapGray";
 
   return (
     <div className={`${bgColor} relative overflow-hidden`}>
@@ -31,26 +29,24 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
         {/* Campaign Materials */}
         {materialsData && (
           <section className="my-16 mobileMax:my-8">
-            <motion.h3
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
+            <FadeInWrapper
+              y={40}
+              duration={0}
+              once={true}
               className="remove-animation-fluctuation text-[48px] text-numans mb-8 mobileMax:mb-5 leading-normal text-center history-title-gradient text-clip mobileMax:text-[28px]"
             >
               {materialsData?.field_title}
-            </motion.h3>
+            </FadeInWrapper>
 
             <div className="flex flex-wrap justify-start box-border mt-8 mobileMax:mt-6">
               {materialsData?.field_add_card.map(
                 (materialCard: DrupalNode, index: number) => (
-                  <motion.div
+                  <FadeInWrapper
                     key={index}
                     className="remove-animation-fluctuation px-[15px] mb-[25px] w-[33%] mobileMax:w-full mt-2 mobileMax:px-0 lieTablets:w-[50%] mobileMax:mb-5 mobileMax:mt-0"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0 }}
+                    y={50}
+                    duration={0}
+                    once={true}
                   >
                     <div className="border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white p-5 h-full flex items-center flex-col box-border w-full card-shadow">
                       <div className="h-[80%]">
@@ -83,7 +79,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </FadeInWrapper>
                 )
               )}
             </div>
@@ -94,35 +90,31 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
         {resourcesData && (
           <section className="mb-16 mobileMax:mb-0">
             {resourcesData?.field_twi_title && (
-              <motion.h3
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0 }}
+              <FadeInWrapper
+                y={40}
+                duration={0}
+                once={true}
                 className="remove-animation-fluctuation text-[48px] text-numans mb-10 mobileMax:mb-5 leading-normal text-center history-title-gradient text-clip mobileMax:text-[28px]"
               >
                 {resourcesData?.field_twi_title}
-              </motion.h3>
+              </FadeInWrapper>
             )}
             <div className="flex items-start flex-wrap mt-8 lieExactTab:mt-10 lieExactTab:flex-col">
               <div
-                className={`${
-                  resourcesData?.field_twi_image_position === "center"
-                    ? "flex-col"
-                    : ""
-                } flex items-start justify-between mb-24 last:mb-0 lieExactTab:mb-6 lieExactTab:flex-col`}
+                className={`${resourcesData?.field_twi_image_position === "center"
+                  ? "flex-col"
+                  : ""
+                  } flex items-start justify-between mb-24 last:mb-0 lieExactTab:mb-6 lieExactTab:flex-col`}
               >
                 {/* Image */}
-                <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0 }}
-                  className={`remove-animation-fluctuation ${
-                    resourcesData?.field_twi_image_position === "twi_right"
-                      ? "order-2"
-                      : ""
-                  } w-full laptop:flex-1 h-full lieExactTab:order-1 rounded-[12px] overflow-hidden laptop:max-h-[700px] max-h-[900px]`}
+                <FadeInWrapper
+                  y={50}
+                  duration={0}
+                  once={true}
+                  className={`remove-animation-fluctuation ${resourcesData?.field_twi_image_position === "twi_right"
+                    ? "order-2"
+                    : ""
+                    } w-full laptop:flex-1 h-full lieExactTab:order-1 rounded-[12px] overflow-hidden laptop:max-h-[700px] max-h-[900px]`}
                 >
                   {resourcesData?.field_twi_image?.uri?.url && (
                     <DynamicImage
@@ -131,30 +123,26 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                       height={400}
                       width={400}
                       objectFit="cover"
-                      className={`${
-                        resourcesData?.field_twi_image_position === "center"
-                          ? ""
-                          : "transform transition-transform duration-500 hover:scale-105"
-                      } h-full w-full card-shadow`}
+                      className={`${resourcesData?.field_twi_image_position === "center"
+                        ? ""
+                        : "transform transition-transform duration-500 hover:scale-105"
+                        } h-full w-full card-shadow`}
                     />
                   )}
-                </motion.div>
+                </FadeInWrapper>
 
                 {/* Text Content */}
-                <motion.div
-                  initial={{ opacity: 0, y: 45 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0 }}
-                  className={`remove-animation-fluctuation ${
-                    resourcesData?.field_twi_image_position === "twi_right"
-                      ? "order-1 mr-16 lieExactTab:mr-0 lieExactTab:mt-8"
-                      : "ml-16 lieExactTab:ml-0 lieExactTab:mt-8"
-                  } ${
-                    resourcesData?.field_twi_image_position === "center"
+                <FadeInWrapper
+                  y={45}
+                  duration={0}
+                  once={true}
+                  className={`remove-animation-fluctuation ${resourcesData?.field_twi_image_position === "twi_right"
+                    ? "order-1 mr-16 lieExactTab:mr-0 lieExactTab:mt-8"
+                    : "ml-16 lieExactTab:ml-0 lieExactTab:mt-8"
+                    } ${resourcesData?.field_twi_image_position === "center"
                       ? "flex flex-col items-center mt-10"
                       : ""
-                  } laptop:flex-1 h-full lieExa ctTab:order-1 lieExactTab:pb-12`}
+                    } laptop:flex-1 h-full lieExa ctTab:order-1 lieExactTab:pb-12`}
                 >
                   <div
                     className="--font-poppins text-left text-cardText text-medium leading-normal mobileMax:text-small mb-8 mobileMax:mb-5 elevate-link numans-text-heading"
@@ -169,7 +157,7 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({
                   >
                     {resourcesData?.field_twi_button[0]?.title}
                   </Link>
-                </motion.div>
+                </FadeInWrapper>
               </div>
             </div>
           </section>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { DrupalNode, DrupalTaxonomyTerm } from "next-drupal";
 import { CONSTS } from "@/lib/constants";
-import { clearQueryString, createQueryString } from "@/lib/utils";
+import { createQueryString } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import NextBreadcrumb from "@/components/Breadcrumbs";
 import { MdChevronRight } from "react-icons/md";
@@ -50,6 +50,7 @@ const ExploreToolsScreen: React.FC<ExploreToolsScreenProps> = ({
   const [regionEnabled, setRegionEnabled] = useState<boolean>(true);
   const [sectorEnabled, setSectorEnabled] = useState<boolean>(true);
   const [categoryEnabled, setCategoryEnabled] = useState<boolean>(true);
+  const [windowWidth, setWindowWidth] = useState<number | null>(null);
   const searchQuery = useSearchParams();
   const region = searchQuery.get("region");
   const sector = searchQuery.get("sector");
@@ -141,6 +142,17 @@ const ExploreToolsScreen: React.FC<ExploreToolsScreenProps> = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   return (
     <div className="parent-card-container">
       <NextBreadcrumb
@@ -215,7 +227,7 @@ const ExploreToolsScreen: React.FC<ExploreToolsScreenProps> = ({
             </div>
           </CardContent>
           <CardContent className="mobileMax:px-0">
-            {window?.innerWidth > 767 ? (
+            {windowWidth !== null && windowWidth > 767 ? (
               <CustomisableTable
                 loading={loadingTableData}
                 tools={toolsData}

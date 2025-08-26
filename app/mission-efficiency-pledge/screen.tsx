@@ -4,11 +4,11 @@ import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { DrupalNode } from "next-drupal";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import slugify from "slugify";
 import { usePathname } from "next/navigation";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 interface missionPledgeProps {
   headerData: DrupalNode;
   footerData: DrupalNode;
@@ -68,13 +68,10 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
               {field_dashboard_cards.map(
                 (dashboardCard: DrupalNode, index: number) => {
                   return (
-                    <motion.div
-                      initial={{ opacity: 0, y: 40 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0,
-                      }}
+                    <FadeInWrapper
+                      y={40}
+                      once={true}
+                      duration={0}
                       key={index}
                       className="remove-animation-fluctuation px-[15px] w-[32%] mobileMax:w-[47%] mobileMax:px-0 mobileMax:w-[48%] mobileMax:px-0 border-t-2 border-b-2 border-[#43A7E8] border-line"
                     >
@@ -103,7 +100,7 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                           }}
                         />
                       </div>
-                    </motion.div>
+                    </FadeInWrapper>
                   );
                 }
               )}
@@ -112,13 +109,10 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
           {/* buttons */}
           <div className="pt-[82px]" id="pledge-submit">
             <div className="mini-container">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0,
-                }}
+              <FadeInWrapper
+                y={40}
+                once={true}
+                duration={0}
                 className="remove-animation-fluctuation px-[15px] mobileMax:px-0 flex justify-center mx-auto items-center mobileMax:flex-wrap mobileMax:w-full"
               >
                 <Link
@@ -133,19 +127,16 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                 >
                   Mission Efficiency Pledge for Organizations
                 </Link>
-              </motion.div>
+              </FadeInWrapper>
             </div>
           </div>
         </div>
         {/* pledge cards */}
         <div className="py-16 bg-mapGray mobileMax:py-10 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={0}
             className="remove-animation-fluctuation absolute pointer-events-none z-[1] max-w-[50%] top-[10%] mobileMax:max-w-[60%] mobileMax:top-[5%]"
           >
             <DynamicImage
@@ -155,19 +146,16 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
               height={576}
               className="mobileMax:opacity-40"
             />
-          </motion.div>
+          </FadeInWrapper>
           <div className="mini-container box-border relative z-[1]">
-            <motion.h2
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0,
-              }}
+            <FadeInWrapper
+              y={40}
+              once={true}
+              duration={0}
               className="remove-animation-fluctuation category-gradient text-clip desktop:text-xlarge leading-tight text-center text-numans capitalize text-[48px] mobileMax:text-[28px] desktop:mb-14 mb-8 mobileMax:mb-5"
             >
               Pledges
-            </motion.h2>
+            </FadeInWrapper>
             <div className="flex w-full justify-start flex-wrap">
               {field_mission_pledges_cards?.map(
                 (pledgeData: DrupalNode, index: number) => {
@@ -175,13 +163,10 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                     `${pledgeData.title} ${pledgeData.id}`
                   )}`;
                   return (
-                    <motion.div
-                      initial={{ opacity: 0, y: 50 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0,
-                      }}
+                    <FadeInWrapper
+                      y={50}
+                      once={true}
+                      duration={0}
                       key={index}
                       className="remove-animation-fluctuation px-[15px] mb-[25px] w-[33%] mobileMax:w-full mt-2 mobileMax:px-0 lieTablets:w-[50%] mobileMax:w-full mobileMax:px-0"
                     >
@@ -208,7 +193,7 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                           </div>
                         </Link>
                       </div>
-                    </motion.div>
+                    </FadeInWrapper>
                   );
                 }
               )}
@@ -227,24 +212,18 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
 
             </div>
             <div className="mini-container h-full flex flex-col items-center justify-center relative z-[3]">
-              <motion.h2
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0,
-                }}
+              <FadeInWrapper
+                y={40}
+                once={true}
+                duration={0}
                 className="remove-animation-fluctuation category-gradient text-clip desktop:text-xlarge leading-tight text-center text-numans capitalize text-[48px] mobileMax:text-[28px] mb-14 betweenMobileTab:mb-8"
               >
                 Our Supporters
-              </motion.h2>
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0,
-                }}
+              </FadeInWrapper>
+              <FadeInWrapper
+                y={50}
+                once={true}
+                duration={0}
                 className="remove-animation-fluctuation flex justify-between flex-wrap items-center text-small text-white text-center mb-14 font-normal --font-poppins leading-normal laptopMax:mb-4 our-supports-card mobileMax:text-xsmall"
                 dangerouslySetInnerHTML={{
                   __html: field_pledge_supporter_content.value,
@@ -257,15 +236,12 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                   )
                   .map((supporterCards: DrupalNode, index: number) => {
                     return (
-                      <motion.div
+                      <FadeInWrapper
                         key={index}
                         className="remove-animation-fluctuation px-[15px] mb-[30px] w-[16%] mobileMax:w-[50%] betweenMobileTab:w-[25%] mobileMax:mb-5 mobileMax:px-[10px]"
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 0,
-                        }}
+                        y={50}
+                        once={true}
+                        duration={0}
                       >
                         <div className="rounded-[23px] flex justify-center items-center bg-white px-[15px] py-[10px] box-border w-full card-shadow">
                           <div className="max-w-[160px] w-full h-[110px] max-h-[110px] min-w-[120px] min-h-[100px] overflow-hidden">
@@ -280,7 +256,7 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                             />
                           </div>
                         </div>
-                      </motion.div>
+                      </FadeInWrapper>
                     );
                   })}
               </div>
@@ -289,14 +265,11 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
         </div>
         {/* testominal last section === resources*/}
         <div className="pt-[60px] pb-[140px] bg-mapGray relative z-[2] mobileMax:pt-5  mobileMax:pb-14 betweenMobileTab:pb-24 betweenMobileTab:pt-[60px] overflow-hidden">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              duration: 2.8,
-            }}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={2.8}
+            type="spring"
             className="absolute pointer-events-none left-0 z-[1] bottom-0 mobileMax:w-[40%]"
           >
             <DynamicImage
@@ -306,19 +279,16 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
               height={576}
               className="mobileMax:opacity-40"
             />
-          </motion.div>
+          </FadeInWrapper>
           <div className="mini-container relative z-[1]">
             {field_pledge_testimonial?.map(
               (testimonialData: DrupalNode, index: number) => {
                 return (
                   <>
-                    <motion.div
-                      initial={{ opacity: 0, y: 40 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        duration: 0,
-                      }}
+                    <FadeInWrapper
+                      y={40}
+                      once={true}
+                      duration={0}
                       className="remove-animation-fluctuation mt-24 mobileMax:mt-12 remove-animation-fluctuation"
                     >
                       <div
@@ -330,7 +300,7 @@ const MissionPledgeScreen: React.FC<missionPledgeProps> = ({
                       <h6 className="text-numans text-right font-semibold text-[32px] uppercase italic category-gradient text-clip mobileMax:text-xsmall leading-normal pr-2">
                         - {testimonialData.title}
                       </h6>
-                    </motion.div>
+                    </FadeInWrapper>
                   </>
                 );
               }

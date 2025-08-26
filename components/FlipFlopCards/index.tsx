@@ -1,4 +1,3 @@
-"use client";
 import { ExternalLink } from "lucide-react";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";

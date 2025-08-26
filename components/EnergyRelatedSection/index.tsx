@@ -1,8 +1,7 @@
-"use client";
 import { DEV_PUBLIC_URL } from "@/services/api";
-import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface EnergyRelatedSectionProps {
   data: DrupalNode;
@@ -20,25 +19,23 @@ export default function EnergyRelatedSection({
   return (
     <div className="py-[100px] bg-graybg mobileMax:pt-12 pb-16 betweenMobileTab:py-10 overflow-hidden">
       <div className="mini-container">
-        <motion.h3
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        <FadeInWrapper
+          y={40}
+          duration={0}
+          once={true}
           className="remove-animation-fluctuation text-clip support-gradient tracking-tight text-[35px] leading-normal mb-[50px] text-center text-numans mobileMax:text-[28px] mobileMax:mb-8"
         >
           {data?.field_title}
-        </motion.h3>
+        </FadeInWrapper>
 
         {/* Render all cards except last */}
         <div className="flex flex-wrap justify-center box-border !overflow-hidden">
           {cardsToRender.map((relatedCard: DrupalNode, index: number) => (
-            <motion.div
+            <FadeInWrapper
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
+              y={50}
+              duration={0}
+              once={true}
               className="remove-animation-fluctuation px-[15px] mb-[30px] w-[25%] betweenMobileTab:w-[50%] mobileMax:w-full mobileMax:px-0 mobileMax:mb-5"
             >
               <div className="rounded-xl h-full flex items-start flex-col box-border w-full">
@@ -65,7 +62,7 @@ export default function EnergyRelatedSection({
                   />
                 </div>
               </div>
-            </motion.div>
+            </FadeInWrapper>
           ))}
         </div>
 
@@ -74,11 +71,10 @@ export default function EnergyRelatedSection({
 
         {/* Blue Banner Section (with either the last card or only card) */}
         {bannerCard && (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation rounded-xl h-full w-full blueBg-gradient px-5 py-[48px] mobileMax:py-10 flex items-center justify-center flex-col box-border laptop:min-w-[340px]"
           >
             <div className="flex items-center flex-col box-border desktop:w-[52%] w-[70%] mobileMax:w-full">
@@ -105,7 +101,7 @@ export default function EnergyRelatedSection({
                 />
               </div>
             </div>
-          </motion.div>
+          </FadeInWrapper>
         )}
       </div>
     </div>

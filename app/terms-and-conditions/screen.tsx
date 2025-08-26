@@ -1,11 +1,10 @@
-"use client";
 import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { DrupalNode } from "next-drupal";
 import React from "react";
-import { motion } from "framer-motion";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface termsConditionProps {
   headerData: DrupalNode;
@@ -32,14 +31,11 @@ const TermsConditionScreen: React.FC<termsConditionProps> = ({
           isSmallImage={true}
         />
         <div className="py-12 bg-mapGray relative overflow-hidden">
-          <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              duration: 2.8,
-            }}
+          <FadeInWrapper
+            x={-100}
+            once={true}
+            type="spring"
+            duration={2.8}
             className="absolute pointer-events-none max-w-[15%] top-[150px] left-0 betweenMobiletab:max-w-[90%] mobileMax:max-w-[40%]"
           >
             <DynamicImage
@@ -49,15 +45,12 @@ const TermsConditionScreen: React.FC<termsConditionProps> = ({
               alt="overlay-bg"
               className="w-full h-full opacity-40 "
             />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 90 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              duration: 2.8,
-            }}
+          </FadeInWrapper>
+          <FadeInWrapper
+            y={90}
+            duration={2.8}
+            once={true}
+            type="spring"
             className="absolute pointer-events-none max-w-[15%] bottom-0 right-0 betweenMobiletab:max-w-[90%] mobileMax:max-w-[40%]"
           >
             <DynamicImage
@@ -67,15 +60,12 @@ const TermsConditionScreen: React.FC<termsConditionProps> = ({
               width={316}
               height={567}
             />
-          </motion.div>
+          </FadeInWrapper>
           <div className="mini-container relative z-[2]">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0,
-              }}
+            <FadeInWrapper
+              y={40}
+              duration={0}
+              once={true}
               className="remove-animation-fluctuation policy-page-text text-medium text-cardText --font-poppins leading-normal mb-5 !text-left mobileMax:text-xsmall mobileMax:leading-normal"
               dangerouslySetInnerHTML={{
                 __html: field_terms_condition_content?.value,

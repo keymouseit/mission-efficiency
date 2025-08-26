@@ -1,9 +1,7 @@
-"use client";
-
-import Link from "next/link";
+;import Link from "next/link";
 import React from "react";
-import { motion } from "framer-motion";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface CTAData {
   field_cta_efficiency_title: string;
@@ -46,11 +44,11 @@ function PrimaryCTAClient({ data }: PrimaryCTASectionProps) {
       className="pt-[92px] bg-white relative mobileMax:pt-10 betweenMobileTab:pt-16 pb-8 CTA-wrap overflow-hidden"
     >
       {/* Background shape */}
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", duration: 2.5 }}
+      <FadeInWrapper
+        x={-100}
+        once={true}
+        type="spring"
+        duration={2.5}
         className="absolute pointer-events-none top-[-10%] left-0 z-[0] betweenMobileTab:top-[12%] betweenMobileTab:opacity-50 mobileMax:top-[21%]"
       >
         <DynamicImage
@@ -60,27 +58,25 @@ function PrimaryCTAClient({ data }: PrimaryCTASectionProps) {
           width={657}
           height={955}
         />
-      </motion.div>
+      </FadeInWrapper>
 
       <div className="mini-container relative z-[1] overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        <FadeInWrapper
+          y={40}
+          once={true}
+          duration={0}
           className="remove-animation-fluctuation py-12 mobileMax:pb-5"
         >
           {/* Title */}
-          <motion.h3 className="desktop:text-[60px] text-numans mb-10 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-center category-gradient text-clip px-5 text-[48px] mobileMax:text-[28px]">
+          <h3 className="desktop:text-[60px] text-numans mb-10 mobileMax:mb-8 desktop:leading-[70px] leading-normal text-center category-gradient text-clip px-5 text-[48px] mobileMax:text-[28px]">
             {field_cta_efficiency_title}
-          </motion.h3>
+          </h3>
 
           {/* Subtitle content */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={0}
             className="remove-animation-fluctuation flex items-center mb-20 mobileToDesk:flex-col overflow-hidden"
           >
             <div className="w-full text-list relative mobileToDesk:order-2 mobileToDesk:w-full mobileToDesk:mt-6">
@@ -118,14 +114,13 @@ function PrimaryCTAClient({ data }: PrimaryCTASectionProps) {
                 )}
               </div>
             </div>
-          </motion.div>
+          </FadeInWrapper>
 
           {/* Image + Right text */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={0}
             className="remove-animation-fluctuation flex items-start mobileToDesk:flex-col overflow-hidden"
           >
             {/* Image on the left */}
@@ -144,17 +139,17 @@ function PrimaryCTAClient({ data }: PrimaryCTASectionProps) {
 
             {/* Text on the right */}
             <div className="w-[50%] text-list relative mobileToDesk:w-full">
-              {field_cta_efficiency_content?.processed && (
-                <div
-                  className="text-medium text-[#545D6F] --font-poppins leading-normal mobileMax:text-small mobileMax:leading-normal"
-                  dangerouslySetInnerHTML={{
-                    __html: field_cta_efficiency_content.processed,
-                  }}
-                />
-              )}
+                {field_cta_efficiency_content?.processed && (
+                  <div
+                    className="text-medium text-[#545D6F] --font-poppins leading-normal mobileMax:text-small mobileMax:leading-normal"
+                    dangerouslySetInnerHTML={{
+                      __html: field_cta_efficiency_content.processed,
+                    }}
+                  />
+                )}
             </div>
-          </motion.div>
-        </motion.div>
+          </FadeInWrapper>
+        </FadeInWrapper>
         <div className="border-b border-[#ccc]" />
       </div>
     </section>

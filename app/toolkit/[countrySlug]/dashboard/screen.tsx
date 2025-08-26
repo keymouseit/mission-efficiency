@@ -15,7 +15,6 @@ import OverAllCountryTable from "@/components/OverallCountryTable";
 import { Button } from "@/components/ui/button";
 import { CONSTS } from "@/lib/constants";
 import LegendsModal from "@/components/LegendsModal";
-import { motion } from "framer-motion";
 import PotentialIndicator from "@/components/PotentialIndicator";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import NextBreadcrumb from "@/components/Breadcrumbs";
@@ -23,6 +22,7 @@ import { MdChevronRight } from "react-icons/md";
 import { Tooltip } from "react-tooltip";
 import CommonReactSelect from "@/components/CommonReactSelect";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface DashboardScreenProps {
   countryList?: DrupalNode[];
@@ -158,9 +158,8 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
                   <div className="flex items-center justify-center max-w-[85%] aboveMinMobile:max-w-[430px] lieTablets:max-w-[550px] mx-auto minMobile:max-w-[240px] desktopMax:max-w-[350px] largeDesk:max-w-[350px]">
                     {countryData.id ? (
                       <div
-                        className={`w-full dashboard-country-comboBox ${
-                          isIOS && "no-gradient-countrySelect"
-                        }`}
+                        className={`w-full dashboard-country-comboBox ${isIOS && "no-gradient-countrySelect"
+                          }`}
                         data-tooltip-id="country-name"
                       >
                         <CommonReactSelect
@@ -269,8 +268,8 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
                 <div className="animate-pulse w-[80%] h-[35px] rounded-md bg-skeleton mx-auto mb-6" />
               )}
               {potentSector ? (
-                <motion.div
-                  whileHover={{ scale: isMobile ? 1 : 1.2 }}
+                <FadeInWrapper
+                  scale={isMobile ? 1 : 1.2}
                   className="w-[fit-content] mx-auto"
                 >
                   <Button
@@ -279,7 +278,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
                   >
                     View Tools
                   </Button>
-                </motion.div>
+                </FadeInWrapper>
               ) : (
                 <div className="animate-pulse w-[220px] h-[35px] rounded-md bg-skeleton mx-auto" />
               )}
@@ -292,30 +291,23 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
           {CONSTS.MAP_LEGENDS?.map(
             (item: { color: any; value: any }, index: number) => {
               return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    type: "spring",
-                    duration: 0.5,
-                    delay: Number(`0.${index + 3}`),
-                  }}
+                <FadeInWrapper
+                  y={10}
+                  duration={0.5}
+                  type="spring"
+                  delay={Number(`0.${index + 3}`)}
                 >
                   <PotentialIndicator color={item.color} value={item.value} />
-                </motion.div>
+                </FadeInWrapper>
               );
             }
           )}
         </div>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            tye: "spring",
-            duration: 0.8,
-            delay: 0.7,
-          }}
+        <FadeInWrapper
+          y={10}
+          duration={0.8}
+          type="spring"
+          delay={0.7}
           className="mt-2 mobileMax:order-1 mobileMax:mt-0 mobileMax:mb-3"
         >
           <div className="flex items-center justify-center width-[fit-content]">
@@ -333,7 +325,7 @@ const DashboardScreen: React.FC<DashboardScreenProps> = ({
               />
             </LegendsModal>
           </div>
-        </motion.div>
+        </FadeInWrapper>
       </div>
     </div>
   );

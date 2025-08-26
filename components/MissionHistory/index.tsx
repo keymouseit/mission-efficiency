@@ -1,9 +1,7 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import HistorySlider from "../HistorySlider";
+import FadeInWrapper from "../FadeInWrapper";
 
 type MissionHistoryProps = {
   data: DrupalNode;
@@ -17,65 +15,59 @@ const MissionHistory: React.FC<MissionHistoryProps> = ({ data }) => {
     >
       <div className="mini-container">
         {data?.field_title && (
-          <motion.h3
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={0}
             className="remove-animation-fluctuation desktop:text-[66px] tracking-tight text-numans desktop:mb-[100px] desktop:leading-[85px] text-center history-title-gradient text-clip text-[48px] leading-normal mobileMax:text-[28px] mb-[50px] mobileMax:mb-5"
           >
             {data.field_title}
-          </motion.h3>
+          </FadeInWrapper>
         )}
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        <FadeInWrapper
+          y={40}
+          once={true}
+          duration={0}
           className="remove-animation-fluctuation flex items-start justify-between mobileMax:flex-col"
         >
           {data?.field_sub_title && (
-            <motion.p className="w-[45%] text-clip tracking-tight support-gradient text-[35px] leading-[45px] mr-5 text-numans mobileMax:w-full mobileMax:text-medium mobileMax:leading-[28px] mobileMax:mr-0 mobileMax:mb-2">
+            <p className="w-[45%] text-clip tracking-tight support-gradient text-[35px] leading-[45px] mr-5 text-numans mobileMax:w-full mobileMax:text-medium mobileMax:leading-[28px] mobileMax:mr-0 mobileMax:mb-2">
               {data.field_sub_title}
-            </motion.p>
+            </p>
           )}
 
           {data?.field_description.processed && (
-            <motion.div
+            <div
               className="w-[45%] --font-poppins text-medium mb-4 leading-8 text-[#545d6f] mobileMax:w-full mobileMax:text-xsmall mobileMax:leading-normal"
               dangerouslySetInnerHTML={{
                 __html: data.field_description.processed,
               }}
             />
           )}
-        </motion.div>
+        </FadeInWrapper>
 
         <div className="pt-20 pb-10 history-card-wrapper mobileMax:py-6">
           <div className="pb-[50px]">
-            <motion.p
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0,
-              }}
+            <FadeInWrapper
+              y={40}
+              once={true}
+              duration={0}
               className="remove-animation-fluctuation text-xsmall text-gray-500 tracking-[3.64px] pb-3 uppercase --font-poppins border-b border-[#6ea8ed]"
             >
               TIMELINE
-            </motion.p>
+            </FadeInWrapper>
           </div>
 
           {data?.field_slide && (
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
+            <FadeInWrapper
+              y={40}
+              once={true}
+              duration={0}
               className="remove-animation-fluctuation"
             >
               <HistorySlider sliderData={data.field_slide} />
-            </motion.div>
+            </FadeInWrapper>
           )}
         </div>
       </div>

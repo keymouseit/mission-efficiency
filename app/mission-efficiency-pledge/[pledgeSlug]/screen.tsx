@@ -1,11 +1,10 @@
-"use client";
 import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import { DrupalNode } from "next-drupal";
 import React from "react";
-import { motion } from "framer-motion";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface PledgeDetailScreenProps {
   headerData: DrupalNode;
@@ -30,13 +29,10 @@ const PledgeDetailScreen: React.FC<PledgeDetailScreenProps> = ({
           isSmallImage={true}
         />
         <div className="py-14 bg-white relative mobileMax:py-10">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation w-full mission-Pledge-Card overflow-hidden z-[1] relative"
           >
             <div className="mini-container py-12 h-full box-border w-full">
@@ -57,23 +53,20 @@ const PledgeDetailScreen: React.FC<PledgeDetailScreenProps> = ({
               />
             </div>
             <div className="absolute top-[50%] -translate-y-2/4 max-w-[50%] opacity-25 left-0 z-[-2] overflow-hidden">
-              <motion.div
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  type: "spring",
-                  duration: 2.5,
-                }}
+              <FadeInWrapper
+                x={-100}
+                once={true}
+                type="spring"
+                duration={2.5}
               >
                 <DynamicImage
                   src="/static/images/cta-blue-bg.svg" alt="left-bg"
                   width={445}
                   height={892}
                 />
-              </motion.div>
+              </FadeInWrapper>
             </div>
-          </motion.div>
+          </FadeInWrapper>
         </div>
       </div>
       <LandingFooter data={footerData} />

@@ -1,10 +1,7 @@
 'use client';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { BsYoutube } from 'react-icons/bs';
 import { FaTwitter } from 'react-icons/fa6';
-import { TfiLinkedin } from 'react-icons/tfi';
 import DynamicImage from '../ResuableDynamicImage';
 import { useOrigin } from '@/hooks/useOrigin';
 import Curve from '../Curve';

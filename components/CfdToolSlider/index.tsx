@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import Slider, { LazyLoadTypes } from "react-slick";
 import { DrupalNode } from "next-drupal";
-import { motion } from "framer-motion";
 import { IoMdImages } from "react-icons/io";
 import DynamicImage from "../ResuableDynamicImage";
 
@@ -31,7 +30,7 @@ const CfdToolSlider: React.FC<cfdToolSliderPropsProps> = ({ sliderData }) => {
         {sliderData?.map((data: DrupalNode, index: number) => {
           return (
             <div key={index} className="desktop:px-[15px] pb-2 w-full mx-auto laptopMax:py-3 laptopMax:border-t-[1px] laptopMax:border-[#8A8C8E]">
-              <motion.div className="flex items-start box-border exactLaptop:bg-white remove-news-shadow card-shadow w-full laptop:h-[280px] h-[245px] aboveMinMobile:h-[160px] minMobile:h-[140px] exactLaptop:rounded-[4px] overflow-hidden">
+              <div className="flex items-start box-border exactLaptop:bg-white remove-news-shadow card-shadow w-full laptop:h-[280px] h-[245px] aboveMinMobile:h-[160px] minMobile:h-[140px] exactLaptop:rounded-[4px] overflow-hidden">
                 <div className="tab:w-[40%] tab:max-w-[50%] flex justify-center items-center w-full overflow-hidden relative mobileMax:mb-0 h-full minMobile:w-[90%] mobileMax:mr-2 lieTablets:mr-3">
                   {data?.field_image_icon?.uri?.url ? (
                     <DynamicImage
@@ -58,7 +57,7 @@ const CfdToolSlider: React.FC<cfdToolSliderPropsProps> = ({ sliderData }) => {
                     />
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           );
         })}

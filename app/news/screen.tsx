@@ -3,7 +3,6 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { DrupalNode, DrupalTaxonomyTerm } from "next-drupal";
-import { motion } from "framer-motion";
 import CommonBanner from "@/components/LandingWebsiteComponents/CommonBanner";
 import Header from "@/components/LandingWebsiteComponents/LandingHeader";
 import LandingFooter from "@/components/LandingWebsiteComponents/LandingFooter";
@@ -21,6 +20,7 @@ import FloatingButton from "@/components/FloatingButton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ReactPlayer from "react-player";
 import { renderIcon } from "@/lib/parsers";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface newsProps {
   headerData: DrupalNode;
@@ -343,19 +343,16 @@ const NewsScreen: React.FC<newsProps> = ({
             {!loading ? (
               <>
                 {!sortedNewsData?.length && !loading ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      duration: 0,
-                    }}
+                  <FadeInWrapper
+                    y={5}
+                    once={true}
+                    duration={0}
                     className="remove-animation-fluctuation h-full laptop:min-h-[150px] laptopMax:h-[250px] flex items-center justify-center"
                   >
                     <p className="text-xmedium text-center --font-poppins">
                       No Data Found.
                     </p>
-                  </motion.div>
+                  </FadeInWrapper>
                 ) : (
                   <div>
                     <InfiniteScroll
@@ -391,13 +388,11 @@ const NewsScreen: React.FC<newsProps> = ({
                                 key={index}
                                 className="desktop:px-[15px] desktop:w-[50%] mb-8 w-full betweenMobileTab:mb-6 laptopMax:mb-0 laptopMax:py-3 laptopMax:border-t-[1px] laptopMax:border-[#8A8C8E]"
                               >
-                                <motion.div
+                                <FadeInWrapper
                                   className="animate-cardHover-speed flex items-start box-border exactLaptop:bg-white remove-news-shadow card-shadow w-full h-[200px] aboveMinMobile:h-[160px] minMobile:h-[140px] exactLaptop:rounded-[4px] overflow-hidden"
-                                  whileHover={{ scale: 1.02 }}
-                                  viewport={{ once: true }}
-                                  transition={{
-                                    duration: 0,
-                                  }}
+                                  scale={1.02}
+                                  once={true}
+                                  duration={0}
                                 >
                                   <div className="tab:w-[40%] tab:max-w-[50%] flex justify-center items-center w-full overflow-hidden relative mobileMax:mb-0 h-full minMobile:w-[90%] mobileMax:mr-2 lieTablets:mr-3">
                                     {mediaTypeAndSrc.type === "image" ? (
@@ -457,7 +452,7 @@ const NewsScreen: React.FC<newsProps> = ({
                                       </div>
                                     </div>
                                   </div>
-                                </motion.div>
+                                </FadeInWrapper>
                               </Link>
                             );
                           }

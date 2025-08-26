@@ -2,10 +2,10 @@
 import React from "react";
 import Slider from "react-slick";
 import { DrupalNode } from "next-drupal";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface PartnerCardSliderProps {
   sliderData: DrupalNode;
@@ -72,17 +72,14 @@ const PartnerCardSlider: React.FC<PartnerCardSliderProps> = ({
 
   return (
     <section id="partners" className="mb-72">
-      <motion.h3
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{
-          duration: 0,
-        }}
+      <FadeInWrapper
+        y={40}
+        once={true}
+        duration={0}
         className="pt-[82px] remove-animation-fluctuation desktop:text-[55px] text-numans mb-5 desktop:leading-[85px] text-center category-gradient text-clip text-[48px] leading-normal mobileMax:text-[35px] mobileMax:mb-3"
       >
         {sliderData?.field_title}
-      </motion.h3>
+      </FadeInWrapper>
 
       <Slider {...settings}>
         {sliderData?.field_add_section

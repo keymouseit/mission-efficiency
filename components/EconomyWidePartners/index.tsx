@@ -1,12 +1,10 @@
-"use client";
-
 import { DEV_PUBLIC_URL } from "@/services/api";
-import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { DrupalNode } from "next-drupal";
 import Link from "next/link";
 import DynamicImage from "../ResuableDynamicImage";
 import Curve from "../Curve";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface EconomyWidePartnersProps {
   data: DrupalNode;
@@ -42,26 +40,24 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
         {/* Title + Cards */}
         <div className="mini-container h-full flex flex-col items-center justify-center mobileMax:block">
           <div className="mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
+            <FadeInWrapper
+              y={40}
+              duration={0}
+              once={true}
               className="remove-animation-fluctuation mobileMax:pt-[60px] title-green-gradient text-clip tracking-tight desktop:text-xlarge desktop:mb-[70px] mt-0 leading-tight text-center text-numans text-[45px] mobileMax:text-[32px] mb-10"
             >
               {data?.field_title}
-            </motion.h2>
+            </FadeInWrapper>
 
             <div className="flex flex-wrap justify-center box-border">
               {data?.field_add_card?.map(
                 (listItem: DrupalNode, index: number) => (
-                  <motion.div
+                  <FadeInWrapper
                     key={index}
                     className="remove-animation-fluctuation px-[15px] mb-[30px] w-[33%] min-h-[280px] mobileMax:w-full mobileMax:px-0"
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0 }}
+                    y={40}
+                    duration={0}
+                    once={true}
                   >
                     <div
                       className={`flex items-center justify-center flex-col box-border w-full h-full card-shadow bg-white rounded-[30px] px-4 py-[25px] laptopMax:py-5 min-h-[320px] mobileMax:min-h-full`}
@@ -94,7 +90,7 @@ const EconomyWidePartners: React.FC<EconomyWidePartnersProps> = ({ data }) => {
                         </Link>
                       </div>
                     </div>
-                  </motion.div>
+                  </FadeInWrapper>
                 )
               )}
             </div>

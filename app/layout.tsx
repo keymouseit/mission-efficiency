@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { numans, poppins } from "@/lib/fonts";
 import ClientErrorBoundary from "@/components/ClientErrorBoundary";
+import CookiesToaster from "@/components/CookiesToaster";
 
 export const metadata: Metadata = {
   title: "Mission Efficiency",
@@ -24,6 +25,7 @@ export default function RootLayout({
         className={`${numans.variable} ${poppins.variable} laptop:!overflow-auto`}
       >
         <ClientErrorBoundary>{children}</ClientErrorBoundary>
+        <CookiesToaster />
       </body>
     </html>
   );

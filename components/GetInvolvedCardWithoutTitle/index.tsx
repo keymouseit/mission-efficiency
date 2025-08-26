@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface CardSectionProps {
   data: DrupalNode;
@@ -51,13 +52,12 @@ const GetInvolvedCardWithoutTitle = ({ data }: CardSectionProps) => {
                     : "text-[#545d6f]";
 
                 return (
-                  <motion.div
+                  <FadeInWrapper
                     key={dropdownCard.id || index}
                     className="remove-animation-fluctuation px-[15px] mb-[25px] w-full lieTablets:w-[50%] laptop:w-[100%] mt-2 mobileMax:px-0 mobileMax:mb-5 mobileMax:mt-0"
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0 }}
+                    y={40}
+                    duration={0}
+                    once={true}
                   >
                     <div
                       className={`${bgClass} relative rounded-xl flex items-center border-2 border-[#ececec] flex-col box-border w-full card-shadow`}
@@ -108,7 +108,7 @@ const GetInvolvedCardWithoutTitle = ({ data }: CardSectionProps) => {
                       </div>
 
                       {isOpenJoinCardList === index && (
-                        <motion.div
+                        <div
                           className={`${bgClass} list p-5 w-full absolute z-[4] card-shadow left-0 top-[103%] border-2 border-[#ececec] rounded-xl`}
                         >
                           <motion.ul
@@ -128,10 +128,10 @@ const GetInvolvedCardWithoutTitle = ({ data }: CardSectionProps) => {
                               />
                             </motion.li>
                           </motion.ul>
-                        </motion.div>
+                        </div>
                       )}
                     </div>
-                  </motion.div>
+                  </FadeInWrapper>
                 );
               })}
             </div>

@@ -1,12 +1,12 @@
 "use client";
 import { DrupalNode } from "next-drupal";
 import React from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 type TaskforceProps = {
   data: DrupalNode;
@@ -18,24 +18,18 @@ const Taskforce = ({ data }: TaskforceProps) => {
   return (
     <section id="Taskforces" className="pb-24 bg-[#ebf0f7]">
       <div className="mini-container">
-        <motion.h3
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0,
-          }}
+        <FadeInWrapper
+          y={40}
+          duration={0}
+          once={true}
           className="remove-animation-fluctuation pt-[82px] desktop:text-[55px] text-numans mb-5 desktop:leading-[85px] category-gradient text-clip text-[48px] leading-normal mobileMax:text-[35px] mobileMax:mb-3 text-center"
         >
           {data?.field_title}
-        </motion.h3>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0,
-          }}
+        </FadeInWrapper>
+        <FadeInWrapper
+          y={40}
+          duration={0}
+          once={true}
           className="remove-animation-fluctuation  --font-poppins mb-10 text-medium leading-8 text-lightBlueText mobileMax:w-full mobileMax:text-small mobileMax:mb-6 mobileMax:leading-normal text-center"
           dangerouslySetInnerHTML={{
             __html: data?.field_description?.processed || "",
@@ -47,17 +41,16 @@ const Taskforce = ({ data }: TaskforceProps) => {
         {data.field_add_tasks.length > 0 &&
           data.field_add_tasks.map((data: DrupalNode, index: number) => (
             <div className=" mobileMax:py-6 mt-10">
-              <motion.div
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0 }}
+              <FadeInWrapper
+                y={60}
+                duration={0}
+                once={true}
                 className="remove-animation-fluctuation bg-white p-5 rounded-lg card-shadow relative"
               >
                 <div>
-                  <motion.h3 className="text-[35px] text-center text-numans mb-5 category-gradient text-clip leading-normal mobileMax:text-[28px] mobileMax:mb-3">
+                  <h3 className="text-[35px] text-center text-numans mb-5 category-gradient text-clip leading-normal mobileMax:text-[28px] mobileMax:mb-3">
                     {data?.field_title}
-                  </motion.h3>
+                  </h3>
 
                   <div
                     dangerouslySetInnerHTML={{
@@ -67,14 +60,14 @@ const Taskforce = ({ data }: TaskforceProps) => {
                   />
                 </div>
 
-                <motion.div className="mt-5">
-                  <motion.div className="py-3 px-5 flex flex-col justify-start mobileMax:px-0">
-                    <motion.h3 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
+                <div className="mt-5">
+                  <div className="py-3 px-5 flex flex-col justify-start mobileMax:px-0">
+                    <h3 className="h-full mb-5 text-clip support-gradient tracking-tight text-[35px] leading-normal text-center text-numans mobileMax:text-[28px]">
                       {data?.field_activities_title || "Activities"}
-                    </motion.h3>
+                    </h3>
 
                     {data?.field_add_activities?.length > 0 && (
-                      <motion.div className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small">
+                      <div className="elevate-list-view text-cardText text-medium leading-normal --font-poppins mobileMax:text-small">
                         <ul className="list-disc pl-5">
                           {data.field_add_activities.map(
                             (activity: DrupalNode, index: number) => (
@@ -84,7 +77,7 @@ const Taskforce = ({ data }: TaskforceProps) => {
                             )
                           )}
                         </ul>
-                      </motion.div>
+                      </div>
                     )}
 
                     {data?.field_button?.length > 0 && (
@@ -157,9 +150,9 @@ const Taskforce = ({ data }: TaskforceProps) => {
                         )}
                       </>
                     )}
-                  </motion.div>
-                </motion.div>
-              </motion.div>
+                  </div>
+                </div>
+              </FadeInWrapper>
             </div>
           ))}
       </div>

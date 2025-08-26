@@ -41,7 +41,7 @@ import LegendsModal from "@/components/LegendsModal";
 import CountryOverviewModal from "@/components/CountryOverviewModal";
 import { useRef } from "react";
 import CommonReactSelect from "@/components/CommonReactSelect";
-import OrientationBlocker from "@/components/OrientationBlocker";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface MapScreenInterface {
   mapData: DrupalNode[] | null;
@@ -303,7 +303,7 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
             setIsTooltipOpen(true);
           }
         });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const countrySelectorSelect = (countryIso?: string) => {
@@ -435,29 +435,22 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
   return (
     <>
       {/* <OrientationBlocker /> */}
-      <motion.div
+      <FadeInWrapper
         className="absolute top-[90px] w-[100%] flex flex-row justify-center mt-5 mobileToDesk:mt-1 z-[2]"
-        initial={{ opacity: 0, y: -100 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          type: "spring",
-          duration: 1.5,
-        }}
+        y={-100}
+        type="spring"
+        duration={1.5}
       >
         <h1 className="text-xl w-[980px] font-light tracking-tight text-gray-900 text-xl map-heading">
           Opportunity to drive progress through energy efficiency
         </h1>
-      </motion.div>
-      <motion.div
-        className={`app-menu-shadow ${
-          true && "show-shadow"
-        } absolute w-[100%] top-0 border-none justify-between flex px-[16px] py-[8px] min-h-[80px]`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{
-          duration: 1.5,
-        }}
-      ></motion.div>
+      </FadeInWrapper>
+      <FadeInWrapper
+        className={`app-menu-shadow ${true && "show-shadow"
+          } absolute w-[100%] top-0 border-none justify-between flex px-[16px] py-[8px] min-h-[80px]`}
+        y={-100}
+        duration={1.5}
+      ></FadeInWrapper>
       <div className="w-full">
         <div className={`mapCard-map-container`} ref={mapRef}>
           <ComposableMap
@@ -503,14 +496,11 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
           <div className="w-[90%] absolute desktopMd:top-[125px] top-[180px] laptopMax:w-[96%] map-icons">
             {!userLocationMode && (
               <div className="absolute top-0 right-0 flex flex-col map-controllers">
-                <motion.div
-                  className=""
+                <FadeInWrapper
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    duration: 0.5,
-                  }}
+                  type="spring"
+                  duration={0.5}
                 >
                   <Button
                     role="button"
@@ -523,16 +513,13 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                   >
                     <AiOutlineZoomIn className="change-svg-fill" />
                   </Button>
-                </motion.div>
-                <motion.div
-                  className=""
+                </FadeInWrapper>
+                <FadeInWrapper
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    duration: 0.5,
-                    delay: 0.3,
-                  }}
+                  type="spring"
+                  duration={0.5}
+                  delay={0.3}
                 >
                   <Button
                     role="button"
@@ -544,17 +531,14 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                   >
                     <AiOutlineZoomOut className="change-svg-fill" />
                   </Button>
-                </motion.div>
+                </FadeInWrapper>
                 {(zoom > CONSTS.ZOOM || showMapReset) && (
-                  <motion.div
-                    className=""
+                  <FadeInWrapper
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      type: "spring",
-                      duration: 0.5,
-                      delay: 0.4,
-                    }}
+                    type="spring"
+                    duration={0.5}
+                    delay={0.4}
                   >
                     <Button
                       role="button"
@@ -568,7 +552,7 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                     >
                       <FaArrowRotateLeft className="change-svg-fill p-1" />
                     </Button>
-                  </motion.div>
+                  </FadeInWrapper>
                 )}
               </div>
             )}
@@ -583,14 +567,12 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
           {!userLocationMode && (
             <div className="mx-auto relative mobileMax:w-full mb-8 mobileMax:mb-6 app-legends-select">
               <div className="w-[500px] desktop:mb-8 mb-4 flex items-center justify-between relative mobileMax:w-full mobileMax:flex-col mobileMax:mb-2">
-                <motion.div
+                <FadeInWrapper
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    duration: 0.5,
-                    delay: 0.3,
-                  }}
+                  type="spring"
+                  duration={0.5}
+                  delay={0.3}
                   className="w-[240px] mr-2 mobileMax:w-full mobileMax:mb-2 mobileMax:mx-0"
                 >
                   <CommonReactSelect
@@ -602,15 +584,13 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                     maxMenuListHeight={isMobile ? 120 : 230}
                     onFocus={() => setIsTooltipOpen(false)}
                   />
-                </motion.div>
-                <motion.div
+                </FadeInWrapper>
+                <FadeInWrapper
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    duration: 0.5,
-                    delay: 0.3,
-                  }}
+                  type="spring"
+                  duration={0.5}
+                  delay={0.3}
                   className="w-[240px] mx-2 mobileMax:w-full mobileMax:mb-2 mobileMax:mx-0"
                 >
                   <CommonReactSelect
@@ -625,16 +605,13 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                     maxMenuListHeight={isMobile ? 120 : 230}
                     onFocus={() => setIsTooltipOpen(false)}
                   />
-                </motion.div>
+                </FadeInWrapper>
               </div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: window?.innerWidth > 1200 ? 1.2 : 1 }}
-                transition={{
-                  type: "spring",
-                  duration: 0.5,
-                }}
+              <FadeInWrapper
+                y={20}
+                scale={window?.innerWidth > 1200 ? 1.2 : 1}
+                type="spring"
+                duration={0.5}
                 className={`clearBtn desktop:absolute desktop:right-[-135px] desktop:top-0 cursor-pointer `}
                 onClick={() => {
                   if (showSelectorReset || selectedCountry || selectedSector) {
@@ -655,7 +632,7 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                 <span className="block capitalize rounded-full bg-muted px-4 py-1 border border-borderColor flex items-center justify-center min-h-[40px] desktop:min-w-[120px] max-w-full w-full min-w-full">
                   Clear Filters
                 </span>
-              </motion.div>
+              </FadeInWrapper>
             </div>
           )}
           <div className="flex flex-col items-center mobileMax:items-start" />
@@ -663,30 +640,24 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
             {CONSTS.MAP_LEGENDS?.map(
               (item: { color: any; value: any }, index: number) => {
                 return (
-                  <motion.div
+                  <FadeInWrapper
                     key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      type: "spring",
-                      duration: 0.5,
-                      delay: Number(`0.${index + 3}`),
-                    }}
+                    y={10}
+                    duration={0.5}
+                    delay={Number(`0.${index + 3}`)}
+                    type="spring"
                   >
                     <PotentialIndicator color={item.color} value={item.value} />
-                  </motion.div>
+                  </FadeInWrapper>
                 );
               }
             )}
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              tye: "spring",
-              duration: 0.8,
-              delay: 0.7,
-            }}
+          <FadeInWrapper
+            y={10}
+            duration={0.8}
+            delay={0.7}
+            type="spring"
             className="mt-2 mobileMax:order-1 mobileMax:mt-0 mobileMax:mb-3"
           >
             <div className="flex items-center justify-center width-[fit-content] mobileMax:justify-start">
@@ -704,7 +675,7 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                 />
               </LegendsModal>
             </div>
-          </motion.div>
+          </FadeInWrapper>
         </div>
       </div>
       {isTooltipOpen && (
@@ -759,8 +730,8 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                       </p>
                     </div>
                   </div>
-                  <motion.div
-                    whileHover={{ scale: window?.innerWidth > 1200 ? 1.2 : 1 }}
+                  <FadeInWrapper
+                    scale={window?.innerWidth > 1200 ? 1.2 : 1}
                     className="w-[fit-content] mx-auto"
                   >
                     <Button
@@ -778,7 +749,7 @@ const MapScreen: React.FC<MapScreenInterface> = ({ mapData = [] }) => {
                       {" "}
                       Learn How
                     </Button>
-                  </motion.div>
+                  </FadeInWrapper>
                 </div>
               </>
             );

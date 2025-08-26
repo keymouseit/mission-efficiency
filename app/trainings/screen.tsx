@@ -8,7 +8,6 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { buildMediaTypeAndSrc, createQueryString } from "@/lib/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { motion } from "framer-motion";
 import slugify from "slugify";
 import { MdOutlineMessage } from "react-icons/md";
 import {
@@ -26,6 +25,7 @@ import { GiBlackBook, GiNotebook } from "react-icons/gi";
 import { IoMdImages } from "react-icons/io";
 import ReactPlayer from "react-player";
 import { useProgressiveData } from "@/hooks/useProgressiveData";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface trainingProps {
   headerData: DrupalNode;
@@ -488,10 +488,10 @@ const TrainingScreen: React.FC<trainingProps> = ({
             key={`${trainingItems.id}-${index}`}
             className="px-[15px] w-[33%] mb-8 mobileMax:w-full mobileMax:px-0 aboveLaptop:w-[50%] lieTablets:w-[50%] betweenMobileTab:mb-6 mobileMax:mb-6"
           >
-            <motion.div
+            <FadeInWrapper
               className="animate-cardHover-speed flex items-start flex-col box-border h-full w-full rounded-[23px] overflow-hidden card-shadow bg-white"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
+              scale={1.02}
+              duration={0.2}
             >
               <div className="flex justify-center items-center w-full h-[280px] betweenMdDesk:h-[200px] overflow-hidden mb-5 mobileMax:mb-3 mobileMax:h-[240px] relative">
                 {mediaTypeAndSrc.type === "video" ? (
@@ -573,7 +573,7 @@ const TrainingScreen: React.FC<trainingProps> = ({
                   )}
                 </div>
               </div>
-            </motion.div>
+            </FadeInWrapper>
           </Link>
         );
       }
@@ -641,16 +641,15 @@ const TrainingScreen: React.FC<trainingProps> = ({
           </div>
           <div className="exactLaptop:min-h-[80vh] w-[75%] desktopLg:w-[80%] betweenMobileTab:w-[70%] lieTablets lieTablets:w-full laptopMax:w-full pt-[20px] laptopMax:pt-0">
             {!loading && !isFilterDataLoading ? (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3 }}
+              <FadeInWrapper
+                y={10}
+                once={true}
+                duration={0.3}
                 className="remove-animation-fluctuation --font-poppins text-medium leading-normal mobileMax:text-small font-bold px-[15px] mobileMax:px-0"
               >
                 {totalFilteredRecords}
                 <span className="ml-2">results</span>
-              </motion.div>
+              </FadeInWrapper>
             ) : (
               <p className="h-[30px]" />
             )}
@@ -658,17 +657,16 @@ const TrainingScreen: React.FC<trainingProps> = ({
               <>
                 {!Array.isArray(paginatedFilterTrainingData) ||
                 !paginatedFilterTrainingData?.length ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3 }}
+                  <FadeInWrapper
+                      y={5}
+                      once={true}
+                      duration={0.3}
                     className="remove-animation-fluctuation h-full min-h-[80vh] laptopMax:h-[250px] flex items-center justify-center"
                   >
                     <p className="text-xmedium text-center --font-poppins">
                       No Data Found.
                     </p>
-                  </motion.div>
+                  </FadeInWrapper>
                 ) : (
                   <InfiniteScroll
                     scrollThreshold={0.5}

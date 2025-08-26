@@ -1,10 +1,8 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import CardSlider from "../CardSlider";
+import FadeInWrapper from "../FadeInWrapper";
 
 type NewsAndEventsSectionProps = {
   data?: DrupalNode;
@@ -20,11 +18,10 @@ const NewsAndEventsSection: React.FC<NewsAndEventsSectionProps> = ({
       {newsAndEventSlider && newsAndEventSlider?.length > 0 && (
         <div className="py-16 bg-mapGray mobileMax:py-10">
           <div className="mini-container">
-            <motion.h3
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
+            <FadeInWrapper
+              y={35}
+              once={true}
+              duration={0}
               className="remove-animation-fluctuation desktop:text-[66px] desktop:leading-[85px] text-numans desktop:mb-[70px] text-center text-clip text-[48px] leading-[60px] mb-[50px] mobileMax:text-[28px] mobileMax:leading-normal mobileMax:mb-8"
               style={{
                 backgroundImage:
@@ -32,13 +29,12 @@ const NewsAndEventsSection: React.FC<NewsAndEventsSectionProps> = ({
               }}
             >
               News & Events
-            </motion.h3>
+            </FadeInWrapper>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
+            <FadeInWrapper
+              y={30}
+              once={true}
+              duration={0}
               className="remove-animation-fluctuation mb-16 b-10 mobileMax:py-6"
             >
               <CardSlider
@@ -46,13 +42,12 @@ const NewsAndEventsSection: React.FC<NewsAndEventsSectionProps> = ({
                 sliderData={data?.field_add_slide}
                 sliderConfig={data?.field_slider_configuration}
               />
-            </motion.div>
+            </FadeInWrapper>
 
-            <motion.div
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
+            <FadeInWrapper
+              y={35}
+              once={true}
+              duration={0}
               className="remove-animation-fluctuation flex justify-center"
             >
               <Link
@@ -61,7 +56,7 @@ const NewsAndEventsSection: React.FC<NewsAndEventsSectionProps> = ({
               >
                 View All News & Events
               </Link>
-            </motion.div>
+            </FadeInWrapper>
           </div>
         </div>
       )}

@@ -1,4 +1,3 @@
-"use client";
 import { DrupalNode } from "next-drupal";
 import React from "react";
 

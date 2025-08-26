@@ -6,6 +6,7 @@ import HomeGridLayout from "../HomeGridLayout";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface GridLayoutProps {
   data: DrupalNode;
@@ -40,9 +41,9 @@ const GridLayout: React.FC<GridLayoutProps> = ({ data }) => {
     <div
       className={`pt-[140px] pb-[136px] bg-white relative overFlow-hidden mobileMax:py-14`}
     >
-      <motion.div
+      <FadeInWrapper
         style={{
-          top: isMobile ? mobileOverlayImage : moveOverlayImage,
+          top: isMobile ? mobileOverlayImage as any : moveOverlayImage as any,
         }}
         className="absolute pointer-events-none hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block  w-full betweenMobileTab:w-[70%] laptopMax:opacity-60 laptopMax:w-[80%]"
       >
@@ -53,7 +54,7 @@ const GridLayout: React.FC<GridLayoutProps> = ({ data }) => {
           alt="overlay-bg"
           priority={true}
         />
-      </motion.div>
+      </FadeInWrapper>
 
       <div className="mini-container">
         <HomeGridLayout

@@ -3,7 +3,6 @@ import React from "react";
 import Slider from "react-slick";
 import { DrupalNode } from "next-drupal";
 import { PiArrowCircleRightThin, PiArrowCircleLeftThin } from "react-icons/pi";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "../ResuableDynamicImage";
@@ -50,7 +49,7 @@ const HistorySlider: React.FC<HistorySliderProps> = ({ sliderData }) => {
               href={timelineCard?.field_button[0]?.uri || ""}
               target="_blank"
             >
-              <motion.div className="px-[15px] mb-[30px] w-full mobileMax:w-full mobileMax:px-0  betweenMobileTab:px-[10px]">
+              <div className="px-[15px] mb-[30px] w-full mobileMax:w-full mobileMax:px-0  betweenMobileTab:px-[10px]">
                 <div className="history-cards relative z-[1]">
                   <h2 className="desktop:text-[66px] text-numans mb-6 text-left multi-text text-clip text-[48px] leading-normal mobileMax:text-[32px] mobileMax:mb-3">
                     {timelineCard?.field_title}
@@ -80,7 +79,7 @@ const HistorySlider: React.FC<HistorySliderProps> = ({ sliderData }) => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </Link>
           );
         })}

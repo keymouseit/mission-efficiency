@@ -4,6 +4,7 @@ import { Menubar } from '@/components/ui/menubar';
 import Link from '@/node_modules/next/link';
 import { motion } from 'framer-motion';
 import DynamicImage from '../ResuableDynamicImage';
+import FadeInWrapper from '../FadeInWrapper';
 
 interface AppMenuProps {
 	selectedCountry?: any;
@@ -11,7 +12,7 @@ interface AppMenuProps {
 	resetToHome?: () => void;
 }
 
-const AppMenu: React.FC<AppMenuProps> = ({}) => {
+const AppMenu: React.FC<AppMenuProps> = ({ }) => {
 	return (
 		<>
 			<motion.div

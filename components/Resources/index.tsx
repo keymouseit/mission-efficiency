@@ -1,10 +1,8 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import PartnerCard from "../LandingWebsiteComponents/PartnersCard";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface SupportPartnersSectionProps {
   data: DrupalNode;
@@ -17,11 +15,11 @@ function Resources({ data }: SupportPartnersSectionProps) {
       className="pt-[120px] pb-[90px] relative bg-white mobileMax:py-12 betweenMobileTab:py-16 overflow-hidden"
     >
       {/* Background decoration */}
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ type: "spring", duration: 2.5 }}
+      <FadeInWrapper
+        x={-100}
+        once={true}
+        type="spring"
+        duration={2.5}
         className="remove-animation-fluctuation absolute top-[-20px] left-0 z-[0] pointer-events-none desktop:max-w-[30%] max-w-[70%] mobileMax:max-w-[95%] opacity-50 desktop:opacity-100 rotate-180"
       >
         <DynamicImage
@@ -31,21 +29,20 @@ function Resources({ data }: SupportPartnersSectionProps) {
           alt="left-bg"
           className="desktop:opacity-70 opacity-[0.6] rotate-180"
         />
-      </motion.div>
+      </FadeInWrapper>
 
       {/* Content container */}
       <div className="mini-container relative z-[1]">
         {/* Title */}
         {data?.field_resources_title && (
-          <motion.h3
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={0}
             className="remove-animation-fluctuation category-gradient text-clip desktop:text-[55px] desktop:mb-10 mt-0 leading-tight text-center text-numans text-[48px] mobileMax:text-[28px] betweenMobileTab:mb-8 mb-5"
           >
             {data?.field_resources_title}
-          </motion.h3>
+          </FadeInWrapper>
         )}
 
         {/* Partner Cards */}
@@ -66,13 +63,12 @@ function Resources({ data }: SupportPartnersSectionProps) {
             };
 
             return (
-              <motion.div
-                key={`partner-${index}`}
+              <FadeInWrapper
+                key={index}
                 className="remove-animation-fluctuation px-[15px] w-[50%] mobileMax:w-full pt-8"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0 }}
+                y={40}
+                once={true}
+                duration={0}
                 style={cardStyles}
               >
                 <PartnerCard
@@ -83,7 +79,7 @@ function Resources({ data }: SupportPartnersSectionProps) {
                   buttonText={card?.field_link?.title}
                 />
                 {hasBottomBorder && <div className="alternate-bottom-border" />}
-              </motion.div>
+              </FadeInWrapper>
             );
           })}
         </div>

@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { DrupalNode } from "next-drupal";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface MissionWithCTAProps {
   missionData: DrupalNode;
@@ -37,35 +38,33 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
 
   return (
     <div className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10">
-      <motion.div
-        style={{ top: isMobile ? mobileOverlayImage : moveOverlayImage }}
+      <FadeInWrapper
+        style={{ top: isMobile ? mobileOverlayImage as any : moveOverlayImage as any }}
         className="absolute pointer-events-none z-[0] hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block"
       >
         <DynamicImage
-          src="/static/images/about-us-home.svg" 
+          src="/static/images/about-us-home.svg"
           alt="overlay-bg"
           width={657}
           height={955}
           priority={true}
         />
-      </motion.div>
+      </FadeInWrapper>
 
       <div className="mini-container relative z-[1]">
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        <FadeInWrapper
+          y={40}
+          once={true}
+          duration={0}
           className="remove-animation-fluctuation desktop:text-[66px] text-numans mb-4 tracking-tight desktop:leading-[85px] text-center history-title-gradient text-clip text-[48px] leading-normal mobileMax:text-[32px] mobileMax:mb-1"
         >
           {missionData?.field_title}
-        </motion.h2>
+        </FadeInWrapper>
 
-        <motion.p
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        <FadeInWrapper
+          y={40}
+          once={true}
+          duration={0}
           className="remove-animation-fluctuation text-lightBlueText mb-20 text-[22px] text-center mobileMax:text-small mobileMax:mb-8"
           dangerouslySetInnerHTML={{
             __html: missionData?.field_description?.processed,
@@ -75,12 +74,11 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
         <div className="flex items-start justify-between flex-wrap box-border">
           {missionData?.field_add_card?.map(
             (card: DrupalNode, index: number) => (
-              <motion.div
+              <FadeInWrapper
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0 }}
+                y={40}
+                once={true}
+                duration={0}
                 className="remove-animation-fluctuation desktop:px-[15px] mb-[30px] w-[33%] betweenMobileTab:px-[10px] lieTablets:w-[50%] mobileMax:w-full mobileMax:px-0"
               >
                 <div className="border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white px-4 py-[25px] min-h-[284px] flex items-center flex-col box-border w-full card-shadow">
@@ -108,7 +106,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
                     />
                   </div>
                 </div>
-              </motion.div>
+              </FadeInWrapper>
             )
           )}
         </div>
@@ -120,21 +118,19 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
         className="pt-[95px] pb-[160px] betweenMobileTab:py-14 mobileMax:py-10"
       >
         <div className="mini-container relative z-[1]">
-          <motion.h3
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation desktop:text-[66px] text-numans mb-0 desktop:leading-[85px] tracking-tight text-center history-title-gradient text-clip text-[48px] leading-normal mobileMax:text-[32px]"
           >
             {ctaData?.field_twi_title}
-          </motion.h3>
+          </FadeInWrapper>
           <div className="desktop:h-[140px] h-[50px]" />
-          <motion.div
-            initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={80}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation"
           >
             {ctaData?.field_twi_image?.uri?.url && (
@@ -147,7 +143,7 @@ const MissionWithCTA: React.FC<MissionWithCTAProps> = ({
                 className="w-full h-full object-cover"
               />
             )}
-          </motion.div>
+          </FadeInWrapper>
         </div>
       </div>
     </div>

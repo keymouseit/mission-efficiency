@@ -1,11 +1,9 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { DrupalNode } from "next-drupal";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface SectorResourcesProps {
   data: DrupalNode;
@@ -19,15 +17,14 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
     >
       <div className="mini-container">
         {/* Section Title */}
-        <motion.h3
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        <FadeInWrapper
+          y={40}
+          duration={0}
+          once={true}
           className="remove-animation-fluctuation pt-[82px] text-numans category-gradient tracking-tight desktop:text-[66px] desktop:leading-[85px] text-center text-clip text-[48px] leading-[60px] mb-14 desktop:mb-[100px] mobileMax:text-[28px] mobileMax:leading-normal mobileMax:mb-8"
         >
           {data?.field_title}
-        </motion.h3>
+        </FadeInWrapper>
 
         {/* Sector Cards */}
         {data?.field_create_category.map(
@@ -39,15 +36,14 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
               >
                 {/* Sector Name */}
                 <div className="desktop:w-[30%] w-full mb-5">
-                  <motion.h3
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0 }}
+                  <FadeInWrapper
+                    y={40}
+                    duration={0}
+                    once={true}
                     className="remove-animation-fluctuation text-clip support-gradient text-[32px] tracking-tight leading-10 mr-5 text-numans mobileMax:text-[25px] desktop:px-0 px-5 mobileMax:px-5 mobileMax:leading-8 mobileMax:mr-0"
                   >
                     {sector?.field_category_name}:
-                  </motion.h3>
+                  </FadeInWrapper>
                 </div>
 
                 {/* Sector List */}
@@ -65,15 +61,12 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                       const linkColor =
                         bgColor === "blue" ? "text-[#fff]" : "text-[#004ee4]";
                       return (
-                        <motion.div
+                        <FadeInWrapper
                           key={index}
                           className="remove-animation-fluctuation px-[15px] mb-[30px] w-[50%] min-h-[255px] h-full mobileMax:px-0 mobileMax:w-full mobileMax:mb-5 box-border"
-                          initial={{ opacity: 0, y: 40 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{
-                            duration: 0,
-                          }}
+                          y={40}
+                          duration={0}
+                          once={true}
                         >
                           <div
                             className={`${bgClass} flex items-center justify-center flex-col box-border w-full h-full card-shadow rounded-[30px] px-4 py-[25px] laptopMax:py-5 min-h-[320px] mobileMax:min-h-full`}
@@ -110,7 +103,7 @@ const SectorResources: React.FC<SectorResourcesProps> = ({ data }) => {
                               </Link>
                             </div>
                           </div>
-                        </motion.div>
+                        </FadeInWrapper>
                       );
                     }
                   )}

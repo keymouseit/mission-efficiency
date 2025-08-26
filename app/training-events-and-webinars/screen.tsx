@@ -1,4 +1,3 @@
-'use client';
 import CommonBanner from '@/components/LandingWebsiteComponents/CommonBanner';
 import LandingFooter from '@/components/LandingWebsiteComponents/LandingFooter';
 import Header from '@/components/LandingWebsiteComponents/LandingHeader';

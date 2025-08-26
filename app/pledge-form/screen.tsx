@@ -15,11 +15,11 @@ import PledgeAccordion from "@/components/LandingWebsiteComponents/PledgeAccordi
 import PledgeSuccessModal from "@/components/LandingWebsiteComponents/PledgeSuccessModal";
 import { useEffect } from "react";
 import { fileToBase64 } from "@/lib/utils";
-import { motion } from "framer-motion";
 import { FaPlus } from "react-icons/fa6";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface pledgeFormProps {
   headerData: DrupalNode;
@@ -291,13 +291,10 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
     switch (currentStep) {
       case 0:
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation"
           >
             <p className="text-odd mb-5 text-landingBlue text-left font-medium --font-poppins leading-normal mobileMax:text-medium mobileMax:text-xmedium mobileMax:mb-5">
@@ -394,17 +391,14 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                 </div>
               </>
             ) : null}
-          </motion.div>
+          </FadeInWrapper>
         );
       case 1:
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation"
           >
             <p className="text-odd mb-5 text-landingBlue text-left font-medium --font-poppins leading-normal mobileMax:text-medium mobileMax:text-xmedium mobileMax:mb-5">
@@ -466,17 +460,14 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                 </div>
               )
             )}
-          </motion.div>
+          </FadeInWrapper>
         );
       case 2:
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation"
           >
             <p className="text-odd mb-5 text-landingBlue text-left font-medium --font-poppins leading-normal mobileMax:text-medium mobileMax:text-xmedium mobileMax:mb-5">
@@ -532,17 +523,14 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                 )
               )}
             </div>
-          </motion.div>
+          </FadeInWrapper>
         );
       case 3:
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation"
           >
             <p className="text-odd mb-5 text-landingBlue text-left font-medium --font-poppins leading-normal mobileMax:text-medium mobileMax:text-xmedium mobileMax:mb-5">
@@ -572,17 +560,14 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                 )
               )}
             </div>
-          </motion.div>
+          </FadeInWrapper>
         );
       case 4:
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0,
-            }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation "
           >
             <p className="text-odd mb-5 text-landingBlue text-left font-medium --font-poppins leading-normal mobileMax:text-medium mobileMax:text-xmedium mobileMax:mb-5">
@@ -615,7 +600,7 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                 </a>
               </p>
             </div>
-          </motion.div>
+          </FadeInWrapper>
         );
       default:
         break;
@@ -635,14 +620,11 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
           isSmallImage={false}
         />
         <div className="relative pt-[92px] exactLaptop:min-h-[80vh] pb-[100px] bg-mapGray relative mobileMax:pt-10 mobileMax:pb-14 betweenMobileTab:pt-16 betweenMobileTab:pb-20">
-          <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              type: "spring",
-              duration: 2,
-            }}
+          <FadeInWrapper
+            x={-100}
+            once={true}
+            type="spring"
+            duration={2}
             className="z-[1] absolute pointer-events-none max-w-[50%] top-[150px] betweenMobileTab:max-w-[22%] laptopMax:top-[100px] laptopMax:max-w-[30%] "
           >
             <DynamicImage
@@ -652,16 +634,13 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
               alt="overlay-bg"
               className="mobileMax:opacity-40"
             />
-          </motion.div>
+          </FadeInWrapper>
           <div className="mini-container relative z-[2]">
             <div className="w-full">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0,
-                }}
+              <FadeInWrapper
+                y={40}
+                duration={0}
+                once={true}
                 className="remove-animation-fluctuation mt-5 p-6 card-shadow rounded-[23px] bg-white"
               >
                 <form
@@ -726,7 +705,7 @@ const PledgeFormsScreen: React.FC<pledgeFormProps> = ({
                     )}
                   </div>
                 </form>
-              </motion.div>
+              </FadeInWrapper>
             </div>
           </div>
         </div>

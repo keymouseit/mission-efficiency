@@ -1,7 +1,6 @@
-"use client";
 import React from "react";
-import { motion } from "framer-motion";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface CategoryCardProps {
   img: string;
@@ -14,18 +13,13 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
   const { img, title, subTitle, isCfdTool = false } = props;
 
   return (
-    <motion.div
+    <FadeInWrapper
       className="remove-animation-fluctuation border-2 border-transparent hover:border-blueBorder transition rounded-xl bg-white desktop:px-10 px-5 py-[25px] flex items-center flex-col h-full box-border w-full card-shadow"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
-        duration: 0,
-        border: {
-          duration: 1.8,
-          ease: "easeInOut",
-        },
-      }}
+      y={40}
+      duration={0}
+      once={true}
+      border={{ duration: 1.8, ease: "easeInOut" }}
+
     >
       <div className={`mb-[23px] flex justify-center items-center overflow-hidden category-img ${isCfdTool ? "min-h-[80px]" : "max-h-[80px] h-full"} `}>
         <DynamicImage
@@ -49,7 +43,7 @@ const CategoryCard: React.FC<CategoryCardProps> = (props) => {
           dangerouslySetInnerHTML={{ __html: subTitle }}
         />}
       </div>
-    </motion.div>
+    </FadeInWrapper>
   );
 };
 

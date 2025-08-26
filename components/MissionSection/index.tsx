@@ -8,16 +8,10 @@ import { MdChevronRight } from "react-icons/md";
 import { DEV_PUBLIC_URL } from "@/services/api";
 import { useOrigin } from "@/hooks/useOrigin";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 type MissionSectionProps = {
   data: DrupalNode;
-};
-
-const animationConfig = {
-  initial: { opacity: 0, y: 40 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0 },
 };
 
 const MissionCard = ({
@@ -57,9 +51,11 @@ const MissionCard = ({
   const cardPadding = hasIcon ? "px-4 py-[25px] min-h-[284px]" : "px-5 pb-5";
 
   return (
-    <motion.div
+    <FadeInWrapper
       key={index}
-      {...animationConfig}
+      y={40}
+      once={true}
+      duration={0}
       className={`remove-animation-fluctuation w-[33%] mobileMax:w-full lieTablets:w-[50%] mobileMax:px-0 px-[15px] ${
         hasIcon
           ? "mb-[30px] betweenMobileTab:px-[10px]"
@@ -137,7 +133,7 @@ const MissionCard = ({
           </Link>
         )}
       </div>
-    </motion.div>
+    </FadeInWrapper>
   );
 };
 
@@ -174,9 +170,9 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
       className="pt-[92px] pb-[60px] bg-mapGray relative mobileMax:py-10"
     >
       {hasMounted && !titleIsResources && (
-        <motion.div
+        <FadeInWrapper
           style={{
-            top: isMobile ? mobileOverlayImage : moveOverlayImage,
+            top: isMobile ? mobileOverlayImage as any : moveOverlayImage as any,
           }}
           className="absolute pointer-events-none z-[0] hidden mobileMax:hidden betweenMobileTab:block laptop:block desktop:block"
         >
@@ -187,24 +183,28 @@ const MissionSection: React.FC<MissionSectionProps> = ({ data }) => {
             height={955}
             priority={true}
           />
-        </motion.div>
+        </FadeInWrapper>
       )}
 
       <div className="mini-container relative z-[1]">
         {/* Section Title */}
         {data?.field_title && (
-          <motion.h2
-            {...animationConfig}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={0}
             className="remove-animation-fluctuation desktop:text-[66px] text-numans mb-4 tracking-tight desktop:leading-[85px] text-center history-title-gradient text-clip text-[48px] leading-normal mobileMax:text-[32px] mobileMax:mb-1"
           >
             {data.field_title}
-          </motion.h2>
+          </FadeInWrapper>
         )}
 
         {/* Section Description */}
         {data?.field_description && (
-          <motion.p
-            {...animationConfig}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={0}
             style={{ color: "#1a4a8f" }}
             className="remove-animation-fluctuation text-[#3366cc] mb-20 text-[22px] text-center mobileMax:text-small mobileMax:mb-8"
             dangerouslySetInnerHTML={{

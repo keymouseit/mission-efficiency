@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Accordion,
   AccordionContent,
@@ -7,8 +5,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { DrupalNode } from "next-drupal";
-import { motion } from "framer-motion";
 import DynamicImage from "../ResuableDynamicImage";
+import FadeInWrapper from "../FadeInWrapper";
 
 interface FAQSectionProps {
   data: DrupalNode;
@@ -31,23 +29,21 @@ function FAQSections({ data }: FAQSectionProps) {
 
       <div className="mini-container h-full">
         {/* Title */}
-        <motion.h3
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        <FadeInWrapper
+          y={40}
+          duration={0}
+          once={true}
           className="remove-animation-fluctuation pt-[82px] category-gradient text-clip desktop:text-[60px] desktop:mb-10 mt-0 leading-tight text-center text-numans text-[48px] mobileMax:text-[28px] betweenMobileTab:mb-8 mb-5"
         >
           {data?.field_faq_title}
-        </motion.h3>
+        </FadeInWrapper>
 
         {/* Subtitle */}
         {data?.field_faq_description?.processed && (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={40}
+            duration={0}
+            once={true}
             className="remove-animation-fluctuation text-xmedium text-white text-left --font-poppins leading-8 Faq-text mobileMax:text-xsmall mobileMax:leading-normal"
             dangerouslySetInnerHTML={{
               __html: data?.field_faq_description.processed,
@@ -56,18 +52,17 @@ function FAQSections({ data }: FAQSectionProps) {
         )}
 
         {/* FAQ columns */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0 }}
+        <FadeInWrapper
+          y={40}
+          duration={0}
+          once={true}
           className="remove-animation-fluctuation flex items-start justify-between mt-20 mobileMax:mt-10 betweenMobileTab:mt-12 laptopMax:flex-col"
         >
           {/* Left Column */}
-          <motion.div className="remove-animation-fluctuation w-[49%] laptopMax:w-full laptopMax:mb-5">
-            <motion.p className="text-[28px] text-white text-left --font-poppins leading-normal mb-0 min-h-[84px] laptopMax:min-h-full laptopMax:mb-2 mobileMax:text-small mobileMax:leading-7">
+          <div className="remove-animation-fluctuation w-[49%] laptopMax:w-full laptopMax:mb-5">
+            <p className="text-[28px] text-white text-left --font-poppins leading-normal mb-0 min-h-[84px] laptopMax:min-h-full laptopMax:mb-2 mobileMax:text-small mobileMax:leading-7">
               {data?.field_faq_left_title}
-            </motion.p>
+            </p>
 
             <div className="mt-4">
               {data?.field_faq_left_section?.map((card: any, index: any) => (
@@ -93,13 +88,13 @@ function FAQSections({ data }: FAQSectionProps) {
                 </Accordion>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Column */}
-          <motion.div className="remove-animation-fluctuation w-[49%] laptopMax:w-full laptopMax:mb-5">
-            <motion.p className="text-[28px] text-white text-left text-numans leading-normal mb-0 min-h-[84px] laptopMax:min-h-full laptopMax:mb-2 mobileMax:text-small mobileMax:leading-normal">
+          <div className="remove-animation-fluctuation w-[49%] laptopMax:w-full laptopMax:mb-5">
+            <p className="text-[28px] text-white text-left text-numans leading-normal mb-0 min-h-[84px] laptopMax:min-h-full laptopMax:mb-2 mobileMax:text-small mobileMax:leading-normal">
               {data?.field_right_title}
-            </motion.p>
+            </p>
 
             <div className="mt-4">
               {data?.field_faq_right_section?.map((card: any, index: any) => (
@@ -125,8 +120,8 @@ function FAQSections({ data }: FAQSectionProps) {
                 </Accordion>
               ))}
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </FadeInWrapper>
       </div>
     </section>
   );

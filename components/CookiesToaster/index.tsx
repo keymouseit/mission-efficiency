@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { motion } from "framer-motion";
+import FadeInWrapper from "../FadeInWrapper";
 
 const CookiesToaster = () => {
   const [showConsent, setShowConsent] = useState(true);
@@ -32,14 +32,11 @@ const CookiesToaster = () => {
   return (
     <>
       {(!status || showConsent) && (
-        <motion.div
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            type: "spring",
-            duration: 2.5,
-          }}
+        <FadeInWrapper
+          y={35}
+          once={true}
+          type="spring"
+          duration={2.5}
           className="fixed bg-landingBlue bottom-0 w-full p-3 z-[9999]"
         >
           <div className="flex items-center tab:justify-around mobileMax:flex-col mobileMax:items-end">
@@ -66,7 +63,7 @@ const CookiesToaster = () => {
               </Button>
             </div>
           </div>
-        </motion.div>
+        </FadeInWrapper>
       )}
     </>
   );

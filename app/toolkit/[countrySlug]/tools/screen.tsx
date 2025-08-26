@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
-import Image from "next/image";
 import { DrupalNode } from "next-drupal";
 import {
   createQueryString,
@@ -18,12 +17,12 @@ import {
 import slugify from "slugify";
 import NextBreadcrumb from "@/components/Breadcrumbs";
 import { MdChevronRight } from "react-icons/md";
-import { motion } from "framer-motion";
 import { CONSTS } from "@/lib/constants";
 import CustomisableTable from "@/components/CustomisableTable";
 import MobileToolsList from "@/components/MobileToolsList";
 import CommonReactSelect from "@/components/CommonReactSelect";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 const sectorList = [
   ...CONSTS.SECTORS_LIST,
@@ -56,6 +55,7 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
   const router = useRouter();
   const [loadingTableData, setLoadingTableData] = useState<boolean>(false);
   const [isTablet, setIsTablet] = useState<Boolean>(false);
+  const [windowWidth, setWindowWidth] = useState<number | null>(null);
 
   const path = usePathname();
   const countryCode = getAlpha2FromISO(countryData?.field_iso_code) || "";
@@ -94,6 +94,17 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
     }
   };
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   return (
     <div className="parent-card-container">
       <NextBreadcrumb
@@ -114,17 +125,15 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
           <CardHeader className="mobileMax:px-5">
             <CardTitle>
               <div
-                className={`flex items-center mb-4 justify-start w-full mobileMax:mb-0 ${
-                  countryCode && "mobileMax:items-start"
-                }`}
+                className={`flex items-center mb-4 justify-start w-full mobileMax:mb-0 ${countryCode && "mobileMax:items-start"
+                  }`}
               >
                 <div className="relative">
                   <div className="w-[65px] h-[65px] max-w-[65px] relative  bg-blue flex items-center justify-center rounded-full p-4 white-svg-color mobileMax:w-[50px] mobileMax:h-[50px] mobileMax:max-w-[50px]">
                     {sectorByEfficiency && (
-                       <DynamicImage
-                        src={`/static/images/${
-                          sectorByEfficiency?.icon || ""
-                        }.svg`}
+                      <DynamicImage
+                        src={`/static/images/${sectorByEfficiency?.icon || ""
+                          }.svg`}
                         alt="home"
                         width={40}
                         height={40}
@@ -181,7 +190,7 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
             </CardTitle>
           </CardHeader>
           <CardContent className="mobileMax:px-0">
-            {window?.innerWidth > 767 ? (
+            { windowWidth !== null && windowWidth > 767 ?(
               <CustomisableTable
                 loading={loadingTableData}
                 tools={toolsData}
@@ -193,8 +202,8 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
           </CardContent>
           <CardFooter className="pt-1 bg-white pb-4">
             {!loadingTableData ? (
-              <motion.div
-                whileHover={{ scale:window?.innerWidth > 1200 ? 1.2 : 1}}
+              <FadeInWrapper
+                scale={windowWidth !== null && windowWidth > 1200 ? 1.2 : 1}
                 className="mx-auto"
               >
                 <Button
@@ -203,7 +212,7 @@ const CountryToolsScreen: React.FC<CountryToolsScreenProps> = ({
                 >
                   View tools for all sectors
                 </Button>
-              </motion.div>
+              </FadeInWrapper>
             ) : (
               <div className="animate-pulse w-[30%] h-[40px] rounded-md bg-skeleton mx-auto mobileMax:w-[80%]" />
             )}

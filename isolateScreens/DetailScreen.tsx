@@ -25,8 +25,8 @@ import { IoLocationSharp } from "react-icons/io5";
 import { SiAwsorganizations } from "react-icons/si";
 import { GrOrganization } from "react-icons/gr";
 import ReactPlayer from "react-player";
-import { motion } from "framer-motion";
 import DynamicImage from "@/components/ResuableDynamicImage";
+import FadeInWrapper from "@/components/FadeInWrapper";
 
 interface DetailScreenProps {
   headerData: DrupalNode;
@@ -80,16 +80,13 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
           isNews={true}
         />
         <div className="py-16 mobileMax:py-12 relative min-h-[60vh]">
-          <div className="overflow-hidden">
-            <motion.div
-              initial={{ opacity: 0, x: -100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                type: "spring",
-                duration: 2.8,
-              }}
-              className="absolute pointer-events-none z-[1] max-w-[50%] top-[10%] mt-10 mobileMax:max-w-[40%]"
+          <div className=" overflow-hidden">
+            <FadeInWrapper
+              x={-100}
+              once={true}
+              type="spring"
+              duration={2.8}
+              className="absolute pointer-events-none z-[1] max-w-[50%] top-[10%]  mt-10 mobileMax:max-w-[40%]"
             >
               <DynamicImage
                 width={316}
@@ -98,22 +95,20 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                 alt="overlay-bg"
                 className="opacity-60 mobileMax:opacity-40"
               />
-            </motion.div>
+            </FadeInWrapper>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0 }}
+          <FadeInWrapper
+            y={40}
+            once={true}
+            duration={0}
             className="remove-animation-fluctuation mini-container items-start box-border w-full relative z-[2]"
           >
             {(mediaTypeAndSrc.type === "video" ||
               mediaTypeAndSrc.type === "image") && (
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0 }}
+              <FadeInWrapper
+                y={50}
+                once={true}
+                duration={0}
                 className="remove-animation-fluctuation flex justify-center items-center w-full detail-page-banner-size overflow-hidden mt-4 mb-8 mobileMax:mb-3"
               >
                 {mediaTypeAndSrc.type === "video" ? (
@@ -134,14 +129,13 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                     className="w-full h-full max-w-full object-scale-down card-shadow"
                   />
                 ) : null}
-              </motion.div>
+              </FadeInWrapper>
             )}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0 }}
-              className="remove-animation-fluctuation pb-4 flex items-start justify-between mobileMax:flex-wrap w-full relative"
+            <FadeInWrapper
+              y={40}
+              once={true}
+              duration={0}
+              className="remove-animation-fluctuation pb-4 flex items-start justify-between mobileMax:flex-wrap w-full"
             >
               {displayType === "TRAINING" ? (
                 <>
@@ -343,8 +337,8 @@ const DetailScreen: React.FC<DetailScreenProps> = ({
                   </div>
                 </>
               )}
-            </motion.div>
-          </motion.div>
+            </FadeInWrapper>
+          </FadeInWrapper>
         </div>
       </div>
       <LandingFooter data={footerData} />
