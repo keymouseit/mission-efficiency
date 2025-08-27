@@ -3,6 +3,12 @@
 import { motion } from "framer-motion";
 import React from "react";
 
+interface BorderAnimation {
+    duration?: number;
+    ease?: string;
+    color?: string;
+    width?: string | number;
+}
 interface FadeInWrapperProps {
     children?: React.ReactNode;
     x?: number;
@@ -21,6 +27,7 @@ interface FadeInWrapperProps {
     initial?: any;
     animate?: any;
     scrollAnimation?: boolean;
+    border?: BorderAnimation;
 }
 
 const FadeInWrapper: React.FC<FadeInWrapperProps> = ({
@@ -41,6 +48,7 @@ const FadeInWrapper: React.FC<FadeInWrapperProps> = ({
     initial,
     animate,
     scrollAnimation = true,
+    border,
 }) => {
     const defaultInitial = {
         opacity: 0,
@@ -65,6 +73,8 @@ const FadeInWrapper: React.FC<FadeInWrapperProps> = ({
             duration,
             type,
             ...(delay ? { delay } : {}),
+            ...(border?.duration ? { duration: border.duration } : {}),
+            ...(border?.ease ? { ease: border.ease } : {}),
         },
         ...(scale ? { whileHover: { scale } } : {}),
         className,

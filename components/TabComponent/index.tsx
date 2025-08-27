@@ -78,6 +78,7 @@ const TabComponent: React.FC<countryProps> = ({ countryDetail }) => {
                   className="animate-cardHover-speed flex items-start flex-col box-border h-full w-full rounded-[23px] overflow-hidden card-shadow bg-white"
                   scale={1.02}
                   duration={0.3}
+                  once={true}
                 >
                   <div className="h-full w-full">
                     <div className="flex justify-center items-center w-full h-[250px] betweenMdDesk:h-[200px] overflow-hidden relative">
@@ -151,6 +152,7 @@ const TabComponent: React.FC<countryProps> = ({ countryDetail }) => {
                   className="animate-cardHover-speed flex items-start flex-col box-border h-full w-full rounded-[23px] overflow-hidden card-shadow bg-white"
                   scale={1.02}
                   duration={0.3}
+                  once={true}
                 >
                   <div className="h-full w-full">
                     <div className="flex justify-center items-center w-full h-[250px] betweenMdDesk:h-[200px] overflow-hidden relative">

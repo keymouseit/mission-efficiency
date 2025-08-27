@@ -246,11 +246,14 @@ const CountryScreen: React.FC<countryProps> = ({
 							className="remove-animation-fluctuation desktop:text-[56px] text-numans mb-[30px] 
               leading-normal text-center history-title-gradient text-clip text-[48px] mobileMax:text-[28px] mobileMax:px-0 mobileMax:mb-5"
 						>
-							{'News'}
+							{"News"}
 						</FadeInWrapper>
 
-						{field_ec_recent_news?.map((newsItem: any) => (
-							<div
+						{field_ec_recent_news?.map((newsItem: any , index:number) => (
+							<FadeInWrapper
+								y={40}
+								once={true}
+								duration={index+1.02}
 								key={newsItem.id}
 								className="card flex bg-white rounded-lg shadow-md mt-3 items-center p-2 news-description-content-card"
 							>
@@ -284,7 +287,7 @@ const CountryScreen: React.FC<countryProps> = ({
 										}}
 									/>
 								</div>
-							</div>
+							</FadeInWrapper>
 						))}
 					</div>
 				</div>
