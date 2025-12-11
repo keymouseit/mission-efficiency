@@ -47,13 +47,13 @@ const CustomisableTable: React.FC<CustomisableTableProps> = ({
 
     const initialColumns: { [key: string]: boolean } = {};
     fieldKeys.forEach((key) => {
-      const cleanKey = key?.replace(/^field(_tool_d)?_/, "");
+      const cleanKey = (key || "")?.replace(/^field(_tool_d)?_/, "");
       initialColumns[cleanKey] = false;
     });
 
     const columnMapping: { [key: string]: string } = {};
     fieldKeys.forEach((key) => {
-      const cleanKey = key?.replace(/^field(_tool_d)?_/, "");
+      const cleanKey = (key || "")?.replace(/^field(_tool_d)?_/, "");
       columnMapping[cleanKey] = key;
     });
 

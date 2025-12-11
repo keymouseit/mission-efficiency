@@ -5,10 +5,13 @@ import { NextRequest, NextResponse } from "next/server";
 const PUBLIC_DOWNLOAD_ROOT = path.join(process.cwd(), "public");
 
 // Sanitize for security (prevents ../ traversal)
-const sanitizeLocalPath = (relativePath: string) => {
+const sanitizeLocalPath = (relativePath: string | undefined) => {
+  const safeInput = relativePath || ""; // fallback for undefined/null
+
   const normalized = path
-    .normalize(relativePath)
-    ?.replace(/^(\.\.(\/|\\|$))+/g, "");
+    .normalize(safeInput)
+    .replace(/^(\.\.(\/|\\|$))+/g, "");
+
   return normalized;
 };
 

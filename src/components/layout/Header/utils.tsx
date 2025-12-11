@@ -396,7 +396,7 @@ export function isMainMenuSelected(title: string): boolean {
 }
 
 function toKey(str: string) {
-  return str?.toLowerCase()?.replace(/\s+/g, "-") ?? "";
+  return (str?.toLowerCase() || "")?.replace(/\s+/g, "-") ?? "";
 }
 
 // Build absolute icon URL
