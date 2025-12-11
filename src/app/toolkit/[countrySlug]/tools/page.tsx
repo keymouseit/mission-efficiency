@@ -1,57 +1,58 @@
+export const revalidate = 60;
 
-import NotFoundPage from '@/components/sections/NotFoundPage';
-import { DrupalService } from '@/services';
-import { Metadata } from 'next';
-import CountryToolsScreen from './screen';
-import { getSectorByEfficiency } from '@/utils';
+import NotFoundPage from "@/components/sections/NotFoundPage";
+import { DrupalService } from "@/services";
+import { Metadata } from "next";
+import CountryToolsScreen from "./screen";
+import { getSectorByEfficiency } from "@/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const data = await DrupalService.getCommonMetaTags();
-	return {
-		title: data?.[0]?.field_tools_meta_title || '',
-		description: data?.[0]?.field_tools_meta_description || '',
-		openGraph: {
-			title: data?.[0]?.field_tools_meta_title || '',
-			description: data?.[0]?.field_tools_meta_description || '',
-			images: [data?.[0]?.field_tools_meta_image || ''],
-		},
-	};
+  const data = await DrupalService.getCommonMetaTags();
+  return {
+    title: data?.[0]?.field_tools_meta_title || "",
+    description: data?.[0]?.field_tools_meta_description || "",
+    openGraph: {
+      title: data?.[0]?.field_tools_meta_title || "",
+      description: data?.[0]?.field_tools_meta_description || "",
+      images: [data?.[0]?.field_tools_meta_image || ""],
+    },
+  };
 }
 
 const CountryTools = async ({
-	params,
-	searchParams,
+  params,
+  searchParams,
 }: {
-	params: { countrySlug: string };
-	searchParams: { sector?: string; region?: string };
+  params: { countrySlug: string };
+  searchParams: { sector?: string; region?: string };
 }) => {
-	const { countrySlug } = params;
-	const { sector = '', region = '' } = searchParams;
+  const { countrySlug } = params;
+  const { sector = "", region = "" } = searchParams;
 
-	const countryData = await DrupalService.getCountryDataByCountrySlug(
-		countrySlug,
-	);
+  const countryData = await DrupalService.getCountryDataByCountrySlug(
+    countrySlug
+  );
 
-	const fetchedTools = await DrupalService.getFilteredToolData({
-		sector,
-		region: `${region},Global`,
-	});
+  const fetchedTools = await DrupalService.getFilteredToolData({
+    sector,
+    region: `${region},Global`,
+  });
 
-	if (!countryData || !fetchedTools) {
-		return <NotFoundPage />;
-	}
+  if (!countryData || !fetchedTools) {
+    return <NotFoundPage />;
+  }
 
-	const sectorInfo = getSectorByEfficiency(countryData);
+  const sectorInfo = getSectorByEfficiency(countryData);
 
-	return (
-		<CountryToolsScreen
-			searchParams={searchParams}
-			countryData={countryData}
-			toolsData={fetchedTools}
-			sectorByEfficiency={sectorInfo}
-			selectedSector={sector.split(',') as string[]}
-		/>
-	);
+  return (
+    <CountryToolsScreen
+      searchParams={searchParams}
+      countryData={countryData}
+      toolsData={fetchedTools}
+      sectorByEfficiency={sectorInfo}
+      selectedSector={sector.split(",") as string[]}
+    />
+  );
 };
 
 export default CountryTools;

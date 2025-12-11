@@ -1,3 +1,4 @@
+export const revalidate = 60;
 import { Metadata } from "next";
 import { DrupalNode } from "next-drupal";
 import NewsScreen from "./screen";

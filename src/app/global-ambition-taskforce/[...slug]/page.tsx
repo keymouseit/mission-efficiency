@@ -1,3 +1,4 @@
+export const revalidate = 60;
 import { DrupalService } from "@/services";
 import TaskforceDetailScreen from "./screen";
 import slugify from "slugify";

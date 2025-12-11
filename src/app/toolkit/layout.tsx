@@ -1,4 +1,3 @@
-import ToolkitFooter from "@/components/layout/ToolkitFooter";
 import AppMenu from "@/components/sections/AppMenu";
 import type { Metadata } from "next";
 
@@ -16,7 +15,6 @@ export default function RootLayout({
     <>
       <AppMenu />
       {children}
-      {/* <ToolkitFooter /> */}
     </>
   );
 }

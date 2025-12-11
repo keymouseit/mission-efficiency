@@ -1,3 +1,4 @@
+export const revalidate = 60;
 import { DrupalService } from "@/services";
 import FaqScreen from "./screen";
 
