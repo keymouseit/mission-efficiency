@@ -3,40 +3,55 @@ import { DrupalNode } from "next-drupal";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const url = new URL(request.url);
-  const searchParams = new URLSearchParams(url.search);
-  const sector = searchParams.get("sector") || "";
-  const region = searchParams.get("region") || "";
-  const category = searchParams.get("category") || "";
-  const sectorArray = sector?.split(",") || [];
-  const regionArray = region?.split(",") || [];
-  const categoryArray = category?.split(",") || [];
+  try {
+    const url = new URL(request.url);
+    const searchParams = new URLSearchParams(url.search);
+    const sector = searchParams.get("sector") || "";
+    const region = searchParams.get("region") || "";
+    const category = searchParams.get("category") || "";
 
-  const toolData = await DrupalService.getToolData();
-  let filteredToolData: DrupalNode[] = [...toolData];
+    // Safe split with empty string check
+    const sectorArray = sector ? sector.split(",") : [];
+    const regionArray = region ? region.split(",") : [];
+    const categoryArray = category ? category.split(",") : [];
 
-  if (region) {
-    filteredToolData = filteredToolData.filter((toolElement) =>
-      regionArray.includes(toolElement.field_tool_d_region?.name)
-    );
-  }
+    const toolData = await DrupalService.getToolData();
+    let filteredToolData: DrupalNode[] = [...toolData];
 
-  if (sector) {
-    filteredToolData = filteredToolData.filter((toolElement) => {
-      return sectorArray.includes(toolElement.field_tool_d_sector.name);
-    });
-  }
+    if (region && regionArray.length > 0) {
+      filteredToolData = filteredToolData.filter(
+        (toolElement) =>
+          toolElement?.field_tool_d_region?.name &&
+          regionArray.includes(toolElement.field_tool_d_region.name)
+      );
+    }
 
-  if (category) {
-    filteredToolData = filteredToolData.filter((toolElement) =>
-      categoryArray.includes(toolElement.field_tool_d_category?.name)
-    );
-  }
+    if (sector && sectorArray.length > 0) {
+      filteredToolData = filteredToolData.filter((toolElement) => {
+        return (
+          toolElement?.field_tool_d_sector?.name &&
+          sectorArray.includes(toolElement.field_tool_d_sector.name)
+        );
+      });
+    }
 
-  if (filteredToolData) {
+    if (category && categoryArray.length > 0) {
+      filteredToolData = filteredToolData.filter(
+        (toolElement) =>
+          toolElement?.field_tool_d_category?.name &&
+          categoryArray.includes(toolElement.field_tool_d_category.name)
+      );
+    }
+
     return NextResponse.json({
       data: filteredToolData,
       status: 200,
     });
+  } catch (error) {
+    console.error("Error in toolData API:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch tool data", status: 500 },
+      { status: 500 }
+    );
   }
 }
