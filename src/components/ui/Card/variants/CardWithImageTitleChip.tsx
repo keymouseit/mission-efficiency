@@ -40,7 +40,7 @@ const buildFinalUrl = (uri: string) => {
   if (uri.startsWith("http")) return uri;
 
   if (uri.startsWith("internal:/")) {
-    uri = uri.replace("internal:/", "/");
+    uri = uri?.replace("internal:/", "/");
   }
 
   if (!uri.startsWith("/")) {

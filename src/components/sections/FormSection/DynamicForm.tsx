@@ -156,7 +156,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
   };
 
   const getFieldName = (label: string) => {
-    return label.toLowerCase().replace(/\s+/g, "_");
+    return label.toLowerCase()?.replace(/\s+/g, "_");
   };
 
   // Check if all required fields are filled

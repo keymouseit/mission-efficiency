@@ -21,8 +21,8 @@ export default function EventScreen({ eventsData }: EventScreenProps) {
 
       if (timeStr) {
         const cleanTime = timeStr
-          .replace(/[–—]/g, "-")
-          .replace(/\s+/g, " ")
+          ?.replace(/[–—]/g, "-")
+          ?.replace(/\s+/g, " ")
           .trim();
         const timeMatch = cleanTime.match(/(\d{1,2}):(\d{2})/);
         if (timeMatch) {

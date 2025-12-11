@@ -84,7 +84,7 @@ export default function FAQSection({ data }: FAQProps) {
                 className="Faq-text cursor-pointer banner-greadient flex justify-between items-center gap-5 px-[47px] py-[23px] rounded-[20px] mb-[25px] mobileMax:px-[20px] mobileMax:py-[15px] mobileMax:mb-5 text-[21px] font-semibold text-[#003350] font-poppins leading-normal hover:no-underline text-left mobileMax:text-xsmall"
                 href={`${resolveLink(faq?.uri)}#${faq?.title
                   ?.toLowerCase()
-                  .replace(/\s+/g, "-")}`}
+                  ?.replace(/\s+/g, "-")}`}
               >
                 {faq?.title}
                 <FaChevronRight className="ml-2 text-medium text-[#003350]" />

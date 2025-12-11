@@ -63,7 +63,7 @@ const NewsBackgroundBanner: React.FC<NewsBackgroundBannerProps> = ({
       return `/api/download-file?url=${encodeURIComponent(downloadPath)}`;
     }
 
-    const normalizedPath = downloadPath.replace(/^\/+/, "");
+    const normalizedPath = downloadPath?.replace(/^\/+/, "");
     return `/api/download-file?file=${encodeURIComponent(normalizedPath)}`;
   };
 
@@ -74,7 +74,7 @@ const NewsBackgroundBanner: React.FC<NewsBackgroundBannerProps> = ({
     const downloadPath = cardDetails?.download;
     const fallback =
       typeof cardDetails?.title === "string" && cardDetails.title.trim().length
-        ? `${cardDetails.title.trim().replace(/\s+/g, "_")}.pdf`
+        ? `${cardDetails.title.trim()?.replace(/\s+/g, "_")}.pdf`
         : "download.pdf";
     if (!downloadPath) return fallback;
     const pathSegment = downloadPath.split("/").pop();

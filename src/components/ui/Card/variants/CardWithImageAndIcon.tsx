@@ -25,7 +25,7 @@ const CardWithImageAndIcon: React.FC<CardWithImageAndIconProps> = ({
         <div className="flex flex-wrap justify-center box-border lieTablets:justify-start mt-[20px]">
           {data?.field_add_card?.map((card: DrupalNode) => {
             const slug =
-              card?.field_title?.toLowerCase().replace(/\s+/g, "-") || "";
+              card?.field_title?.toLowerCase()?.replace(/\s+/g, "-") || "";
             return (
               <Link
                 key={card?.id}

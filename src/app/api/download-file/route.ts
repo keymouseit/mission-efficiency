@@ -8,7 +8,7 @@ const PUBLIC_DOWNLOAD_ROOT = path.join(process.cwd(), "public");
 const sanitizeLocalPath = (relativePath: string) => {
   const normalized = path
     .normalize(relativePath)
-    .replace(/^(\.\.(\/|\\|$))+/g, "");
+    ?.replace(/^(\.\.(\/|\\|$))+/g, "");
   return normalized;
 };
 

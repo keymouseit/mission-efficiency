@@ -22,7 +22,7 @@ const NextBreadcrumb = ({
   activeClasses,
   capitalizeLinks,
 }: TBreadCrumbProps) => {
-  const paths = usePathname().replace("/toolkit", "");
+  const paths = usePathname()?.replace("/toolkit", "");
 
   const pathNames = paths.split("/").filter((path) => path);
 

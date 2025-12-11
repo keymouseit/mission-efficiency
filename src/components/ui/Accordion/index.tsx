@@ -123,7 +123,7 @@ const CommonFaqAccordion: React.FC<CommonFaqProps> = ({ faqs, className }) => {
         const baseUrl = config.apiBase;
 
         const processHtml = (html: string) => {
-          return html.replace(/src="\/(.*?)"/g, `src="${baseUrl}/$1"`);
+          return html?.replace(/src="\/(.*?)"/g, `src="${baseUrl}/$1"`);
         };
         return (
           <AccordionItem

@@ -24,7 +24,6 @@ interface StateData {
   [key: string]: any;
 }
 
-
 interface IPosition {
   x: number;
   y: number;
@@ -233,10 +232,10 @@ const IndiaMap: React.FC<IndiaMapProps> = ({
 
   useEffect(() => {
     if (!data?.field_description?.processed) return;
-  
+
     try {
       const parsed = cleanHtmlToJson(data.field_description.value);
-  
+
       if (Array.isArray(parsed)) {
         setParsedData(parsed);
       } else {
@@ -246,19 +245,18 @@ const IndiaMap: React.FC<IndiaMapProps> = ({
       console.error("JSON Parse Error:", err);
     }
   }, [data]);
-  
 
   function cleanHtmlToJson(messyHtmlString: string) {
     // Remove HTML tags
-    let clean = messyHtmlString.replace(/<[^>]*>/g, "").trim();
+    let clean = messyHtmlString?.replace(/<[^>]*>/g, "").trim();
 
     try {
       // Directly parse JSON if possible
       return JSON.parse(clean);
     } catch (e) {
       // If parsing fails, fix quotes around keys
-      clean = clean.replace(/["']?(\w+)["']?\s*:/g, '"$1":');
-      clean = clean.replace(/,\s*}/g, "}").replace(/,\s*]/g, "]").trim();
+      clean = clean?.replace(/["']?(\w+)["']?\s*:/g, '"$1":');
+      clean = clean?.replace(/,\s*}/g, "}")?.replace(/,\s*]/g, "]").trim();
       return JSON.parse(clean);
     }
   }

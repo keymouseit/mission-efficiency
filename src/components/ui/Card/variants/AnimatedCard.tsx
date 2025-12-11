@@ -32,7 +32,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ text, target }) => {
     requestAnimationFrame(step);
   }, [target]);
 
-  const animatedText = text.replace(/\d+/, count.toString());
+  const animatedText = text?.replace(/\d+/, count.toString());
 
   return <div>{animatedText}</div>;
 };
@@ -55,7 +55,9 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({ data }) => {
       <div className="py-20 bg-[#003350] mobileMax:py-8 relative">
         <div
           className={`${
-            cardCount === 4 ? "px-[180px] betweenMobileTab:px-[10px] mobileMax:px-[6px]" : "mini-container"
+            cardCount === 4
+              ? "px-[180px] betweenMobileTab:px-[10px] mobileMax:px-[6px]"
+              : "mini-container"
           } relative z-[2]`}
         >
           <h3 className="mx-auto mobileMax:text-center text-center text-[42px] font-poppins mb-[90px] mobileMax:mb-8 font-semibold leading-normal text-transparent bg-clip-text bg-[linear-gradient(to_right,#48DBB2,#4FC0FF)] text-clip mobileMax:text-[28px]">

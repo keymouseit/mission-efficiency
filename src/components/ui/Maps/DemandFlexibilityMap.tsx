@@ -66,27 +66,27 @@ const DemandFlexibilityMap: React.FC<DemandFlexibilityMapProps> = ({
 
   function cleanHtmlToJson(messyHtmlString) {
     let clean = messyHtmlString
-      .replace(/<[^>]*>/g, "")
-      .replace(/,\s*}/g, "}")
-      .replace(/,\s*]/g, "]")
+      ?.replace(/<[^>]*>/g, "")
+      ?.replace(/,\s*}/g, "}")
+      ?.replace(/,\s*]/g, "]")
       .trim();
     clean = clean
-      .replace(/\s+/g, "")
-      .replace(/}(?={)/g, "},{")
-      .replace(/\[\{/g, "[{")
-      .replace(/\}\]/g, "}]");
+      ?.replace(/\s+/g, "")
+      ?.replace(/}(?={)/g, "},{")
+      ?.replace(/\[\{/g, "[{")
+      ?.replace(/\}\]/g, "}]");
 
-    clean = clean.replace(/,(\s*[}\]])/g, "$1");
+    clean = clean?.replace(/,(\s*[}\]])/g, "$1");
 
     try {
       return JSON.parse(clean);
     } catch (e) {
       console.error("Error", e);
       const finalAttempt = messyHtmlString
-        .replace(/<[^>]*>/g, "")
-        .replace(/["']?(\w+)["']?\s*:/g, '"$1":')
-        .replace(/,\s*}/g, "}")
-        .replace(/,\s*]/g, "]")
+        ?.replace(/<[^>]*>/g, "")
+        ?.replace(/["']?(\w+)["']?\s*:/g, '"$1":')
+        ?.replace(/,\s*}/g, "}")
+        ?.replace(/,\s*]/g, "]")
         .trim();
 
       return JSON.parse(finalAttempt);

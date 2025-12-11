@@ -48,7 +48,7 @@ const FaqScreen: React.FC<faqProps> = ({ data }) => {
         return (
           <div
             key={section.id}
-            id={section?.title?.toLowerCase().replace(/\s+/g, "-")}
+            id={section?.title?.toLowerCase()?.replace(/\s+/g, "-")}
             className={`${isEven ? "bg-[#003350]" : "bg-[#ecedf6]"} relative ${
               index === 0 ? "mt-[60px] mobileMax:mt-[30px]" : ""
             }  py-[120px] mobileMax:py-10 betweenMobileTab:py-16 overflow-hidden`}
