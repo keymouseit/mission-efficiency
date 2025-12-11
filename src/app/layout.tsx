@@ -5,26 +5,26 @@ import { DrupalService } from "@/services";
 import Footer from "@/components/layout/Footer";
 import { Numans, Open_Sans, Poppins } from "next/font/google";
 
-const fonts = [
-  Numans({
-    subsets: ["latin"],
-    weight: ["400"],
-    variable: "--font-numans",
-    display: "swap",
-  }),
-  Open_Sans({
-    subsets: ["latin"],
-    weight: ["300", "400", "500", "600", "700", "800"],
-    variable: "--font-open-sans",
-    display: "swap",
-  }),
-  Poppins({
-    subsets: ["latin"],
-    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-    variable: "--font-poppins",
-    display: "swap",
-  }),
-];
+const numans = Numans({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-numans",
+  display: "swap",
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-open-sans",
+  display: "swap",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+  display: "swap",
+});
 
 export const revalidate = 60;
 
@@ -50,7 +50,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${fonts.map((f) => f.variable).join(" ")} antialiased`}>
+      <body
+        className={`${poppins.variable} ${openSans.variable} ${numans.variable} antialiased`}
+      >
         <Header data={menuData} />
         {children}
         <Footer data={footerSection?.[0] ?? {}} />
