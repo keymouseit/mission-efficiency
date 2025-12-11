@@ -1,4 +1,4 @@
-export const dynamic = "force-static";
+export const revalidate = 60;
 
 import DynamicTemplateClient from "@/components/templates/DynamicTemplateClient";
 import { DrupalService } from "@/services";
